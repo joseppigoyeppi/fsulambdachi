@@ -298,8 +298,17 @@ button {
 
     .nav-menu .nav-link {
         font-size: 1.5rem;
-        color: var(--white);
+        color: var(--white) !important;
         text-shadow: none;
+    }
+
+    /* Ensure mobile menu stays styled correctly even when navbar is scrolled */
+    .navbar.scrolled .nav-menu {
+        background: linear-gradient(135deg, var(--purple-dark), var(--purple));
+    }
+
+    .navbar.scrolled .nav-menu .nav-link {
+        color: var(--white) !important;
     }
 
     .nav-toggle.active span:nth-child(1) {
@@ -501,6 +510,13 @@ button {
 @keyframes scrollDown {
     0% { opacity: 1; transform: translateX(-50%) translateY(0); }
     100% { opacity: 0; transform: translateX(-50%) translateY(12px); }
+}
+
+/* Hide scroll indicator on mobile */
+@media (max-width: 768px) {
+    .hero-scroll {
+        display: none;
+    }
 }
 
 /* ============================================
