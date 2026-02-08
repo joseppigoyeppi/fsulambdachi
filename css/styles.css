@@ -282,13 +282,14 @@ button {
         left: 0;
         right: 0;
         bottom: 0;
-        background: linear-gradient(135deg, var(--purple-dark), var(--purple));
+        background: linear-gradient(135deg, var(--purple-dark), var(--purple)) !important;
         flex-direction: column;
         justify-content: center;
         gap: var(--space-xl);
         opacity: 0;
         visibility: hidden;
-        transition: all var(--transition-base);
+        transition: opacity var(--transition-base), visibility var(--transition-base);
+        z-index: 999;
     }
 
     .nav-menu.active {
@@ -300,15 +301,6 @@ button {
         font-size: 1.5rem;
         color: var(--white) !important;
         text-shadow: none;
-    }
-
-    /* Ensure mobile menu stays styled correctly even when navbar is scrolled */
-    .navbar.scrolled .nav-menu {
-        background: linear-gradient(135deg, var(--purple-dark), var(--purple));
-    }
-
-    .navbar.scrolled .nav-menu .nav-link {
-        color: var(--white) !important;
     }
 
     .nav-toggle.active span:nth-child(1) {
