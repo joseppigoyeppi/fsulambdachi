@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Lambda Chi Alpha at FSU</title>
+    <meta name="description" content="Contact Lambda Chi Alpha Zeta Rho Chapter at Florida State University. Rush inquiries, alumni connections, and general questions.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <div class="logo-icon">ΛΧΑ</div>
+                <div class="logo-text">
+                    <span class="logo-primary">Lambda Chi Alpha</span>
+                    <span class="logo-secondary">Zeta Rho | Florida State</span>
+                </div>
+            </a>
+
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item"><a href="../index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="brotherhood.html" class="nav-link">Brotherhood</a></li>
+                <li class="nav-item"><a href="leadership.html" class="nav-link">Leadership</a></li>
+                <!-- RUSH_TOGGLE: Uncomment below when rush is active -->
+                <!-- <li class="nav-item"><a href="rush.html" class="nav-link">Rush</a></li> -->
+                <li class="nav-item"><a href="alumni.html" class="nav-link">Alumni</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link active">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <span class="section-tag">Get in Touch</span>
+            <h1 class="section-title">Contact Us</h1>
+            <p class="page-subtitle">Questions about rush, alumni connections, or just want to learn more? We'd love to hear from you.</p>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="page-content">
+        <div class="container">
+            <div style="display: grid; gap: 4rem; align-items: start;">
+                <div style="max-width: 800px; margin: 0 auto; width: 100%;">
+                    <div class="values-header text-center" style="margin-bottom: 2rem;">
+                        <span class="section-tag">Send a Message</span>
+                        <h2 class="section-title">Reach Out</h2>
+                    </div>
+
+                    <form class="contact-form" id="contact-form">
+                        <div style="display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                            <div class="form-group">
+                                <label for="firstName">First Name *</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name *</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inquiry">I am a... *</label>
+                            <select id="inquiry" name="inquiry" required>
+                                <option value="">Select an option</option>
+                                <option value="prospective">Prospective Member (Rush Interest)</option>
+                                <option value="parent">Parent/Family Member</option>
+                                <option value="alumni">Zeta Rho Alumni</option>
+                                <option value="transfer">Lambda Chi Transfer Student</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="classYearGroup" style="display: none;">
+                            <label for="classYear">Expected Graduation Year</label>
+                            <select id="classYear" name="classYear">
+                                <option value="">Select year</option>
+                                <option value="2025">2025</option>
+                                <option value="2026">2026</option>
+                                <option value="2027">2027</option>
+                                <option value="2028">2028</option>
+                                <option value="2029">2029</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" required placeholder="Tell us a bit about yourself and what you're interested in..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer;">
+                                <input type="checkbox" name="subscribe" style="width: auto; margin-top: 4px;">
+                                <span style="font-weight: 400; color: var(--gray-600);">Keep me updated on Lambda Chi Alpha news and events</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                            <span>Send Message</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Contact Cards -->
+            <div class="contact-info-grid" style="margin-top: 4rem;">
+                <div class="contact-info-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h4>Chapter House</h4>
+                    <p>1944 Heritage Grove Circle<br>Tallahassee, FL 32304</p>
+                </div>
+                <div class="contact-info-card">
+                    <i class="fas fa-envelope"></i>
+                    <h4>Email Us</h4>
+                    <p><a href="mailto:contact@fsulambdachi.com">contact@fsulambdachi.com</a></p>
+                </div>
+                <div class="contact-info-card">
+                    <i class="fab fa-instagram"></i>
+                    <h4>Follow Us</h4>
+                    <p><a href="https://instagram.com/fsulambdachi" target="_blank">@fsulambdachi</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section style="background: var(--gray-100); padding: 4rem 0;">
+        <div class="container">
+            <div class="values-header text-center" style="margin-bottom: 2rem;">
+                <span class="section-tag">Find Us</span>
+                <h2 class="section-title">Our Location</h2>
+            </div>
+            <div style="border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-xl);">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d862.3!2d-84.31472432883548!3d30.445950842410063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88ec5908c39dda0f%3A0x5bb6d8d8d8d8d8d8!2s1944%20Heritage%20Grove%20Cir%2C%20Tallahassee%2C%20FL%2032304!5e0!3m2!1sen!2sus!4v1700000000000"
+                    width="100%"
+                    height="400"
+                    style="border:0; display: block;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Links Section -->
+    <section class="page-content" style="background: var(--white);">
+        <div class="container">
+            <div class="values-header text-center" style="margin-bottom: 3rem;">
+                <span class="section-tag">Quick Access</span>
+                <h2 class="section-title">Helpful Resources</h2>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; max-width: 1000px; margin: 0 auto;">
+                <a href="https://www.lambdachi.org" target="_blank" style="display: flex; align-items: center; gap: 1rem; padding: 1.5rem; background: var(--gray-100); border-radius: 12px; transition: all 0.3s ease;">
+                    <div style="width: 50px; height: 50px; background: var(--purple); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; flex-shrink: 0;">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div>
+                        <strong style="display: block; color: var(--gray-900);">Lambda Chi Alpha HQ</strong>
+                        <span style="font-size: 0.9rem; color: var(--gray-600);">National fraternity website</span>
+                    </div>
+                </a>
+
+                <a href="https://www.fsu.edu" target="_blank" style="display: flex; align-items: center; gap: 1rem; padding: 1.5rem; background: var(--gray-100); border-radius: 12px; transition: all 0.3s ease;">
+                    <div style="width: 50px; height: 50px; background: var(--garnet); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; flex-shrink: 0;">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div>
+                        <strong style="display: block; color: var(--gray-900);">Florida State University</strong>
+                        <span style="font-size: 0.9rem; color: var(--gray-600);">FSU main website</span>
+                    </div>
+                </a>
+
+                <a href="https://www.fsuifc.com" target="_blank" style="display: flex; align-items: center; gap: 1rem; padding: 1.5rem; background: var(--gray-100); border-radius: 12px; transition: all 0.3s ease;">
+                    <div style="width: 50px; height: 50px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; flex-shrink: 0;">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div>
+                        <strong style="display: block; color: var(--gray-900);">FSU IFC</strong>
+                        <span style="font-size: 0.9rem; color: var(--gray-600);">Interfraternity Council</span>
+                    </div>
+                </a>
+
+<!-- RUSH_TOGGLE: Uncomment below when rush is active
+                <a href="rush.html" style="display: flex; align-items: center; gap: 1rem; padding: 1.5rem; background: var(--gray-100); border-radius: 12px; transition: all 0.3s ease;">
+                    <div style="width: 50px; height: 50px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--black); flex-shrink: 0;">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div>
+                        <strong style="display: block; color: var(--gray-900);">Rush Information</strong>
+                        <span style="font-size: 0.9rem; color: var(--gray-600);">Learn about joining</span>
+                    </div>
+                </a>
+                -->
+                <a href="brotherhood.html" style="display: flex; align-items: center; gap: 1rem; padding: 1.5rem; background: var(--gray-100); border-radius: 12px; transition: all 0.3s ease;">
+                    <div style="width: 50px; height: 50px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--black); flex-shrink: 0;">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div>
+                        <strong style="display: block; color: var(--gray-900);">Our Brotherhood</strong>
+                        <span style="font-size: 0.9rem; color: var(--gray-600);">Learn about Lambda Chi</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <div class="footer-logo">
+                            <div class="logo-icon">ΛΧΑ</div>
+                            <div class="logo-text">
+                                <span class="logo-primary">Lambda Chi Alpha</span>
+                                <span class="logo-secondary">Zeta Rho Chapter</span>
+                            </div>
+                        </div>
+                        <p class="footer-tagline">"The crescent is our symbol; pure, high, ever growing, and the cross is our guide."</p>
+                        <div class="footer-social">
+                            <a href="https://instagram.com/fsulambdachi" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="footer-links">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="brotherhood.html">Brotherhood</a></li>
+                            <li><a href="leadership.html">Leadership</a></li>
+                            <!-- RUSH_TOGGLE: Uncomment when rush is active -->
+                            <!-- <li><a href="rush.html">Rush</a></li> -->
+                            <li><a href="alumni.html">Alumni</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-links">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="https://www.lambdachi.org" target="_blank">National Headquarters</a></li>
+                            <li><a href="https://www.fsu.edu" target="_blank">Florida State University</a></li>
+                            <li><a href="https://www.fsuifc.com" target="_blank">FSU IFC</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-contact">
+                        <h4>Contact Us</h4>
+                        <address>
+                            <p><i class="fas fa-map-marker-alt"></i> 1944 Heritage Grove Circle<br>Tallahassee, FL 32304</p>
+                            <p><i class="fas fa-envelope"></i> <a href="mailto:contact@fsulambdachi.com">contact@fsulambdachi.com</a></p>
+                        </address>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 Lambda Chi Alpha - Zeta Rho Chapter at Florida State University. All rights reserved.</p>
+                <p class="footer-motto">Vir Quisque Vir — Every Man a Man</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // Show/hide class year field based on inquiry type
+        document.getElementById('inquiry').addEventListener('change', function() {
+            const classYearGroup = document.getElementById('classYearGroup');
+            if (this.value === 'prospective') {
+                classYearGroup.style.display = 'block';
+            } else {
+                classYearGroup.style.display = 'none';
+            }
+        });
+
+        // Form submission handling
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalContent = submitBtn.innerHTML;
+
+            submitBtn.innerHTML = '<span>Sending...</span><i class="fas fa-spinner fa-spin"></i>';
+            submitBtn.disabled = true;
+
+            // Simulate form submission (replace with actual form handling)
+            setTimeout(() => {
+                submitBtn.innerHTML = '<span>Message Sent!</span><i class="fas fa-check"></i>';
+                submitBtn.style.background = 'linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%)';
+
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalContent;
+                    submitBtn.style.background = '';
+                    submitBtn.disabled = false;
+                    this.reset();
+                }, 3000);
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

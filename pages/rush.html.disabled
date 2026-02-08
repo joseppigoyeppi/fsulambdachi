@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rush Lambda Chi Alpha | FSU</title>
+    <meta name="description" content="Rush Lambda Chi Alpha at Florida State University. Learn about recruitment, what to expect, and how to join our brotherhood.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <div class="logo-icon">ΛΧΑ</div>
+                <div class="logo-text">
+                    <span class="logo-primary">Lambda Chi Alpha</span>
+                    <span class="logo-secondary">Zeta Rho | Florida State</span>
+                </div>
+            </a>
+
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item"><a href="../index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="brotherhood.html" class="nav-link">Brotherhood</a></li>
+                <li class="nav-item"><a href="leadership.html" class="nav-link">Leadership</a></li>
+                <li class="nav-item"><a href="rush.html" class="nav-link active">Rush</a></li>
+                <li class="nav-item"><a href="alumni.html" class="nav-link">Alumni</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero" style="background: linear-gradient(135deg, var(--green-dark) 0%, var(--purple) 100%);">
+        <div class="container">
+            <span class="section-tag">Spring 2025</span>
+            <h1 class="section-title">Rush Lambda Chi Alpha</h1>
+            <p class="page-subtitle">Be part of something greater. Join the brotherhood returning to Florida State.</p>
+        </div>
+    </section>
+
+    <!-- Why Rush Section -->
+    <section class="page-content">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content">
+                    <span class="section-tag">Why Lambda Chi?</span>
+                    <h2 class="section-title">Become a Founding Father</h2>
+                    <p class="section-text">This is a once-in-a-lifetime opportunity. As Lambda Chi Alpha returns to FSU in Spring 2025, you have the chance to be a Founding Father of the re-established Zeta Rho Chapter.</p>
+                    <p class="section-text">Founding Fathers don't just join a fraternity—they build one. You'll shape our chapter's culture, traditions, and future for generations to come. This is leadership on day one.</p>
+                    <p class="section-text">With over 300,000 brothers worldwide and a powerful alumni network, Lambda Chi Alpha offers connections that last a lifetime. Our alumni include CEOs, professional athletes, politicians, and leaders in every field.</p>
+                    <a href="contact.html" class="btn btn-primary">
+                        <span>Get in Touch</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="about-images">
+                    <div class="image-stack">
+                        <div class="image-card image-1">
+                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80" alt="Brotherhood">
+                        </div>
+                        <div class="image-card image-2">
+                            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80" alt="Friends">
+                        </div>
+                        <div class="image-card image-3">
+                            <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=600&q=80" alt="Community">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What We Look For -->
+    <section class="values-section">
+        <div class="container">
+            <div class="values-header">
+                <span class="section-tag">Our Standards</span>
+                <h2 class="section-title">What We Look For</h2>
+                <p class="section-subtitle">Lambda Chi Alpha seeks men who embody our core values.</p>
+            </div>
+            <div class="values-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-user-graduate"></i></div>
+                    <h3>Academic Drive</h3>
+                    <p>We value men who prioritize their education and strive for excellence in the classroom.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-star"></i></div>
+                    <h3>Leadership Potential</h3>
+                    <p>We seek men who want to lead, whether in our chapter, on campus, or in their future careers.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-heart"></i></div>
+                    <h3>Service Mindset</h3>
+                    <p>Our brothers give back to the community. We want men who care about making a difference.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-handshake"></i></div>
+                    <h3>Genuine Character</h3>
+                    <p>Integrity, respect, and authenticity are non-negotiable. Be yourself—that's who we want.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rush Process Timeline -->
+    <section class="page-content" style="background: var(--white);">
+        <div class="container">
+            <div class="values-header text-center" style="margin-bottom: 3rem;">
+                <span class="section-tag">The Process</span>
+                <h2 class="section-title">Rush Timeline</h2>
+                <p class="section-subtitle" style="margin: 0 auto;">What to expect during the recruitment process.</p>
+            </div>
+
+            <div class="rush-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">1</div>
+                    <div class="timeline-content">
+                        <h3>Interest Events</h3>
+                        <p>Casual events to meet our brothers and learn about Lambda Chi Alpha. No commitment required—just come hang out, ask questions, and see if we're a good fit for each other.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">2</div>
+                    <div class="timeline-content">
+                        <h3>Rush Week</h3>
+                        <p>A week of events including cookouts, sports, game nights, and conversations with brothers. You'll get to know us, and we'll get to know you. It's all about finding the right fit.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">3</div>
+                    <div class="timeline-content">
+                        <h3>Bid Day</h3>
+                        <p>If there's mutual interest, you'll receive a bid to join Lambda Chi Alpha. Accepting a bid makes you an Associate Member and begins your journey toward initiation.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">4</div>
+                    <div class="timeline-content">
+                        <h3>Associate Member Education</h3>
+                        <p>Learn about Lambda Chi Alpha's history, values, and what it means to be a brother. This educational period prepares you for initiation and full membership.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker">5</div>
+                    <div class="timeline-content">
+                        <h3>Initiation</h3>
+                        <p>The culmination of your journey. Through our meaningful initiation ritual, you become a full brother of Lambda Chi Alpha—a bond that lasts a lifetime.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="page-content" style="background: var(--gray-100);">
+        <div class="container">
+            <div class="values-header text-center" style="margin-bottom: 3rem;">
+                <span class="section-tag">Questions?</span>
+                <h2 class="section-title">Frequently Asked Questions</h2>
+            </div>
+
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div style="background: var(--white); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; box-shadow: var(--shadow-md);">
+                    <h4 style="font-family: var(--font-display); margin-bottom: 0.5rem; color: var(--purple);">What is the time commitment?</h4>
+                    <p style="color: var(--gray-600); line-height: 1.7;">We understand you're here for an education first. Chapter meetings are weekly, and we have events throughout the semester, but we work around your academic schedule. Many of our brothers are involved in other organizations, hold jobs, or participate in varsity athletics.</p>
+                </div>
+
+                <div style="background: var(--white); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; box-shadow: var(--shadow-md);">
+                    <h4 style="font-family: var(--font-display); margin-bottom: 0.5rem; color: var(--purple);">What are the costs?</h4>
+                    <p style="color: var(--gray-600); line-height: 1.7;">Dues vary but are comparable to other FSU fraternities. This covers chapter operations, social events, and national dues. Payment plans are available, and financial concerns should never prevent a qualified man from joining. Talk to us privately if this is a concern.</p>
+                </div>
+
+                <div style="background: var(--white); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; box-shadow: var(--shadow-md);">
+                    <h4 style="font-family: var(--font-display); margin-bottom: 0.5rem; color: var(--purple);">Do I have to live in the house?</h4>
+                    <p style="color: var(--gray-600); line-height: 1.7;">No. Living in the chapter house is optional and based on availability. Many brothers live off-campus or in dorms while still being fully active members.</p>
+                </div>
+
+                <div style="background: var(--white); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; box-shadow: var(--shadow-md);">
+                    <h4 style="font-family: var(--font-display); margin-bottom: 0.5rem; color: var(--purple);">What is hazing?</h4>
+                    <p style="color: var(--gray-600); line-height: 1.7;">Lambda Chi Alpha has a strict zero-tolerance policy on hazing. Our Associate Member program is educational and designed to integrate you into the brotherhood—not to demean or harm you. We're proud to be anti-hazing pioneers in the fraternity world.</p>
+                </div>
+
+                <div style="background: var(--white); border-radius: 12px; padding: 1.5rem; box-shadow: var(--shadow-md);">
+                    <h4 style="font-family: var(--font-display); margin-bottom: 0.5rem; color: var(--purple);">Can I rush as a sophomore/junior/senior?</h4>
+                    <p style="color: var(--gray-600); line-height: 1.7;">Absolutely. We welcome men of all class years. In fact, upperclassmen often bring valuable experience and leadership to the chapter.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rush Registration CTA -->
+    <section class="rush-cta">
+        <div class="rush-bg">
+            <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=1920&q=80" alt="FSU Campus">
+        </div>
+        <div class="container">
+            <div class="rush-content">
+                <h2>Ready to Rush?</h2>
+                <p>Fill out our interest form and a brother will reach out to you with more information about upcoming events.</p>
+                <div class="rush-buttons">
+                    <a href="contact.html" class="btn btn-primary btn-large">
+                        <span>Register Interest</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="https://instagram.com/fsulambdachi" target="_blank" class="btn btn-outline btn-light">
+                        <i class="fab fa-instagram"></i>
+                        <span>Follow Us</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <div class="footer-logo">
+                            <div class="logo-icon">ΛΧΑ</div>
+                            <div class="logo-text">
+                                <span class="logo-primary">Lambda Chi Alpha</span>
+                                <span class="logo-secondary">Zeta Rho Chapter</span>
+                            </div>
+                        </div>
+                        <p class="footer-tagline">"The crescent is our symbol; pure, high, ever growing, and the cross is our guide."</p>
+                        <div class="footer-social">
+                            <a href="https://instagram.com/fsulambdachi" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="https://twitter.com/fsulambdachi" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="https://facebook.com/fsulambdachi" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://linkedin.com/company/lambda-chi-alpha" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="footer-links">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="brotherhood.html">Brotherhood</a></li>
+                            <li><a href="leadership.html">Leadership</a></li>
+                            <li><a href="rush.html">Rush</a></li>
+                            <li><a href="alumni.html">Alumni</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-links">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="https://www.lambdachi.org" target="_blank">National Headquarters</a></li>
+                            <li><a href="https://www.fsu.edu" target="_blank">Florida State University</a></li>
+                            <li><a href="https://www.fsuifc.com" target="_blank">FSU IFC</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-contact">
+                        <h4>Contact Us</h4>
+                        <address>
+                            <p><i class="fas fa-map-marker-alt"></i> 1944 Heritage Grove Circle<br>Tallahassee, FL 32304</p>
+                            <p><i class="fas fa-envelope"></i> <a href="mailto:rush@fsulambdachi.com">rush@fsulambdachi.com</a></p>
+                        </address>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2025 Lambda Chi Alpha - Zeta Rho Chapter at Florida State University. All rights reserved.</p>
+                <p class="footer-motto">Vir Quisque Vir — Every Man a Man</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
