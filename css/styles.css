@@ -151,6 +151,15 @@ button {
     padding: var(--space-sm) 0;
 }
 
+/* When mobile menu is active, remove the scrolled background so it doesn't interfere */
+@media (max-width: 968px) {
+    .navbar.scrolled.menu-open {
+        background: transparent !important;
+        backdrop-filter: none !important;
+        box-shadow: none !important;
+    }
+}
+
 .navbar.scrolled .nav-logo .logo-icon,
 .navbar.scrolled .nav-logo .logo-text {
     color: var(--purple);

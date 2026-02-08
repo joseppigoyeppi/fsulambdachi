@@ -60,6 +60,7 @@ function initNavbar() {
 function initMobileNav() {
     const navToggle = document.getElementById('nav-toggle');
     const navMenu = document.getElementById('nav-menu');
+    const navbar = document.getElementById('navbar');
     const navLinks = document.querySelectorAll('.nav-link');
 
     if (!navToggle || !navMenu) return;
@@ -67,6 +68,7 @@ function initMobileNav() {
     navToggle.addEventListener('click', () => {
         navToggle.classList.toggle('active');
         navMenu.classList.toggle('active');
+        navbar.classList.toggle('menu-open');
         document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
     });
 
@@ -75,6 +77,7 @@ function initMobileNav() {
         link.addEventListener('click', () => {
             navToggle.classList.remove('active');
             navMenu.classList.remove('active');
+            navbar.classList.remove('menu-open');
             document.body.style.overflow = '';
         });
     });
@@ -84,6 +87,7 @@ function initMobileNav() {
         if (e.key === 'Escape' && navMenu.classList.contains('active')) {
             navToggle.classList.remove('active');
             navMenu.classList.remove('active');
+            navbar.classList.remove('menu-open');
             document.body.style.overflow = '';
         }
     });
