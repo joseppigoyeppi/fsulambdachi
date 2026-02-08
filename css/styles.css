@@ -151,12 +151,17 @@ button {
     padding: var(--space-sm) 0;
 }
 
-/* When mobile menu is active, remove the scrolled background so it doesn't interfere */
+/* When mobile menu is active, ensure proper styling */
 @media (max-width: 968px) {
     .navbar.scrolled.menu-open {
         background: transparent !important;
         backdrop-filter: none !important;
         box-shadow: none !important;
+    }
+
+    .navbar.scrolled.menu-open .nav-logo .logo-icon,
+    .navbar.scrolled.menu-open .nav-logo .logo-text {
+        color: var(--white) !important;
     }
 }
 
@@ -286,19 +291,26 @@ button {
     }
 
     .nav-menu {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
         background: linear-gradient(135deg, var(--purple-dark), var(--purple)) !important;
-        flex-direction: column;
-        justify-content: center;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
         gap: var(--space-xl);
         opacity: 0;
         visibility: hidden;
         transition: opacity var(--transition-base), visibility var(--transition-base);
-        z-index: 999;
+        z-index: 9999 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        transform: none !important;
     }
 
     .nav-menu.active {
@@ -312,6 +324,14 @@ button {
         text-shadow: none;
     }
 
+    .nav-toggle {
+        z-index: 10000 !important;
+    }
+
+    .nav-logo {
+        z-index: 10000 !important;
+    }
+
     .nav-toggle.active span:nth-child(1) {
         transform: rotate(45deg) translate(5px, 5px);
     }
@@ -322,6 +342,11 @@ button {
 
     .nav-toggle.active span:nth-child(3) {
         transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* Ensure toggle bars are white when menu is open */
+    .nav-toggle.active span {
+        background: var(--white) !important;
     }
 }
 
