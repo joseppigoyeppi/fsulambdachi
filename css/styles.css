@@ -1213,6 +1213,16 @@ button {
     min-height: 280px;
 }
 
+/* House image - show full building */
+.philanthropy-image.house-image {
+    background: var(--gray-100);
+}
+
+.philanthropy-image.house-image img {
+    object-fit: contain;
+    object-position: center;
+}
+
 @media (min-width: 768px) {
     .philanthropy-image img,
     .philanthropy-image video {
