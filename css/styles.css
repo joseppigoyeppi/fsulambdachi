@@ -1218,7 +1218,7 @@ button {
     overflow: hidden;
     height: fit-content;
     display: block;
-    align-self: start;
+    align-self: center;
 }
 
 .philanthropy-image.house-image img {
