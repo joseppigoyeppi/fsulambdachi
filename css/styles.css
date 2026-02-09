@@ -1216,9 +1216,10 @@ button {
 /* House image - show full building with fitted container */
 .philanthropy-image.house-image {
     overflow: hidden;
-    height: fit-content;
-    display: block;
-    align-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
 }
 
 .philanthropy-image.house-image img {
