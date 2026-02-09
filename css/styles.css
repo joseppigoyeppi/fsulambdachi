@@ -1215,18 +1215,17 @@ button {
 
 /* House image - show full building with fitted container */
 .philanthropy-image.house-image {
-    background: transparent;
-    box-shadow: none;
-    overflow: visible;
+    overflow: hidden;
+    height: auto;
+    display: block;
 }
 
 .philanthropy-image.house-image img {
-    object-fit: contain;
-    object-position: center;
-    min-height: auto;
+    width: 100%;
     height: auto;
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-xl);
+    min-height: unset;
+    object-fit: fill;
+    display: block;
 }
 
 @media (min-width: 768px) {
