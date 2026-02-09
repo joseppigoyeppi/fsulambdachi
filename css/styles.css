@@ -1213,14 +1213,20 @@ button {
     min-height: 280px;
 }
 
-/* House image - show full building */
+/* House image - show full building with fitted container */
 .philanthropy-image.house-image {
-    background: var(--gray-100);
+    background: transparent;
+    box-shadow: none;
+    overflow: visible;
 }
 
 .philanthropy-image.house-image img {
     object-fit: contain;
     object-position: center;
+    min-height: auto;
+    height: auto;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
 }
 
 @media (min-width: 768px) {
