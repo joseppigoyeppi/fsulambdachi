@@ -1213,13 +1213,23 @@ button {
     min-height: 280px;
 }
 
+/* House grid - change alignment to stretch so image can center within full height */
+.philanthropy-grid.house-grid {
+    align-items: stretch;
+}
+
+.philanthropy-grid.house-grid .philanthropy-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 /* House image - show full building with fitted container */
 .philanthropy-image.house-image {
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    align-self: stretch;
 }
 
 .philanthropy-image.house-image img {
