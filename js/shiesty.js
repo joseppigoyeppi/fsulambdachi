@@ -82,33 +82,39 @@ function initGavelButton() {
     const verdicts = [
         {
             guilty: true,
-            title: "Brother Shiesty Has Spoken",
-            text: "After careful deliberation (about 0.3 seconds), Brother Shiesty finds you GUILTY of being an associate member. That alone is enough.",
-            sentence: "SENTENCE: 50 push-ups and you better say 'thank you sir' after each one."
+            title: "Brother Shiesty Done Spoke",
+            text: "After careful deliberation (took him bout 0.3 seconds cuz he already knew), Brother Shiesty find yo ass GUILTY of bein an associate member. That alone is enough. You ain't even gotta do nothin wrong — the fact that you an AM is the crime.",
+            sentence: "SENTENCE: 50 push-ups and you better say 'thank you sir' after every single one. Lose count and you startin over. He WILL make you start over."
         },
         {
             guilty: true,
-            title: "The Verdict Is In",
-            text: "Brother Shiesty reviewed your case file. It's 47 pages long. Every page just says 'guilty' in increasingly large font.",
-            sentence: "SENTENCE: You're on dish duty until further notice. 'Further notice' is when Brother Shiesty feels like it."
+            title: "It's a Wrap for You",
+            text: "Brother Shiesty reviewed yo case file. It's 47 pages long. Every single page just say 'guilty' in bigger and bigger font. The last page is just the word GUILTY in size 400 font takin up the whole damn page. He laminated it.",
+            sentence: "SENTENCE: You on dish duty till further notice. 'Further notice' is whenever Brother Shiesty FEEL like lettin you off. Could be a week. Could be never. Probably never."
         },
         {
             guilty: true,
-            title: "Justice Has Been Served",
-            text: "You thought you could plead innocent? Brother Shiesty has security camera footage, three witnesses, and your own group chat messages screenshotted. In 4K.",
-            sentence: "SENTENCE: Community service hours doubled. And you're driving Brother Shiesty to Chick-fil-A. His order is complicated."
+            title: "Justice Been Served Nigga",
+            text: "You really thought you could plead innocent? Bruh. Brother Shiesty got security camera footage, three witnesses, yo own group chat messages screenshotted IN 4K, AND yo mama on speed dial. She already disappointed in you. He called her first.",
+            sentence: "SENTENCE: Community service hours TRIPLED. And you drivin Brother Shiesty to Chick-fil-A every day this week. His order complicated as hell and he WILL change it at the window."
         },
         {
             guilty: true,
-            title: "Court Is Adjourned",
-            text: "Brother Shiesty doesn't even need to hear your defense. He already knows what you did, when you did it, and which shoes you were wearing. He ALWAYS knows.",
-            sentence: "SENTENCE: Public apology at next chapter meeting. Minimum 3 minutes. Must include the phrase 'I have learned my lesson.'"
+            title: "Court Adjourned. Get Out.",
+            text: "Brother Shiesty ain't even need to hear yo defense lil bro. He already know what you did, when you did it, what you was wearin, what you ate for breakfast, and what yo heart rate was. This man is OMNISCIENT when it come to catchin AMs lackin.",
+            sentence: "SENTENCE: Public apology at next chapter meeting. Minimum 5 minutes. Must include the phrase 'I have learned my lesson and I will never disrespect Brother Shiesty again.' Say it with yo chest or say it again."
+        },
+        {
+            guilty: true,
+            title: "Lmao You Really Thought",
+            text: "The audacity. The AUDACITY of you pressin that button thinkin you had a chance. Brother Shiesty been knew you was guilty before you even walked in. He wrote the verdict last Tuesday. He been waitin for this moment all week.",
+            sentence: "SENTENCE: You runnin laps around the chapter house at 6 AM tomorrow. Brother Shiesty will be on the porch in a lawn chair sippin coffee timing you. Don't be late or it's double."
         },
         {
             guilty: false,
-            title: "A Rare Moment",
-            text: "Against all odds, Brother Shiesty has found you... not guilty. This has happened exactly twice in chapter history. Savor this moment. Screenshot it. It will never happen again.",
-            sentence: "You're free to go. But Brother Shiesty is still watching. He's ALWAYS watching."
+            title: "Nah... Hold On...",
+            text: "Against ALL odds... Brother Shiesty has found you... not guilty. This has happened exactly TWICE in the entire history of the chapter. Savor this shit. Screenshot it. Frame it. Put it on yo resume. Tell yo grandkids. It will NEVER happen again. You used up all yo luck for the rest of yo life.",
+            sentence: "You free to go. But Brother Shiesty still watchin yo ass. He ALWAYS watchin. Sleep with one eye open tonight lil bro. And say thank you on yo way out."
         }
     ];
 
