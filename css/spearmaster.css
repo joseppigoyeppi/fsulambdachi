@@ -1,0 +1,648 @@
+/* ============================================
+   SPEAR MASTER — 1995 GeoCities Nightmare CSS
+   Best Viewed in Netscape Navigator 4.0
+   ============================================ */
+
+/* Reset & base — absolute dial-up era horror */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #000080;
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ctext x='10' y='40' font-size='30' fill='%23000066' opacity='0.3'%3E%E2%98%85%3C/text%3E%3C/svg%3E");
+    color: #00FF00;
+    font-family: 'Comic Neue', 'Comic Sans MS', cursive, sans-serif;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ctext y='24' font-size='24'%3E%F0%9F%97%A1%EF%B8%8F%3C/text%3E%3C/svg%3E") 0 0, auto;
+    overflow-x: hidden;
+}
+
+/* ============================================
+   Visitor Counter Marquee
+   ============================================ */
+.visitor-counter {
+    background: #FF00FF;
+    color: #FFFF00;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 4px;
+    font-family: 'Press Start 2P', monospace;
+    border-bottom: 3px solid #00FF00;
+}
+
+.visitor-counter marquee {
+    font-size: 0.7rem;
+}
+
+/* ============================================
+   Loading / Dial-up Screen
+   ============================================ */
+.spear-loading {
+    position: fixed;
+    inset: 0;
+    background: #C0C0C0;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease;
+    font-family: 'Courier New', monospace;
+}
+
+.spear-loading.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.loading-dialup {
+    background: #FFFFFF;
+    border: 3px outset #808080;
+    padding: 2rem 3rem;
+    text-align: center;
+    box-shadow: 5px 5px 0px #000000;
+    max-width: 450px;
+    width: 90%;
+}
+
+.loading-title {
+    font-size: 0.9rem;
+    color: #000080;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.dialup-bar-container {
+    width: 100%;
+    height: 25px;
+    background: #FFFFFF;
+    border: 2px inset #808080;
+    margin-bottom: 0.75rem;
+}
+
+.dialup-bar {
+    height: 100%;
+    width: 0%;
+    background: repeating-linear-gradient(
+        90deg,
+        #000080 0px,
+        #000080 10px,
+        #0000AA 10px,
+        #0000AA 20px
+    );
+    transition: width 0.3s ease;
+}
+
+.loading-status {
+    font-size: 0.75rem;
+    color: #000000;
+    margin-bottom: 0.5rem;
+}
+
+.loading-blink {
+    font-size: 0.7rem;
+    color: #FF0000;
+    font-weight: bold;
+    animation: blinkText 0.8s step-end infinite;
+}
+
+@keyframes blinkText {
+    0%, 100% { visibility: visible; }
+    50% { visibility: hidden; }
+}
+
+/* ============================================
+   Under Construction Banner
+   ============================================ */
+.under-construction {
+    background: #FFFF00;
+    color: #000000;
+    text-align: center;
+    padding: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    font-family: 'Press Start 2P', monospace;
+    border-top: 4px dashed #FF0000;
+    border-bottom: 4px dashed #FF0000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    animation: bgFlash 2s infinite;
+}
+
+.under-construction span {
+    font-size: 0.65rem;
+}
+
+.under-construction img {
+    width: 40px;
+    height: 40px;
+    image-rendering: pixelated;
+}
+
+@keyframes bgFlash {
+    0%, 100% { background: #FFFF00; }
+    50% { background: #FF8800; }
+}
+
+/* ============================================
+   Main Table Layout (peak 90s)
+   ============================================ */
+.main-table {
+    margin: 10px auto;
+    font-size: 0.95rem;
+}
+
+.main-title {
+    font-family: 'Bungee Shade', cursive;
+    font-size: 2.5rem;
+    color: #FFFF00;
+    text-shadow:
+        3px 3px 0 #FF0000,
+        -2px -2px 0 #00FF00,
+        4px -3px 0 #0000FF;
+    animation: rainbowText 3s linear infinite;
+    padding: 10px;
+    letter-spacing: 2px;
+}
+
+@keyframes rainbowText {
+    0% { color: #FF0000; }
+    16% { color: #FF8800; }
+    33% { color: #FFFF00; }
+    50% { color: #00FF00; }
+    66% { color: #0088FF; }
+    83% { color: #FF00FF; }
+    100% { color: #FF0000; }
+}
+
+.subtitle {
+    font-family: 'Comic Neue', cursive;
+    font-size: 1.3rem;
+    color: #FFFFFF;
+    animation: blinkText 1.2s step-end infinite;
+}
+
+.subtitle-small {
+    color: #CCCCCC;
+    font-style: italic;
+    font-size: 0.9rem;
+    margin-top: 4px;
+}
+
+/* ============================================
+   90s Navigation
+   ============================================ */
+.nav-90s {
+    padding: 8px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.55rem;
+}
+
+.nav-90s a {
+    color: #000080;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-90s a:hover {
+    color: #FF0000;
+    background: #FFFF00;
+    text-decoration: underline overline;
+}
+
+/* ============================================
+   Hit Counter
+   ============================================ */
+.hit-counter {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.6rem;
+    color: #000000;
+    padding: 4px;
+}
+
+.counter-num {
+    font-family: 'Courier New', monospace;
+    font-size: 1.2rem;
+    background: #000000;
+    color: #00FF00;
+    padding: 2px 8px;
+    border: 2px inset #808080;
+    letter-spacing: 3px;
+}
+
+/* ============================================
+   Section Headers
+   ============================================ */
+.section-header {
+    font-family: 'Bungee Shade', cursive;
+    font-size: 1.5rem;
+    color: #FFFF00;
+    text-align: center;
+    padding: 10px;
+    text-shadow: 2px 2px 0 #FF0000;
+    margin-bottom: 10px;
+    animation: rainbowText 4s linear infinite;
+}
+
+/* ============================================
+   About Section
+   ============================================ */
+.profile-pic-container {
+    padding: 10px;
+}
+
+.profile-pic {
+    border: 4px double #FF00FF;
+    padding: 5px;
+    background: #000000;
+    display: inline-block;
+}
+
+.ascii-face pre {
+    color: #00FF00;
+    font-size: 0.55rem;
+    line-height: 1.1;
+    font-family: 'Courier New', monospace;
+    text-align: left;
+}
+
+.pic-caption {
+    color: #FF00FF;
+    font-size: 0.75rem;
+    margin-top: 8px;
+    font-style: italic;
+}
+
+.about-text {
+    color: #00FF00;
+    padding: 10px;
+    line-height: 1.6;
+}
+
+.about-text p {
+    margin-bottom: 10px;
+}
+
+.about-text b {
+    font-size: 1.05rem;
+}
+
+.ugly-list {
+    list-style: none;
+    padding-left: 10px;
+}
+
+.ugly-list li {
+    margin-bottom: 6px;
+    color: #CCCCCC;
+}
+
+/* ============================================
+   Reasons / Why I Deserve a Bid
+   ============================================ */
+.reasons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.reason-box {
+    padding: 12px;
+    color: #FFFFFF;
+}
+
+.reason-box h3 {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.6rem;
+    margin-bottom: 8px;
+    color: #FFFF00;
+    text-align: center;
+}
+
+.reason-box p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #DDDDDD;
+}
+
+/* ============================================
+   Skills Section
+   ============================================ */
+.skill-bar-container {
+    margin-bottom: 10px;
+}
+
+.skill-label {
+    color: #FFFF00;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-bottom: 3px;
+    font-family: 'Comic Neue', cursive;
+}
+
+.skill-bar {
+    width: 100%;
+    height: 22px;
+    background: #000000;
+    border: 2px inset #808080;
+    position: relative;
+}
+
+.skill-fill {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
+    font-size: 0.6rem;
+    font-family: 'Press Start 2P', monospace;
+    color: #FFFFFF;
+    white-space: nowrap;
+    overflow: visible;
+    text-shadow: 1px 1px 0 #000;
+}
+
+/* ============================================
+   Guestbook
+   ============================================ */
+.guestbook-entries {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.guestbook-entry {
+    background: #1a0000;
+    padding: 10px;
+    color: #CCCCCC;
+}
+
+.gb-author {
+    font-weight: bold;
+    color: #FFFF00;
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+    font-family: 'Courier New', monospace;
+}
+
+.gb-text {
+    font-style: italic;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.guestbook-form {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.gb-textarea {
+    width: 90%;
+    background: #FFFFFF;
+    color: #000000;
+    border: 3px inset #808080;
+    font-family: 'Comic Neue', cursive;
+    font-size: 0.9rem;
+    padding: 8px;
+    resize: none;
+}
+
+.gb-submit {
+    margin-top: 8px;
+    background: #C0C0C0;
+    border: 3px outset #FFFFFF;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.55rem;
+    padding: 8px 16px;
+    cursor: pointer;
+    color: #000000;
+}
+
+.gb-submit:active {
+    border-style: inset;
+}
+
+.gb-submit:hover {
+    background: #FFFF00;
+}
+
+/* ============================================
+   Cool Links
+   ============================================ */
+.cool-links {
+    list-style: none;
+    padding: 10px;
+}
+
+.cool-links li {
+    margin-bottom: 10px;
+    color: #CCCCCC;
+    font-size: 0.85rem;
+}
+
+.cool-links a {
+    color: #00FFFF;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.cool-links a:hover {
+    color: #FFFF00;
+    background: #FF0000;
+    text-decoration: underline overline line-through;
+}
+
+.cool-links a:visited {
+    color: #FF00FF;
+}
+
+/* ============================================
+   Desperate Plea
+   ============================================ */
+.desperate-plea {
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.desperate-plea h2 {
+    font-family: 'Bungee Shade', cursive;
+    font-size: 1.1rem;
+    color: #FFFF00;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 0 #880000;
+}
+
+.desperate-plea p {
+    margin-bottom: 10px;
+}
+
+.desperate-plea ul {
+    text-align: left;
+    color: #FFFF00;
+    margin: 10px auto;
+}
+
+.desperate-plea ul li {
+    margin-bottom: 5px;
+}
+
+/* ============================================
+   Web Ring
+   ============================================ */
+.webring {
+    padding: 10px;
+    color: #FFFFFF;
+    font-size: 0.85rem;
+}
+
+.webring a {
+    color: #FFFF00;
+    text-decoration: none;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.5rem;
+    margin: 0 10px;
+}
+
+.webring a:hover {
+    color: #FF0000;
+    text-decoration: underline;
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+.footer-90s {
+    padding: 15px;
+    color: #808080;
+    font-size: 0.75rem;
+    line-height: 1.8;
+}
+
+.footer-90s marquee {
+    color: #FFD700;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.5rem;
+}
+
+/* ============================================
+   Sparkle trail cursor
+   ============================================ */
+#sparkle-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 99999;
+}
+
+.sparkle {
+    position: absolute;
+    pointer-events: none;
+    font-size: 1rem;
+    animation: sparkleAnim 0.8s ease-out forwards;
+    z-index: 99999;
+}
+
+@keyframes sparkleAnim {
+    0% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0) translateY(-20px);
+    }
+}
+
+/* ============================================
+   Scrollbar — ugly as possible
+   ============================================ */
+::-webkit-scrollbar {
+    width: 18px;
+}
+
+::-webkit-scrollbar-track {
+    background: #C0C0C0;
+    border: 2px inset #808080;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #808080;
+    border: 2px outset #FFFFFF;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #666666;
+}
+
+/* ============================================
+   Responsive (lol as if 90s sites were responsive)
+   ============================================ */
+@media (max-width: 850px) {
+    .main-table {
+        width: 98% !important;
+    }
+
+    .main-title {
+        font-size: 1.5rem;
+    }
+
+    .section-header {
+        font-size: 1rem;
+    }
+
+    .nav-90s {
+        font-size: 0.45rem;
+    }
+
+    .reason-box h3 {
+        font-size: 0.5rem;
+    }
+
+    .ascii-face pre {
+        font-size: 0.4rem;
+    }
+
+    .desperate-plea h2 {
+        font-size: 0.8rem;
+    }
+}
+
+/* ============================================
+   Extra ugly animations
+   ============================================ */
+@keyframes wobble {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
+}
+
+.reason-box:hover {
+    animation: wobble 0.3s ease-in-out infinite;
+}
+
+.guestbook-entry:hover {
+    background: #330000 !important;
+    border-left-width: 8px !important;
+}
+
+/* Make everything feel janky */
+.charge-card, .record-card {
+    transition: none !important;
+}
+
+/* Obnoxious link styles */
+a {
+    cursor: pointer;
+}
+
+/* Selection colors — hideous */
+::selection {
+    background: #FF00FF;
+    color: #00FF00;
+}

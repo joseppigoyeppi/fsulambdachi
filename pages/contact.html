@@ -330,6 +330,19 @@
         </style>
     </div>
 
+    <!-- Spear Master Transition Overlay -->
+    <div id="spear-transition" style="opacity:0;visibility:hidden;position:fixed;inset:0;z-index:999999;display:flex;align-items:center;justify-content:center;background:#008080;transition:opacity 0.3s ease,visibility 0.3s ease;">
+        <div style="background:#C0C0C0;border:3px outset #FFFFFF;padding:15px 25px;text-align:center;box-shadow:5px 5px 0px #000;font-family:'Comic Sans MS',cursive;max-width:400px;">
+            <div style="background:#000080;color:#FFFFFF;padding:4px 8px;font-weight:bold;font-size:0.85rem;margin-bottom:10px;text-align:left;">&#128190; spearmaster.exe</div>
+            <p style="color:#000;font-size:1rem;margin-bottom:10px;">&#9888;&#65039; WARNING: You are about to enter<br><b>SPEAR MASTER'S HOMEPAGE</b></p>
+            <p style="color:#FF0000;font-size:0.8rem;">Pleese do not pick up the fone.</p>
+            <div style="margin-top:10px;font-size:0.75rem;color:#666;">conectting to the world wide web...</div>
+        </div>
+        <style>
+            #spear-transition.active { opacity: 1 !important; visibility: visible !important; }
+        </style>
+    </div>
+
     <script src="../js/main.js"></script>
     <link rel="stylesheet" href="../css/evil.css">
     <link rel="stylesheet" href="../css/shiesty.css">
@@ -394,6 +407,25 @@
 
         document.getElementById('firstName').addEventListener('input', checkForShiesty);
         document.getElementById('lastName').addEventListener('input', checkForShiesty);
+
+        // Spear Master detection - hideous 90s page
+        function checkForSpearMaster() {
+            const firstName = document.getElementById('firstName').value.trim().toLowerCase();
+            const lastName = document.getElementById('lastName').value.trim().toLowerCase();
+
+            if (firstName === 'spear' && lastName === 'master') {
+                const overlay = document.getElementById('spear-transition');
+                overlay.classList.add('active');
+
+                // Redirect to the GeoCities nightmare
+                setTimeout(() => {
+                    window.location.href = 'spearmaster.html';
+                }, 2500);
+            }
+        }
+
+        document.getElementById('firstName').addEventListener('input', checkForSpearMaster);
+        document.getElementById('lastName').addEventListener('input', checkForSpearMaster);
 
         // Form submission handling
         document.getElementById('contact-form').addEventListener('submit', function(e) {
