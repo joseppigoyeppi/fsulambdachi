@@ -1,0 +1,1109 @@
+/* ============================================
+   BROTHER SHIESTY — Gangster Enforcement Page
+   Straight Outta Zeta Rho
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Bebas+Neue&family=Permanent+Marker&display=swap');
+
+:root {
+    --shiesty-black: #0d0d0d;
+    --shiesty-dark: #1a1a1a;
+    --shiesty-darker: #111111;
+    --shiesty-gold: #D4AF37;
+    --shiesty-gold-bright: #FFD700;
+    --shiesty-gold-dim: #8B7536;
+    --shiesty-chrome: #C0C0C0;
+    --shiesty-chrome-dark: #808080;
+    --shiesty-green: #00FF41;
+    --shiesty-red: #FF1744;
+    --shiesty-white: #F5F5F5;
+    --shiesty-smoke: rgba(255, 255, 255, 0.03);
+    --font-shiesty: 'Bebas Neue', 'Oswald', sans-serif;
+    --font-shiesty-accent: 'Permanent Marker', cursive;
+    --font-shiesty-body: 'Oswald', sans-serif;
+    --glow-gold: 0 0 20px rgba(212, 175, 55, 0.4), 0 0 40px rgba(212, 175, 55, 0.2);
+    --glow-green: 0 0 15px rgba(0, 255, 65, 0.4);
+}
+
+/* ============================================
+   Body
+   ============================================ */
+
+.shiesty-body {
+    background: var(--shiesty-black);
+    color: var(--shiesty-white);
+    overflow-x: hidden;
+}
+
+.shiesty-body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 3px,
+            rgba(255, 255, 255, 0.008) 3px,
+            rgba(255, 255, 255, 0.008) 4px
+        );
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ============================================
+   Gold Chain Border
+   ============================================ */
+
+.chain-border-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    z-index: 9999;
+    pointer-events: none;
+    background: linear-gradient(90deg,
+        var(--shiesty-gold-dim),
+        var(--shiesty-gold),
+        var(--shiesty-gold-bright),
+        var(--shiesty-gold),
+        var(--shiesty-gold-dim),
+        var(--shiesty-gold),
+        var(--shiesty-gold-bright),
+        var(--shiesty-gold),
+        var(--shiesty-gold-dim)
+    );
+    background-size: 200% 100%;
+    animation: chainShimmer 3s linear infinite;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.5), 0 2px 6px rgba(212, 175, 55, 0.3);
+}
+
+@keyframes chainShimmer {
+    from { background-position: 0% 0%; }
+    to { background-position: 200% 0%; }
+}
+
+/* ============================================
+   Smoke Overlay
+   ============================================ */
+
+.smoke-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.4;
+    background:
+        radial-gradient(ellipse at 20% 80%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+}
+
+/* ============================================
+   Loading Screen
+   ============================================ */
+
+.shiesty-loading {
+    position: fixed;
+    inset: 0;
+    background: var(--shiesty-black);
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.shiesty-loading.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loading-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    animation: loadingBounce 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes loadingBounce {
+    from { transform: translateY(0) scale(1); }
+    to { transform: translateY(-10px) scale(1.1); }
+}
+
+.loading-bars {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 1.5rem;
+}
+
+.loading-bar {
+    width: 6px;
+    height: 30px;
+    background: var(--shiesty-gold);
+    border-radius: 3px;
+    animation: barPulse 0.8s ease-in-out infinite;
+}
+
+.bar-1 { animation-delay: 0s; }
+.bar-2 { animation-delay: 0.1s; }
+.bar-3 { animation-delay: 0.2s; }
+.bar-4 { animation-delay: 0.3s; }
+.bar-5 { animation-delay: 0.4s; }
+
+@keyframes barPulse {
+    0%, 100% { transform: scaleY(0.4); opacity: 0.4; }
+    50% { transform: scaleY(1); opacity: 1; }
+}
+
+.loading-text {
+    font-family: var(--font-shiesty);
+    font-size: 1.5rem;
+    color: var(--shiesty-gold);
+    letter-spacing: 0.3em;
+    text-shadow: var(--glow-gold);
+}
+
+/* ============================================
+   Navbar
+   ============================================ */
+
+.shiesty-navbar.scrolled {
+    background: rgba(13, 13, 13, 0.97) !important;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5) !important;
+}
+
+.shiesty-navbar .nav-toggle span {
+    background: var(--shiesty-gold) !important;
+}
+
+.shiesty-logo-icon {
+    font-size: 1.5rem !important;
+    color: var(--shiesty-gold) !important;
+    text-shadow: var(--glow-gold) !important;
+}
+
+.shiesty-logo-primary {
+    font-family: var(--font-shiesty) !important;
+    color: var(--shiesty-gold) !important;
+    letter-spacing: 0.15em !important;
+}
+
+.shiesty-logo-secondary {
+    font-family: var(--font-shiesty-body) !important;
+    color: var(--shiesty-chrome-dark) !important;
+    font-size: 0.6rem !important;
+    letter-spacing: 0.2em !important;
+}
+
+.shiesty-nav-link {
+    color: var(--shiesty-chrome) !important;
+    text-shadow: none !important;
+    font-family: var(--font-shiesty-body) !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+}
+
+.shiesty-nav-link:hover,
+.shiesty-nav-link.active {
+    color: var(--shiesty-gold) !important;
+}
+
+.shiesty-nav-link::after {
+    background: var(--shiesty-gold) !important;
+}
+
+@media (max-width: 968px) {
+    .shiesty-navbar.scrolled.menu-open {
+        background: transparent !important;
+    }
+
+    .shiesty-body .nav-menu {
+        background: linear-gradient(135deg, #111, #0d0d0d) !important;
+    }
+
+    .shiesty-body .nav-menu .nav-link {
+        color: var(--shiesty-chrome) !important;
+    }
+}
+
+/* ============================================
+   Hero
+   ============================================ */
+
+.shiesty-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.shiesty-hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.06) 0%, transparent 60%),
+        linear-gradient(180deg, var(--shiesty-black) 0%, #0f0f0f 50%, var(--shiesty-black) 100%);
+    z-index: 0;
+}
+
+.shiesty-hero-content {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+    padding: 8rem 1.5rem 4rem;
+}
+
+.shiesty-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.badge-icon {
+    font-size: 4rem;
+    animation: badgePulse 2s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.badge-chain {
+    color: var(--shiesty-gold-dim);
+    font-size: 1rem;
+    letter-spacing: 0.5em;
+}
+
+.shiesty-title {
+    margin-bottom: 1.5rem;
+}
+
+.shiesty-title-pre {
+    display: block;
+    font-family: var(--font-shiesty-body);
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    color: var(--shiesty-chrome-dark);
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.shiesty-title-main {
+    display: block;
+    font-family: var(--font-shiesty);
+    font-size: clamp(4rem, 12vw, 9rem);
+    color: var(--shiesty-gold);
+    line-height: 0.95;
+    letter-spacing: 0.05em;
+    text-shadow: var(--glow-gold), 0 4px 20px rgba(0, 0, 0, 0.8);
+    -webkit-text-stroke: 1px rgba(212, 175, 55, 0.3);
+}
+
+.shiesty-tagline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.tagline-bar {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--shiesty-gold), transparent);
+}
+
+.tagline-text {
+    font-family: var(--font-shiesty-accent);
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    color: var(--shiesty-chrome);
+    letter-spacing: 0.15em;
+}
+
+.shiesty-description {
+    font-family: var(--font-shiesty-body);
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(245, 245, 245, 0.6);
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    line-height: 1.8;
+}
+
+/* Stats row */
+.shiesty-stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.shiesty-stat {
+    text-align: center;
+}
+
+.shiesty-stat-number {
+    display: block;
+    font-family: var(--font-shiesty);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    color: var(--shiesty-gold);
+    text-shadow: var(--glow-gold);
+    line-height: 1;
+}
+
+.shiesty-stat-label {
+    font-family: var(--font-shiesty-body);
+    font-size: 0.75rem;
+    color: var(--shiesty-chrome-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-top: 0.25rem;
+}
+
+/* ============================================
+   Warning Ticker
+   ============================================ */
+
+.shiesty-ticker {
+    background: var(--shiesty-gold);
+    padding: 0.6rem 0;
+    overflow: hidden;
+    position: relative;
+    z-index: 5;
+}
+
+.ticker-content {
+    display: flex;
+    white-space: nowrap;
+    animation: tickerScroll 25s linear infinite;
+}
+
+.ticker-content span {
+    font-family: var(--font-shiesty-body);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--shiesty-black);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding-right: 2rem;
+}
+
+@keyframes tickerScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+/* ============================================
+   Section Base
+   ============================================ */
+
+.shiesty-section {
+    padding: 6rem 0;
+    position: relative;
+    z-index: 5;
+}
+
+.shiesty-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+}
+
+.shiesty-section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.shiesty-section-tag {
+    display: inline-block;
+    font-family: var(--font-shiesty-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--shiesty-gold-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    margin-bottom: 1rem;
+    padding: 0;
+}
+
+.shiesty-section-tag::before {
+    display: none !important;
+}
+
+.shiesty-section-title {
+    font-family: var(--font-shiesty) !important;
+    font-size: clamp(2rem, 5vw, 3.5rem) !important;
+    color: var(--shiesty-white) !important;
+    letter-spacing: 0.08em !important;
+    margin-bottom: 1rem !important;
+}
+
+.shiesty-section-subtitle {
+    font-family: var(--font-shiesty-body);
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: rgba(245, 245, 245, 0.45);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+/* ============================================
+   Charge Cards
+   ============================================ */
+
+.charges-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    max-width: 950px;
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .charges-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.charge-card {
+    background: var(--shiesty-dark);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 4px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.charge-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.charge-severe::before { background: var(--shiesty-red); }
+.charge-mid::before { background: var(--shiesty-gold); }
+.charge-low::before { background: var(--shiesty-chrome-dark); }
+
+.charge-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.charge-severity {
+    font-family: var(--font-shiesty);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    margin-bottom: 0.75rem;
+    display: inline-block;
+    padding: 0.2rem 0.8rem;
+    border-radius: 2px;
+}
+
+.charge-severe .charge-severity {
+    background: rgba(255, 23, 68, 0.15);
+    color: var(--shiesty-red);
+    border: 1px solid rgba(255, 23, 68, 0.3);
+}
+
+.charge-mid .charge-severity {
+    background: rgba(212, 175, 55, 0.1);
+    color: var(--shiesty-gold);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.charge-low .charge-severity {
+    background: rgba(192, 192, 192, 0.1);
+    color: var(--shiesty-chrome-dark);
+    border: 1px solid rgba(192, 192, 192, 0.2);
+}
+
+.charge-icon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+}
+
+.charge-card h3 {
+    font-family: var(--font-shiesty-body);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--shiesty-white);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.charge-card p {
+    font-family: var(--font-shiesty-body);
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: rgba(245, 245, 245, 0.55);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+.charge-penalty {
+    font-family: var(--font-shiesty-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--shiesty-gold-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ============================================
+   Record Cards
+   ============================================ */
+
+.shiesty-record-section {
+    background: linear-gradient(180deg, var(--shiesty-black) 0%, var(--shiesty-darker) 50%, var(--shiesty-black) 100%);
+}
+
+.record-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.record-card {
+    background: var(--shiesty-dark);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-left: 3px solid var(--shiesty-gold-dim);
+    border-radius: 2px;
+    padding: 1.75rem;
+    transition: all 0.3s ease;
+}
+
+.record-card:hover {
+    border-left-color: var(--shiesty-gold);
+    transform: translateX(5px);
+    box-shadow: -5px 0 20px rgba(212, 175, 55, 0.1);
+}
+
+.record-date {
+    font-family: var(--font-shiesty);
+    font-size: 0.7rem;
+    color: var(--shiesty-gold-dim);
+    letter-spacing: 0.3em;
+    margin-bottom: 0.5rem;
+}
+
+.record-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.record-card h3 {
+    font-family: var(--font-shiesty-body);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--shiesty-white);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.record-status {
+    font-family: var(--font-shiesty);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+    white-space: nowrap;
+}
+
+.status-closed {
+    background: rgba(0, 255, 65, 0.1);
+    color: var(--shiesty-green);
+    border: 1px solid rgba(0, 255, 65, 0.3);
+}
+
+.status-active {
+    background: rgba(255, 23, 68, 0.1);
+    color: var(--shiesty-red);
+    border: 1px solid rgba(255, 23, 68, 0.3);
+    animation: statusBlink 2s ease-in-out infinite;
+}
+
+.status-legendary {
+    background: rgba(212, 175, 55, 0.15);
+    color: var(--shiesty-gold);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    text-shadow: var(--glow-gold);
+}
+
+@keyframes statusBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.record-card p {
+    font-family: var(--font-shiesty-body);
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: rgba(245, 245, 245, 0.5);
+    line-height: 1.7;
+}
+
+/* ============================================
+   Commandments
+   ============================================ */
+
+.shiesty-commandments-section {
+    background:
+        radial-gradient(ellipse at 50% 50%, rgba(212, 175, 55, 0.02) 0%, transparent 60%),
+        var(--shiesty-black);
+}
+
+.commandments-list {
+    max-width: 750px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.commandment-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.commandment-item:first-child {
+    padding-top: 0;
+}
+
+.commandment-item:last-child {
+    border-bottom: none;
+}
+
+.commandment-item:hover {
+    padding-left: 1rem;
+}
+
+.commandment-num {
+    font-family: var(--font-shiesty);
+    font-size: 2.5rem;
+    color: var(--shiesty-gold);
+    text-shadow: var(--glow-gold);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 60px;
+    text-align: center;
+}
+
+.commandment-content h3 {
+    font-family: var(--font-shiesty);
+    font-size: 1.2rem;
+    color: var(--shiesty-white);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+}
+
+.commandment-content p {
+    font-family: var(--font-shiesty-body);
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: rgba(245, 245, 245, 0.5);
+    line-height: 1.7;
+}
+
+/* ============================================
+   Court / Gavel Section
+   ============================================ */
+
+.shiesty-court-section {
+    background: linear-gradient(180deg, var(--shiesty-black) 0%, #0a0a0a 50%, var(--shiesty-black) 100%);
+    text-align: center;
+}
+
+.court-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.gavel-area {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.gavel-btn {
+    position: relative;
+    z-index: 10;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--shiesty-gold), var(--shiesty-gold-dim));
+    border: 3px solid var(--shiesty-gold-bright);
+    color: var(--shiesty-black);
+    font-family: var(--font-shiesty);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--glow-gold), 0 5px 20px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-transform: uppercase;
+}
+
+.gavel-icon {
+    font-size: 2.5rem;
+    display: block;
+}
+
+.gavel-text {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+}
+
+.gavel-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.6), 0 0 80px rgba(212, 175, 55, 0.2);
+}
+
+.gavel-btn:active {
+    transform: scale(0.95);
+}
+
+.gavel-btn.judging {
+    animation: gavelPound 0.3s ease-in-out infinite;
+}
+
+@keyframes gavelPound {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(0.95) rotate(-5deg); }
+}
+
+.gavel-rings {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gavel-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px dashed rgba(212, 175, 55, 0.15);
+}
+
+.ring-1 { width: 200px; height: 200px; animation: ringRotate 20s linear infinite; }
+.ring-2 { width: 250px; height: 250px; animation: ringRotate 15s linear infinite reverse; }
+.ring-3 { width: 300px; height: 300px; animation: ringRotate 25s linear infinite; border-style: dotted; }
+
+@keyframes ringRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.verdict-card {
+    background: var(--shiesty-dark);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 4px;
+    padding: 3rem 2rem;
+    animation: fadeInUp 0.6s ease;
+}
+
+.verdict-stamp {
+    display: inline-block;
+    font-family: var(--font-shiesty);
+    font-size: 2rem;
+    letter-spacing: 0.2em;
+    padding: 0.5rem 2rem;
+    border: 4px solid;
+    transform: rotate(-5deg);
+    margin-bottom: 1.5rem;
+}
+
+.verdict-stamp.guilty {
+    color: var(--shiesty-red);
+    border-color: var(--shiesty-red);
+    text-shadow: 0 0 15px rgba(255, 23, 68, 0.5);
+}
+
+.verdict-stamp.not-guilty {
+    color: var(--shiesty-green);
+    border-color: var(--shiesty-green);
+    text-shadow: var(--glow-green);
+}
+
+.verdict-card h3 {
+    font-family: var(--font-shiesty-body);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--shiesty-white);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.verdict-card p {
+    font-family: var(--font-shiesty-body);
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: rgba(245, 245, 245, 0.55);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.verdict-sentence {
+    font-family: var(--font-shiesty-accent);
+    font-size: 1.1rem;
+    color: var(--shiesty-gold);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.shiesty-btn {
+    background: linear-gradient(135deg, var(--shiesty-gold), var(--shiesty-gold-dim)) !important;
+    color: var(--shiesty-black) !important;
+    font-family: var(--font-shiesty-body) !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: none;
+}
+
+.shiesty-btn:hover {
+    box-shadow: var(--glow-gold);
+    transform: translateY(-2px);
+}
+
+/* ============================================
+   Quote Section
+   ============================================ */
+
+.shiesty-quote-section {
+    background:
+        radial-gradient(circle at center, rgba(212, 175, 55, 0.04) 0%, transparent 50%),
+        var(--shiesty-black);
+}
+
+.shiesty-quote-block {
+    text-align: center;
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    border-left: 3px solid var(--shiesty-gold);
+    border-right: 3px solid var(--shiesty-gold);
+}
+
+.quote-mark {
+    font-family: var(--font-shiesty);
+    font-size: 5rem;
+    color: var(--shiesty-gold);
+    opacity: 0.3;
+    line-height: 0.5;
+    margin-bottom: 1rem;
+}
+
+.shiesty-quote {
+    font-family: var(--font-shiesty-body);
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: rgba(245, 245, 245, 0.8);
+    line-height: 1.9;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
+
+.shiesty-quote em {
+    font-style: normal;
+    color: var(--shiesty-gold);
+    font-weight: 600;
+}
+
+.quote-attribution {
+    font-family: var(--font-shiesty-body);
+    font-size: 0.8rem;
+    color: var(--shiesty-gold-dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+
+.shiesty-footer {
+    background: var(--shiesty-black) !important;
+    border-top: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.shiesty-footer .footer-main {
+    padding: 2.5rem 0;
+}
+
+.shiesty-footer-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.shiesty-footer-text {
+    font-family: var(--font-shiesty);
+    font-size: 1rem;
+    color: var(--shiesty-gold-dim);
+    letter-spacing: 0.2em;
+    margin-bottom: 0.75rem;
+}
+
+.shiesty-footer-disclaimer {
+    font-family: var(--font-shiesty-body);
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: rgba(245, 245, 245, 0.2);
+    max-width: 550px;
+    margin: 0 auto 0.75rem;
+    line-height: 1.6;
+}
+
+.shiesty-footer-copy {
+    font-family: var(--font-shiesty-body);
+    font-size: 0.7rem;
+    color: rgba(245, 245, 245, 0.15);
+    letter-spacing: 0.05em;
+}
+
+/* ============================================
+   Transition Overlay (contact -> here)
+   ============================================ */
+
+.shiesty-transition-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--shiesty-black);
+    z-index: 999999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.shiesty-transition-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.shiesty-transition-overlay .transition-icon {
+    font-size: 4rem;
+    animation: loadingBounce 0.4s ease-in-out infinite alternate;
+}
+
+.shiesty-transition-overlay p {
+    font-family: var(--font-shiesty);
+    color: var(--shiesty-gold);
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    letter-spacing: 0.3em;
+    text-shadow: var(--glow-gold);
+}
+
+/* ============================================
+   Bass Shake
+   ============================================ */
+
+.bass-shake {
+    animation: bassShake 0.3s ease-in-out;
+}
+
+@keyframes bassShake {
+    0%, 100% { transform: translate(0); }
+    15% { transform: translate(-3px, 0); }
+    30% { transform: translate(3px, 0); }
+    45% { transform: translate(-2px, 0); }
+    60% { transform: translate(2px, 0); }
+    75% { transform: translate(-1px, 0); }
+    90% { transform: translate(1px, 0); }
+}
+
+/* ============================================
+   Animations
+   ============================================ */
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   Mobile
+   ============================================ */
+
+@media (max-width: 767px) {
+    .shiesty-hero-content {
+        padding: 7rem 1rem 3rem;
+    }
+
+    .shiesty-section {
+        padding: 4rem 0;
+    }
+
+    .shiesty-section-header {
+        margin-bottom: 2.5rem;
+    }
+
+    .shiesty-stats-row {
+        gap: 1.5rem;
+    }
+
+    .gavel-btn {
+        width: 130px;
+        height: 130px;
+    }
+
+    .ring-1 { width: 170px; height: 170px; }
+    .ring-2 { width: 210px; height: 210px; }
+    .ring-3 { width: 250px; height: 250px; }
+
+    .commandment-item {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .commandment-num {
+        width: auto;
+        text-align: left;
+    }
+
+    .shiesty-quote-block {
+        padding: 2rem 1rem;
+    }
+}
