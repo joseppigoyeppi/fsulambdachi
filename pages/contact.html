@@ -62,7 +62,7 @@
                         <h2 class="section-title">Reach Out</h2>
                     </div>
 
-                    <form class="contact-form" id="contact-form">
+                    <form class="contact-form" id="contact-form" action="https://formspree.io/f/xojnjalq" method="POST">
                         <div style="display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
                             <div class="form-group">
                                 <label for="firstName">First Name *</label>
@@ -308,24 +308,45 @@
         document.getElementById('contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const submitBtn = this.querySelector('button[type="submit"]');
+            const form = this;
+            const submitBtn = form.querySelector('button[type="submit"]');
             const originalContent = submitBtn.innerHTML;
 
             submitBtn.innerHTML = '<span>Sending...</span><i class="fas fa-spinner fa-spin"></i>';
             submitBtn.disabled = true;
 
-            // Simulate form submission (replace with actual form handling)
-            setTimeout(() => {
-                submitBtn.innerHTML = '<span>Message Sent!</span><i class="fas fa-check"></i>';
-                submitBtn.style.background = 'linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%)';
-
-                setTimeout(() => {
+            fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: { 'Accept': 'application/json' }
+            }).then(function(response) {
+                if (response.ok) {
+                    submitBtn.innerHTML = '<span>Message Sent!</span><i class="fas fa-check"></i>';
+                    submitBtn.style.background = 'linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%)';
+                    setTimeout(function() {
+                        submitBtn.innerHTML = originalContent;
+                        submitBtn.style.background = '';
+                        submitBtn.disabled = false;
+                        form.reset();
+                    }, 3000);
+                } else {
+                    submitBtn.innerHTML = '<span>Something went wrong</span><i class="fas fa-exclamation-triangle"></i>';
+                    submitBtn.style.background = 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)';
+                    setTimeout(function() {
+                        submitBtn.innerHTML = originalContent;
+                        submitBtn.style.background = '';
+                        submitBtn.disabled = false;
+                    }, 3000);
+                }
+            }).catch(function() {
+                submitBtn.innerHTML = '<span>Something went wrong</span><i class="fas fa-exclamation-triangle"></i>';
+                submitBtn.style.background = 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)';
+                setTimeout(function() {
                     submitBtn.innerHTML = originalContent;
                     submitBtn.style.background = '';
                     submitBtn.disabled = false;
-                    this.reset();
                 }, 3000);
-            }, 1500);
+            });
         });
     </script>
 </body>
