@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ΛΧΑ | ẗ̴̢h̶̭̊e̵̥͝ ̴̣̈l̵̢̈o̸̜͑s̶̰͝ṫ̷̡ ̶̰̿b̷̤̊r̵̢̈o̸̜͑t̶̰͝ḣ̷̡ḛ̶̿r̷̤̊</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=UnifrakturMaguntia&family=MedievalSharp&family=Creepster&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/evil.css">
+    <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
+</head>
+<body class="evil-body">
+    <!-- Blood drip overlay -->
+    <div class="blood-drip-top"></div>
+
+    <!-- Floating particles -->
+    <div class="evil-particles" id="evil-particles"></div>
+
+    <!-- Flickering darkness overlay -->
+    <div class="darkness-overlay" id="darkness-overlay"></div>
+
+    <!-- Static/noise overlay -->
+    <div class="static-overlay" id="static-overlay"></div>
+
+    <!-- Corrupted Loading Screen -->
+    <div class="evil-loading" id="evil-loading">
+        <div class="loading-glitch-img">
+            <img src="../images/alexklapperich.png" alt="" class="loading-portrait">
+        </div>
+        <p class="evil-loading-text">R̶E̸C̵O̴R̸D̶ ̵F̴O̶U̴N̸D̵.̶.̸.</p>
+        <div class="loading-corrupt-bar">
+            <div class="loading-corrupt-fill"></div>
+        </div>
+        <p class="loading-subtext">ACCESSING SEALED FILES</p>
+    </div>
+
+    <!-- Evil Navbar -->
+    <nav class="navbar evil-navbar scrolled" id="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo evil-logo">
+                <div class="logo-icon evil-logo-icon">ΛΧΑ</div>
+                <div class="logo-text">
+                    <span class="logo-primary evil-text-flicker">Z̷e̵t̸a̶ ̵R̷h̸o̸</span>
+                    <span class="logo-secondary evil-glow">[CORRUPTED FILE]</span>
+                </div>
+            </a>
+
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item"><a href="../index.html" class="nav-link evil-nav-link"><i class="fas fa-arrow-left"></i> Exit File</a></li>
+                <li class="nav-item"><a href="#the-shrine" class="nav-link evil-nav-link">The Shrine</a></li>
+                <li class="nav-item"><a href="#the-testimony" class="nav-link evil-nav-link">Testimony</a></li>
+                <li class="nav-item"><a href="#the-evidence" class="nav-link evil-nav-link">Evidence</a></li>
+                <li class="nav-item"><a href="#the-ritual" class="nav-link evil-nav-link">The Ritual</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ============================================
+         HERO: THE SHRINE - Alex's corrupted portrait
+         ============================================ -->
+    <section class="evil-hero" id="the-shrine">
+        <div class="evil-hero-bg">
+            <div class="evil-hero-overlay"></div>
+            <div class="evil-candles">
+                <div class="candle candle-1"><div class="flame"></div></div>
+                <div class="candle candle-2"><div class="flame"></div></div>
+                <div class="candle candle-3"><div class="flame"></div></div>
+                <div class="candle candle-4"><div class="flame"></div></div>
+                <div class="candle candle-5"><div class="flame"></div></div>
+            </div>
+        </div>
+        <div class="container evil-hero-content">
+            <!-- The corrupted portrait shrine -->
+            <div class="shrine-portrait-wrapper">
+                <div class="shrine-frame">
+                    <div class="shrine-candle shrine-candle-left"><div class="flame"></div></div>
+                    <div class="shrine-candle shrine-candle-right"><div class="flame"></div></div>
+                    <div class="portrait-glitch-container">
+                        <img src="../images/alexklapperich.png" alt="Alex Klapperich" class="shrine-portrait" id="shrine-portrait">
+                        <div class="portrait-glitch-slice portrait-slice-1"></div>
+                        <div class="portrait-glitch-slice portrait-slice-2"></div>
+                        <div class="portrait-glitch-slice portrait-slice-3"></div>
+                        <div class="portrait-scanlines"></div>
+                        <div class="portrait-vignette"></div>
+                    </div>
+                </div>
+                <div class="shrine-offerings">
+                    <span class="offering">&#128367;&#65039;</span>
+                    <span class="offering">&#9876;&#65039;</span>
+                    <span class="offering">&#128128;</span>
+                    <span class="offering">&#9876;&#65039;</span>
+                    <span class="offering">&#128367;&#65039;</span>
+                </div>
+            </div>
+
+            <h1 class="evil-title">
+                <span class="evil-title-pre">THE LOST BROTHER</span>
+                <span class="evil-title-main glitch-text" data-text="ALEX KLAPPERICH">ALEX KLAPPERICH</span>
+            </h1>
+            <div class="classified-stamp">CLASSIFIED - ZETA RHO ARCHIVES</div>
+            <p class="evil-description">This file was never meant to be found. The chapter sealed these records in 20&#x2588;&#x2588;. Those who speak his name on the contact form will find themselves here. You were warned.</p>
+
+            <div class="evil-scroll-indicator">
+                <span>Descend Into the Archive</span>
+                <i class="fas fa-chevron-down"></i>
+                <i class="fas fa-chevron-down"></i>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Corrupted Warning Banner -->
+    <div class="evil-warning-banner">
+        <div class="container">
+            <p><i class="fas fa-exclamation-triangle"></i> &nbsp;F̵I̶L̵E̸ ̶C̸O̴R̵R̸U̶P̶T̶E̴D̴ — UNAUTHORIZED ACCESS DETECTED — F̵I̶L̵E̸ ̶C̸O̴R̵R̸U̶P̶T̶E̴D̴&nbsp; <i class="fas fa-exclamation-triangle"></i></p>
+        </div>
+    </div>
+
+    <!-- ============================================
+         SECTION: THE TESTIMONY
+         ============================================ -->
+    <section class="evil-section evil-commandments" id="the-testimony">
+        <div class="container">
+            <div class="evil-section-header">
+                <span class="evil-section-tag"><i class="fas fa-file-alt"></i> Recovered Testimony <i class="fas fa-file-alt"></i></span>
+                <h2 class="evil-section-title">What They Remember</h2>
+                <p class="evil-section-subtitle">Fragments recovered from corrupted chapter meeting minutes and anonymous witness accounts. Some data has been lost to time.</p>
+            </div>
+
+            <div class="evil-commandments-grid">
+                <div class="evil-commandment-card testimony-card">
+                    <div class="commandment-number"><i class="fas fa-quote-left"></i></div>
+                    <h3>The Vanishing</h3>
+                    <p>"He was at the chapter meeting on a T&#x2588;&#x2588;&#x2588;day night and then... he just wasn't anymore. His chair was still warm. His dues were still unpaid. It was like he stepped through a door none of us could see."</p>
+                    <span class="testimony-source">— Brother &#x2588;&#x2588;&#x2588;&#x2588;&#x2588;, Zeta Rho Class of 20&#x2588;&#x2588;</span>
+                </div>
+
+                <div class="evil-commandment-card testimony-card">
+                    <div class="commandment-number"><i class="fas fa-quote-left"></i></div>
+                    <h3>The Photograph</h3>
+                    <p>"We found the old composite photo in the basement. Everyone's face is normal except his. His image keeps... shifting. Every time you look at it, his smile is a little wider. We nailed it to the wall facing down."</p>
+                    <span class="testimony-source">— Anonymous, submitted via &#x2588;&#x2588;&#x2588;&#x2588;</span>
+                </div>
+
+                <div class="evil-commandment-card testimony-card">
+                    <div class="commandment-number"><i class="fas fa-quote-left"></i></div>
+                    <h3>The GroupMe</h3>
+                    <p>"His name still appears in the chapter GroupMe. Nobody added him. He doesn't post, but sometimes messages get a &#x1F440; react from his account at exactly 3:33 AM. We've tried removing him &#x2588;&#x2588;&#x2588; times."</p>
+                    <span class="testimony-source">— Former Social Chair, name withheld</span>
+                </div>
+
+                <div class="evil-commandment-card testimony-card">
+                    <div class="commandment-number"><i class="fas fa-quote-left"></i></div>
+                    <h3>The Formal</h3>
+                    <p>"Every formal, there's one extra place setting. Nobody orders it. Nobody sits there. But by the end of the night, the plate is always empty and the chair is warm. The waitstaff refuses to talk about it."</p>
+                    <span class="testimony-source">— &#x2588;&#x2588;&#x2588;&#x2588; &#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;, Spring 20&#x2588;&#x2588;</span>
+                </div>
+
+                <div class="evil-commandment-card testimony-card">
+                    <div class="commandment-number"><i class="fas fa-quote-left"></i></div>
+                    <h3>The Handshake</h3>
+                    <p>"The new pledges always ask who taught them the secret handshake in their dreams before initiation. When we show them old composites, they all point to the same face. They point to him."</p>
+                    <span class="testimony-source">— Pledge Educator, Fa&#x2588;&#x2588; 20&#x2588;&#x2588;</span>
+                </div>
+
+                <div class="evil-commandment-card testimony-card">
+                    <div class="commandment-number"><i class="fas fa-quote-left"></i></div>
+                    <h3>The Dues</h3>
+                    <p>"Accounting found his dues have been paid in full every semester. The payments come from a bank account that was closed in 19&#x2588;&#x2588;. The treasurer just marks it as 'received' and doesn't ask questions anymore."</p>
+                    <span class="testimony-source">— Chapter Advisor, [REDACTED]</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SECTION: THE EVIDENCE
+         ============================================ -->
+    <section class="evil-section evil-coven-section" id="the-evidence">
+        <div class="container">
+            <div class="evil-section-header">
+                <span class="evil-section-tag"><i class="fas fa-folder-open"></i> Sealed Evidence <i class="fas fa-folder-open"></i></span>
+                <h2 class="evil-section-title">Recovered Artifacts</h2>
+                <p class="evil-section-subtitle">Items collected from the chapter house basement, the sealed third-floor closet, and places that don't appear on any floorplan.</p>
+            </div>
+
+            <div class="evil-coven-grid">
+                <div class="coven-card evidence-card">
+                    <div class="coven-icon"><i class="fas fa-id-card" style="font-size: 2rem; color: var(--evil-blood);"></i></div>
+                    <h3>His Bid Card</h3>
+                    <span class="coven-title">Date: &#x2588;&#x2588;/&#x2588;&#x2588;/&#x2588;&#x2588;&#x2588;&#x2588;</span>
+                    <p>Found tucked behind a wall panel during renovations. The signature changes every time it's photographed. The ink never dries. It's always warm to the touch.</p>
+                </div>
+
+                <div class="coven-card evidence-card">
+                    <div class="coven-icon"><i class="fas fa-camera" style="font-size: 2rem; color: var(--evil-blood);"></i></div>
+                    <h3>Composite #&#x2588;&#x2588;</h3>
+                    <span class="coven-title">Location: Chapter House Basement</span>
+                    <p>His photo in the composite cannot be removed, covered, or destroyed. A brother tried to paint over it once. The paint slid off. The brother transferred schools the next day.</p>
+                </div>
+
+                <div class="coven-card evidence-card">
+                    <div class="coven-icon"><i class="fas fa-tshirt" style="font-size: 2rem; color: var(--evil-blood);"></i></div>
+                    <h3>The Letters</h3>
+                    <span class="coven-title">Evidence Bag #0037</span>
+                    <p>A Lambda Chi letter jersey found in the house with his name on the back. Size doesn't match any known member. The fabric is cold regardless of temperature. Smells faintly of formal cologne.</p>
+                </div>
+
+                <div class="coven-card evidence-card">
+                    <div class="coven-icon"><i class="fas fa-mobile-alt" style="font-size: 2rem; color: var(--evil-blood);"></i></div>
+                    <h3>The Last Text</h3>
+                    <span class="coven-title">Recovered from device &#x2588;&#x2588;&#x2588;&#x2588;</span>
+                    <p>The last text he ever sent reads: "On my way to chapter, save me a seat." Sent at 7:47 PM. He was never seen walking to the house. The message still shows as "Delivered."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SECTION: THE CORRUPTED RECORDS
+         ============================================ -->
+    <section class="evil-section evil-texts-section" id="the-records">
+        <div class="container">
+            <div class="evil-section-header">
+                <span class="evil-section-tag"><i class="fas fa-database"></i> Corrupted Records <i class="fas fa-database"></i></span>
+                <h2 class="evil-section-title">Sealed Chapter Files</h2>
+                <p class="evil-section-subtitle">Digital records recovered from the chapter server. Most data is corrupted beyond repair. What remains is... unsettling.</p>
+            </div>
+
+            <div class="evil-texts-grid">
+                <div class="evil-text-card">
+                    <div class="text-card-header">
+                        <i class="fas fa-file-lines"></i>
+                        <h3>meeting_minutes_final_FINAL(2).docx</h3>
+                    </div>
+                    <p class="corrupted-text">"Motion to &#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588; Brother Klapperich from &#x2588;&#x2588;&#x2588;&#x2588;&#x2588; — MOTION TABLED INDEFINITELY. Do not bring this to vote again. Do not mention this motion. Destroy all copies. <span class="blink-slow">He can hear the minutes being read.</span>"</p>
+                    <div class="text-card-footer">
+                        <span class="danger-level">Corruption: <span class="danger-stars">&#9608;&#9608;&#9608;&#9608;&#9617;</span> 82%</span>
+                    </div>
+                </div>
+
+                <div class="evil-text-card">
+                    <div class="text-card-header">
+                        <i class="fas fa-image"></i>
+                        <h3>formal_spring_20&#x2588;&#x2588;.jpg</h3>
+                    </div>
+                    <p class="corrupted-text">[IMAGE CORRUPTED] Metadata reads: 47 brothers in frame. Visual analysis detects 48 figures. The 48th is standing behind everyone else. He is the only one looking directly at the camera. <span class="blink-slow">He is smiling.</span></p>
+                    <div class="text-card-footer">
+                        <span class="danger-level">Corruption: <span class="danger-stars">&#9608;&#9608;&#9608;&#9608;&#9608;</span> 100%</span>
+                    </div>
+                </div>
+
+                <div class="evil-text-card">
+                    <div class="text-card-header">
+                        <i class="fas fa-envelope"></i>
+                        <h3>re_re_re_URGENT.eml</h3>
+                    </div>
+                    <p class="corrupted-text">From: &#x2588;&#x2588;&#x2588;&#x2588;@fsu.edu<br>To: Chapter Advisor<br>Subject: RE: RE: RE: URGENT<br><br>"Stop trying to remove him from the roster. Every time we delete his name, two more entries appear. IT says the server room was 40&deg;F this morning. It's August in Tallahassee."</p>
+                    <div class="text-card-footer">
+                        <span class="danger-level">Corruption: <span class="danger-stars">&#9608;&#9608;&#9608;&#9617;&#9617;</span> 64%</span>
+                    </div>
+                </div>
+
+                <div class="evil-text-card">
+                    <div class="text-card-header">
+                        <i class="fas fa-file-audio"></i>
+                        <h3>voicemail_unknown_3_33am.wav</h3>
+                    </div>
+                    <p class="corrupted-text">[TRANSCRIPT — AUTO-GENERATED]<br>"...still here... can you hear me... I never left... the house remembers... <span class="blink-slow">save me a seat...</span>"<br><br>[AUDIO ANALYSIS: Voice does not match any registered brother. Recording duration: 0:00 according to file metadata. Actual playback: 3 minutes, 33 seconds.]</p>
+                    <div class="text-card-footer">
+                        <span class="danger-level">Corruption: <span class="danger-stars">&#9608;&#9608;&#9608;&#9608;&#9617;</span> 91%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SECTION: THE RITUAL - Contact the Lost Brother
+         ============================================ -->
+    <section class="evil-section evil-ritual-section" id="the-ritual">
+        <div class="container">
+            <div class="evil-section-header">
+                <span class="evil-section-tag"><i class="fas fa-satellite-dish"></i> Attempt Contact <i class="fas fa-satellite-dish"></i></span>
+                <h2 class="evil-section-title">Reach the Lost Brother</h2>
+                <p class="evil-section-subtitle">The chapter has attempted to contact Alex Klapperich &#x2588;&#x2588;&#x2588; times. All attempts have failed. But you found this page. Maybe he'll answer you.</p>
+            </div>
+
+            <div class="evil-ritual-circle">
+                <div class="ritual-ring ring-outer"></div>
+                <div class="ritual-ring ring-middle"></div>
+                <div class="ritual-ring ring-inner"></div>
+                <div class="ritual-portrait-center">
+                    <img src="../images/alexklapperich.png" alt="" class="ritual-center-img">
+                </div>
+                <button class="evil-summon-btn" id="summon-btn">
+                    <span class="summon-text">MAKE<br>CONTACT</span>
+                    <span class="summon-text-active" style="display:none;">SIGNAL<br>SENT...</span>
+                </button>
+            </div>
+
+            <div class="evil-summon-result" id="summon-result" style="display:none;">
+                <div class="summon-message">
+                    <div class="result-portrait">
+                        <img src="../images/alexklapperich.png" alt="" class="result-portrait-img">
+                    </div>
+                    <h3>&#x2588;&#x2588; CONTACT ESTABLISHED &#x2588;&#x2588;</h3>
+                    <p class="corrupted-text result-text">
+                        <span class="blink-slow">"I never left."</span><br><br>
+                        Signal strength: &#x2588;&#x2588;&#x2588;% — IMPOSSIBLE VALUE<br>
+                        Location: 1944 Heritage Grove Circle — <span class="blink-slow">INSIDE THE WALLS</span><br>
+                        Duration: &#x221E;<br><br>
+                        He says he's fine. He says the brotherhood is forever. He says to pay your dues.
+                    </p>
+                    <button class="btn evil-btn" onclick="window.location.href='contact.html'">
+                        <span>Return to Safety</span>
+                        <i class="fas fa-door-open"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Evil Footer -->
+    <footer class="footer evil-footer">
+        <div class="footer-main">
+            <div class="container">
+                <div style="text-align: center;">
+                    <div class="evil-footer-symbol">ΛΧΑ</div>
+                    <p class="evil-footer-text">This file will self-corrupt in &#x2588;&#x2588;:&#x2588;&#x2588;:&#x2588;&#x2588;</p>
+                    <p class="evil-footer-disclaimer">This page is an easter egg. Alex Klapperich is (probably) still among us. Lambda Chi Alpha Zeta Rho does not endorse contacting the void, tampering with sealed records, or forgetting to pay your dues.</p>
+                    <p class="evil-footer-copy">&copy; 20&#x2588;&#x2588; Lambda Chi Alpha - Zeta Rho Chapter | FILE STATUS: [SEALED]</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/evil.js"></script>
+</body>
+</html>
