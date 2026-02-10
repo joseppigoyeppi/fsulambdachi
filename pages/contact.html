@@ -292,7 +292,19 @@
         </div>
     </footer>
 
+    <!-- Evil Transition Overlay -->
+    <div class="evil-transition-overlay" id="evil-transition">
+        <div class="pentagram-spinner">
+            <svg viewBox="0 0 200 200" class="pentagram-svg">
+                <polygon points="100,10 127,80 197,80 140,125 160,195 100,155 40,195 60,125 3,80 73,80" fill="none" stroke="currentColor" stroke-width="2"/>
+                <circle cx="100" cy="100" r="95" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+        </div>
+        <p>The darkness awakens...</p>
+    </div>
+
     <script src="../js/main.js"></script>
+    <link rel="stylesheet" href="../css/evil.css">
     <script>
         // Show/hide class year field based on inquiry type
         document.getElementById('inquiry').addEventListener('change', function() {
@@ -303,6 +315,30 @@
                 classYearGroup.style.display = 'none';
             }
         });
+
+        // Evil name detection - check when either name field changes
+        function checkForEvilAlex() {
+            const firstName = document.getElementById('firstName').value.trim().toLowerCase();
+            const lastName = document.getElementById('lastName').value.trim().toLowerCase();
+
+            if (firstName === 'alex' && lastName === 'klapperich') {
+                // Trigger the evil transition
+                const overlay = document.getElementById('evil-transition');
+                overlay.classList.add('active');
+
+                // Shake the screen
+                document.body.classList.add('screen-shake');
+                setTimeout(() => document.body.classList.remove('screen-shake'), 500);
+
+                // Redirect to evil page after dramatic pause
+                setTimeout(() => {
+                    window.location.href = 'evil-ritual.html';
+                }, 2500);
+            }
+        }
+
+        document.getElementById('firstName').addEventListener('input', checkForEvilAlex);
+        document.getElementById('lastName').addEventListener('input', checkForEvilAlex);
 
         // Form submission handling
         document.getElementById('contact-form').addEventListener('submit', function(e) {

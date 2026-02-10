@@ -1,0 +1,1417 @@
+/* ============================================
+   THE LOST BROTHER — Alex Klapperich
+   Corrupted Shrine Page Styles
+   ============================================ */
+
+/* Evil Fonts */
+@import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=MedievalSharp&family=Creepster&family=Special+Elite&display=swap');
+
+/* Evil CSS Variables */
+:root {
+    --evil-black: #0a0a0a;
+    --evil-dark: #1a0a0a;
+    --evil-blood: #8B0000;
+    --evil-blood-bright: #CC0000;
+    --evil-ember: #FF4500;
+    --evil-flame: #FF6B35;
+    --evil-candle: #FFD700;
+    --evil-candle-dim: #B8860B;
+    --evil-shadow: #2d0a0a;
+    --evil-bone: #D4C5A9;
+    --evil-mist: rgba(139, 0, 0, 0.15);
+    --evil-glow-red: 0 0 20px rgba(139, 0, 0, 0.6), 0 0 40px rgba(139, 0, 0, 0.3);
+    --evil-glow-candle: 0 0 15px rgba(255, 215, 0, 0.5), 0 0 30px rgba(255, 165, 0, 0.3);
+    --font-evil: 'Creepster', 'UnifrakturMaguntia', cursive;
+    --font-evil-body: 'Special Elite', 'MedievalSharp', cursive;
+    --font-corrupt: 'Courier New', monospace;
+}
+
+/* ============================================
+   Evil Body — The corrupted base
+   ============================================ */
+
+.evil-body {
+    background: var(--evil-black);
+    color: var(--evil-bone);
+    overflow-x: hidden;
+}
+
+.evil-body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at 20% 50%, rgba(139, 0, 0, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 50%, rgba(139, 0, 0, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse at 50% 100%, rgba(139, 0, 0, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ============================================
+   Blood Drip Top Bar
+   ============================================ */
+
+.blood-drip-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    z-index: 9999;
+    pointer-events: none;
+    background: var(--evil-blood);
+    box-shadow: 0 0 15px rgba(139, 0, 0, 0.6), 0 2px 8px rgba(139, 0, 0, 0.4);
+}
+
+/* ============================================
+   Static / Noise Overlay
+   ============================================ */
+
+.static-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9997;
+    opacity: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.4'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+    transition: opacity 0.1s ease;
+}
+
+.static-overlay.flash {
+    opacity: 0.8;
+    animation: staticFlash 0.2s ease;
+}
+
+@keyframes staticFlash {
+    0% { opacity: 0; }
+    20% { opacity: 0.9; }
+    40% { opacity: 0.2; }
+    60% { opacity: 0.7; }
+    80% { opacity: 0.1; }
+    100% { opacity: 0; }
+}
+
+/* ============================================
+   Darkness Overlay (flicker)
+   ============================================ */
+
+.darkness-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0);
+    pointer-events: none;
+    z-index: 9998;
+    transition: background 0.15s ease;
+}
+
+.darkness-overlay.flicker {
+    animation: darknessFlicker 0.3s ease;
+}
+
+@keyframes darknessFlicker {
+    0% { background: rgba(0, 0, 0, 0); }
+    25% { background: rgba(0, 0, 0, 0.7); }
+    50% { background: rgba(0, 0, 0, 0.1); }
+    75% { background: rgba(0, 0, 0, 0.5); }
+    100% { background: rgba(0, 0, 0, 0); }
+}
+
+/* ============================================
+   Loading Screen — Corrupted file access
+   ============================================ */
+
+.evil-loading {
+    position: fixed;
+    inset: 0;
+    background: var(--evil-black);
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.evil-loading.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loading-glitch-img {
+    width: 120px;
+    height: 160px;
+    overflow: hidden;
+    border: 2px solid var(--evil-blood);
+    box-shadow: var(--evil-glow-red);
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.loading-portrait {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    filter: grayscale(100%) contrast(1.8) brightness(0.4);
+    animation: loadingGlitch 0.3s infinite;
+}
+
+@keyframes loadingGlitch {
+    0%, 100% { transform: translate(0); filter: grayscale(100%) contrast(1.8) brightness(0.4); }
+    20% { transform: translate(-3px, 1px); filter: grayscale(100%) contrast(2) brightness(0.3) hue-rotate(90deg); }
+    40% { transform: translate(2px, -1px); filter: grayscale(100%) contrast(1.5) brightness(0.5); }
+    60% { transform: translate(-1px, 2px); filter: grayscale(100%) contrast(2.2) brightness(0.2) hue-rotate(-60deg); }
+    80% { transform: translate(3px, -2px); filter: grayscale(100%) contrast(1.8) brightness(0.4); }
+}
+
+.evil-loading-text {
+    font-family: var(--font-corrupt);
+    font-size: 1.2rem;
+    color: var(--evil-blood);
+    text-shadow: var(--evil-glow-red);
+    margin-bottom: 1.5rem;
+    animation: evilPulse 1s ease-in-out infinite;
+}
+
+.loading-corrupt-bar {
+    width: 200px;
+    height: 4px;
+    background: rgba(139, 0, 0, 0.2);
+    border: 1px solid rgba(139, 0, 0, 0.4);
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.loading-corrupt-fill {
+    width: 0%;
+    height: 100%;
+    background: var(--evil-blood);
+    box-shadow: 0 0 10px rgba(139, 0, 0, 0.8);
+    animation: corruptLoad 2.2s ease-in-out forwards;
+}
+
+@keyframes corruptLoad {
+    0% { width: 0%; }
+    15% { width: 25%; }
+    30% { width: 28%; }
+    45% { width: 55%; }
+    55% { width: 57%; }
+    70% { width: 80%; }
+    85% { width: 82%; }
+    95% { width: 97%; }
+    100% { width: 100%; }
+}
+
+.loading-subtext {
+    font-family: var(--font-corrupt);
+    font-size: 0.7rem;
+    color: rgba(139, 0, 0, 0.5);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+}
+
+@keyframes evilPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+/* ============================================
+   Floating Ember Particles
+   ============================================ */
+
+.evil-particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.evil-particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--evil-ember);
+    opacity: 0;
+    animation: floatParticle linear infinite;
+}
+
+@keyframes floatParticle {
+    0% { opacity: 0; transform: translateY(100vh) scale(0); }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.4; }
+    100% { opacity: 0; transform: translateY(-20vh) scale(1); }
+}
+
+/* ============================================
+   Evil Navbar
+   ============================================ */
+
+.evil-navbar.scrolled {
+    background: rgba(10, 10, 10, 0.97) !important;
+    border-bottom: 1px solid rgba(139, 0, 0, 0.4);
+    box-shadow: 0 2px 20px rgba(139, 0, 0, 0.2) !important;
+}
+
+.evil-navbar .nav-toggle span {
+    background: var(--evil-blood) !important;
+}
+
+.evil-logo .logo-icon {
+    color: var(--evil-blood) !important;
+    text-shadow: var(--evil-glow-red) !important;
+}
+
+.evil-logo .logo-text {
+    color: var(--evil-bone) !important;
+}
+
+.evil-text-flicker {
+    animation: textFlicker 4s ease-in-out infinite;
+}
+
+@keyframes textFlicker {
+    0%, 100% { opacity: 1; }
+    92% { opacity: 1; }
+    93% { opacity: 0.2; }
+    94% { opacity: 1; }
+    96% { opacity: 0.4; }
+    97% { opacity: 1; }
+}
+
+.evil-glow {
+    color: var(--evil-blood) !important;
+    text-shadow: 0 0 8px rgba(139, 0, 0, 0.4);
+    font-size: 0.65rem !important;
+    font-family: var(--font-corrupt) !important;
+    letter-spacing: 0.1em !important;
+}
+
+.evil-nav-link {
+    color: var(--evil-bone) !important;
+    text-shadow: none !important;
+    font-family: var(--font-corrupt) !important;
+    font-size: 0.85rem !important;
+    letter-spacing: 0.05em !important;
+    text-transform: uppercase !important;
+}
+
+.evil-nav-link:hover,
+.evil-nav-link.active {
+    color: var(--evil-blood) !important;
+}
+
+.evil-nav-link::after {
+    background: var(--evil-blood) !important;
+}
+
+@media (max-width: 968px) {
+    .evil-navbar.scrolled.menu-open {
+        background: transparent !important;
+    }
+
+    .evil-body .nav-menu {
+        background: linear-gradient(135deg, #1a0505, #0a0a0a) !important;
+    }
+
+    .evil-body .nav-menu .nav-link {
+        color: var(--evil-bone) !important;
+    }
+}
+
+/* ============================================
+   HERO: The Shrine
+   ============================================ */
+
+.evil-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.evil-hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at center, rgba(139, 0, 0, 0.12) 0%, transparent 70%),
+        linear-gradient(180deg, #0a0505 0%, #1a0a0a 50%, #0a0a0a 100%);
+    z-index: 0;
+}
+
+.evil-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    opacity: 0.4;
+}
+
+/* Candles */
+.evil-candles {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    z-index: 1;
+}
+
+.candle {
+    position: absolute;
+    bottom: 0;
+    width: 16px;
+    background: linear-gradient(to top, #1a1008, #2a1a0a, #3a2a1a);
+    border-radius: 2px 2px 0 0;
+}
+
+.candle-1 { left: 8%; height: 70px; }
+.candle-2 { left: 22%; height: 90px; }
+.candle-3 { left: 50%; height: 110px; transform: translateX(-50%); }
+.candle-4 { right: 22%; height: 80px; }
+.candle-5 { right: 8%; height: 100px; }
+
+.flame {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 25px;
+    background: radial-gradient(ellipse at bottom, var(--evil-candle), var(--evil-flame), transparent);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    animation: flameFlicker 0.4s ease-in-out infinite alternate;
+    box-shadow: var(--evil-glow-candle);
+}
+
+.candle-1 .flame { animation-delay: 0s; }
+.candle-2 .flame { animation-delay: 0.1s; }
+.candle-3 .flame { animation-delay: 0.2s; }
+.candle-4 .flame { animation-delay: 0.15s; }
+.candle-5 .flame { animation-delay: 0.05s; }
+
+@keyframes flameFlicker {
+    0% { transform: translateX(-50%) scaleY(1) scaleX(1) rotate(-2deg); opacity: 1; }
+    25% { transform: translateX(-50%) scaleY(1.15) scaleX(0.85) rotate(1deg); opacity: 0.85; }
+    50% { transform: translateX(-50%) scaleY(0.9) scaleX(1.1) rotate(-1deg); opacity: 1; }
+    75% { transform: translateX(-50%) scaleY(1.1) scaleX(0.9) rotate(2deg); opacity: 0.8; }
+    100% { transform: translateX(-50%) scaleY(1) scaleX(1) rotate(-1deg); opacity: 0.9; }
+}
+
+.candle::after {
+    content: '';
+    position: absolute;
+    top: -45px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 70px;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* Hero Content */
+.evil-hero-content {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+    padding: 8rem 1.5rem 4rem;
+}
+
+/* ============================================
+   SHRINE PORTRAIT — The corrupted image
+   ============================================ */
+
+.shrine-portrait-wrapper {
+    margin-bottom: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.shrine-frame {
+    position: relative;
+    padding: 12px;
+    background: linear-gradient(135deg, #1a0a0a, #2a1510);
+    border: 2px solid rgba(139, 0, 0, 0.5);
+    box-shadow:
+        var(--evil-glow-red),
+        inset 0 0 30px rgba(0, 0, 0, 0.8),
+        0 0 60px rgba(139, 0, 0, 0.15);
+}
+
+.shrine-candle {
+    position: absolute;
+    bottom: 0;
+    width: 10px;
+    height: 50px;
+    background: linear-gradient(to top, #2a1a0a, #4a3a2a);
+    border-radius: 2px 2px 0 0;
+    z-index: 10;
+}
+
+.shrine-candle-left { left: -25px; }
+.shrine-candle-right { right: -25px; }
+
+.portrait-glitch-container {
+    position: relative;
+    width: 220px;
+    height: 300px;
+    overflow: hidden;
+}
+
+.shrine-portrait {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    filter: grayscale(70%) contrast(1.4) brightness(0.5) sepia(30%);
+    transition: filter 0.3s ease;
+}
+
+/* Glitch slices that randomly shift */
+.portrait-glitch-slice {
+    position: absolute;
+    left: 0;
+    right: 0;
+    background: inherit;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.portrait-slice-1 {
+    top: 20%;
+    height: 8%;
+    animation: glitchSlice1 8s ease-in-out infinite;
+}
+
+.portrait-slice-2 {
+    top: 55%;
+    height: 5%;
+    animation: glitchSlice2 6s ease-in-out infinite;
+    animation-delay: 2s;
+}
+
+.portrait-slice-3 {
+    top: 75%;
+    height: 10%;
+    animation: glitchSlice3 10s ease-in-out infinite;
+    animation-delay: 4s;
+}
+
+@keyframes glitchSlice1 {
+    0%, 90%, 100% { opacity: 0; transform: translateX(0); }
+    92% { opacity: 1; transform: translateX(15px); background: rgba(139, 0, 0, 0.3); }
+    94% { opacity: 1; transform: translateX(-10px); background: rgba(0, 139, 139, 0.2); }
+    96% { opacity: 0; transform: translateX(5px); }
+}
+
+@keyframes glitchSlice2 {
+    0%, 85%, 100% { opacity: 0; transform: translateX(0); }
+    87% { opacity: 1; transform: translateX(-20px); background: rgba(139, 0, 0, 0.4); }
+    89% { opacity: 1; transform: translateX(8px); }
+    91% { opacity: 0; transform: translateX(-3px); }
+}
+
+@keyframes glitchSlice3 {
+    0%, 93%, 100% { opacity: 0; transform: translateX(0); }
+    95% { opacity: 1; transform: translateX(12px); background: rgba(139, 0, 0, 0.3); }
+    97% { opacity: 0; transform: translateX(-6px); }
+}
+
+/* Scanline overlay */
+.portrait-scanlines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.15) 2px,
+        rgba(0, 0, 0, 0.15) 4px
+    );
+    pointer-events: none;
+    animation: scanlineScroll 8s linear infinite;
+}
+
+@keyframes scanlineScroll {
+    from { transform: translateY(0); }
+    to { transform: translateY(4px); }
+}
+
+/* Dark vignette on portrait */
+.portrait-vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(10, 10, 10, 0.7) 100%);
+    pointer-events: none;
+}
+
+/* Offerings row under portrait */
+.shrine-offerings {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    opacity: 0.5;
+    filter: grayscale(60%);
+}
+
+.offering {
+    animation: offeringFlicker 3s ease-in-out infinite;
+}
+.offering:nth-child(2) { animation-delay: 0.5s; }
+.offering:nth-child(3) { animation-delay: 1s; }
+.offering:nth-child(4) { animation-delay: 1.5s; }
+.offering:nth-child(5) { animation-delay: 2s; }
+
+@keyframes offeringFlicker {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.8; }
+}
+
+/* ============================================
+   Evil Title — Glitch text effect
+   ============================================ */
+
+.evil-title {
+    margin-bottom: 1.5rem;
+}
+
+.evil-title-pre {
+    display: block;
+    font-family: var(--font-corrupt);
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    color: var(--evil-blood);
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    opacity: 0.7;
+}
+
+.evil-title-main {
+    display: block;
+    font-family: var(--font-evil);
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    color: var(--evil-bone);
+    line-height: 1.1;
+    position: relative;
+}
+
+/* CSS Glitch Text Effect */
+.glitch-text {
+    position: relative;
+    animation: glitchText 5s ease-in-out infinite;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+}
+
+.glitch-text::before {
+    color: #ff0000;
+    z-index: -1;
+    animation: glitchBefore 4s ease-in-out infinite;
+}
+
+.glitch-text::after {
+    color: #0000ff;
+    z-index: -2;
+    animation: glitchAfter 4s ease-in-out infinite;
+}
+
+@keyframes glitchText {
+    0%, 95%, 100% { transform: translate(0); }
+    96% { transform: translate(-3px, 2px); }
+    97% { transform: translate(2px, -1px); }
+    98% { transform: translate(-1px, 1px); }
+}
+
+@keyframes glitchBefore {
+    0%, 90%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+    92% { clip-path: inset(20% 0 60% 0); transform: translate(-4px); }
+    94% { clip-path: inset(50% 0 20% 0); transform: translate(4px); }
+    96% { clip-path: inset(70% 0 10% 0); transform: translate(-2px); }
+}
+
+@keyframes glitchAfter {
+    0%, 88%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+    90% { clip-path: inset(40% 0 30% 0); transform: translate(3px); }
+    93% { clip-path: inset(10% 0 70% 0); transform: translate(-3px); }
+    96% { clip-path: inset(60% 0 20% 0); transform: translate(2px); }
+}
+
+/* Classified stamp */
+.classified-stamp {
+    display: inline-block;
+    font-family: var(--font-corrupt);
+    font-size: 0.75rem;
+    color: var(--evil-blood);
+    border: 2px solid var(--evil-blood);
+    padding: 0.4rem 1.5rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    transform: rotate(-2deg);
+    opacity: 0.8;
+}
+
+.evil-subtitle {
+    font-family: var(--font-corrupt);
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    color: var(--evil-blood-bright);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.1em;
+}
+
+.evil-description {
+    font-family: var(--font-evil-body);
+    font-size: 1rem;
+    color: var(--evil-bone);
+    max-width: 550px;
+    margin: 0 auto 3rem;
+    line-height: 1.9;
+    opacity: 0.7;
+}
+
+.evil-scroll-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    color: var(--evil-blood);
+    opacity: 0.5;
+    animation: bounce 2s infinite;
+    font-family: var(--font-corrupt);
+}
+
+.evil-scroll-indicator span {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.evil-scroll-indicator i {
+    font-size: 0.7rem;
+    animation: scrollChevron 1.5s ease-in-out infinite;
+}
+.evil-scroll-indicator i:nth-child(2) { animation-delay: 0s; }
+.evil-scroll-indicator i:nth-child(3) { animation-delay: 0.15s; }
+.evil-scroll-indicator i:nth-child(4) { animation-delay: 0.3s; }
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+@keyframes scrollChevron {
+    0%, 100% { opacity: 0.3; transform: translateY(0); }
+    50% { opacity: 1; transform: translateY(4px); }
+}
+
+/* ============================================
+   Warning Banner
+   ============================================ */
+
+.evil-warning-banner {
+    background: linear-gradient(90deg, var(--evil-black), rgba(139, 0, 0, 0.15), var(--evil-black));
+    padding: 0.75rem 0;
+    text-align: center;
+    position: relative;
+    z-index: 5;
+    border-top: 1px solid rgba(139, 0, 0, 0.4);
+    border-bottom: 1px solid rgba(139, 0, 0, 0.4);
+    overflow: hidden;
+}
+
+.evil-warning-banner p {
+    font-family: var(--font-corrupt);
+    font-size: 0.75rem;
+    color: var(--evil-blood);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    animation: marqueeScroll 20s linear infinite;
+}
+
+@keyframes marqueeScroll {
+    from { transform: translateX(50%); }
+    to { transform: translateX(-50%); }
+}
+
+.evil-warning-banner i {
+    animation: warningShake 0.5s ease-in-out infinite;
+}
+
+@keyframes warningShake {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-5deg); }
+    75% { transform: rotate(5deg); }
+}
+
+/* ============================================
+   Evil Section Base
+   ============================================ */
+
+.evil-section {
+    padding: 6rem 0;
+    position: relative;
+    z-index: 5;
+}
+
+.evil-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(139, 0, 0, 0.3), transparent);
+}
+
+.evil-section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.evil-section-tag {
+    display: inline-block;
+    font-family: var(--font-corrupt);
+    font-size: 0.7rem;
+    color: rgba(139, 0, 0, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    margin-bottom: 1rem;
+    padding: 0;
+}
+
+.evil-section-tag::before {
+    display: none !important;
+}
+
+.evil-section-title {
+    font-family: var(--font-evil) !important;
+    font-size: clamp(1.8rem, 4.5vw, 3rem) !important;
+    color: var(--evil-bone) !important;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    margin-bottom: 1rem !important;
+}
+
+.evil-section-subtitle {
+    font-family: var(--font-evil-body);
+    font-size: 0.95rem;
+    color: rgba(212, 197, 169, 0.5);
+    max-width: 580px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+/* ============================================
+   Testimony Cards
+   ============================================ */
+
+.evil-commandments {
+    background: linear-gradient(180deg, var(--evil-black) 0%, var(--evil-dark) 50%, var(--evil-black) 100%);
+}
+
+.evil-commandments-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .evil-commandments-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.evil-commandment-card {
+    background: rgba(139, 0, 0, 0.05);
+    border: 1px solid rgba(139, 0, 0, 0.2);
+    border-radius: 4px;
+    padding: 1.75rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.evil-commandment-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--evil-blood);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.evil-commandment-card:hover {
+    background: rgba(139, 0, 0, 0.1);
+    border-color: rgba(139, 0, 0, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.evil-commandment-card:hover::before {
+    opacity: 1;
+}
+
+.commandment-number {
+    font-size: 1.2rem;
+    color: rgba(139, 0, 0, 0.4);
+    margin-bottom: 0.5rem;
+}
+
+.evil-commandment-card h3 {
+    font-family: var(--font-evil-body);
+    font-size: 1.05rem;
+    color: var(--evil-bone);
+    margin-bottom: 0.75rem;
+}
+
+.evil-commandment-card p {
+    font-family: var(--font-evil-body);
+    font-size: 0.9rem;
+    color: rgba(212, 197, 169, 0.6);
+    line-height: 1.7;
+}
+
+.testimony-source {
+    display: block;
+    font-family: var(--font-corrupt);
+    font-size: 0.7rem;
+    color: rgba(139, 0, 0, 0.5);
+    margin-top: 1rem;
+    letter-spacing: 0.05em;
+}
+
+/* ============================================
+   Evidence / Coven Cards
+   ============================================ */
+
+.evil-coven-section {
+    background:
+        radial-gradient(ellipse at 30% 50%, rgba(139, 0, 0, 0.04) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 50%, rgba(139, 0, 0, 0.04) 0%, transparent 50%),
+        var(--evil-black);
+}
+
+.evil-coven-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+    .evil-coven-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.coven-card {
+    background: rgba(10, 10, 10, 0.7);
+    border: 1px solid rgba(139, 0, 0, 0.15);
+    border-radius: 4px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.coven-card:hover {
+    border-color: rgba(139, 0, 0, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+}
+
+.coven-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.coven-card h3 {
+    font-family: var(--font-evil-body);
+    font-size: 1.15rem;
+    color: var(--evil-bone);
+    margin-bottom: 0.25rem;
+}
+
+.coven-title {
+    display: block;
+    font-family: var(--font-corrupt);
+    font-size: 0.7rem;
+    color: rgba(139, 0, 0, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.75rem;
+}
+
+.coven-card p {
+    font-family: var(--font-evil-body);
+    font-size: 0.9rem;
+    color: rgba(212, 197, 169, 0.55);
+    line-height: 1.7;
+}
+
+/* ============================================
+   Corrupted Records / Text Cards
+   ============================================ */
+
+.evil-texts-section {
+    background: linear-gradient(180deg, var(--evil-black) 0%, #0d0505 50%, var(--evil-black) 100%);
+}
+
+.evil-texts-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+    .evil-texts-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.evil-text-card {
+    background: rgba(26, 10, 10, 0.6);
+    border: 1px solid rgba(139, 0, 0, 0.15);
+    border-left: 3px solid var(--evil-blood);
+    border-radius: 2px;
+    padding: 1.75rem;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.evil-text-card:hover {
+    border-left-color: var(--evil-ember);
+    background: rgba(26, 10, 10, 0.85);
+    transform: translateX(4px);
+    box-shadow: -4px 0 15px rgba(139, 0, 0, 0.15);
+}
+
+.text-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.text-card-header i {
+    font-size: 1.2rem;
+    color: rgba(139, 0, 0, 0.6);
+}
+
+.text-card-header h3 {
+    font-family: var(--font-corrupt);
+    font-size: 0.85rem;
+    color: var(--evil-bone);
+    opacity: 0.8;
+}
+
+.evil-text-card p {
+    font-family: var(--font-evil-body);
+    font-size: 0.9rem;
+    color: rgba(212, 197, 169, 0.55);
+    line-height: 1.7;
+    flex: 1;
+}
+
+.corrupted-text {
+    font-family: var(--font-corrupt) !important;
+    font-size: 0.85rem !important;
+}
+
+.blink-slow {
+    animation: blinkSlow 2s ease-in-out infinite;
+    color: var(--evil-blood);
+}
+
+@keyframes blinkSlow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+}
+
+.text-card-footer {
+    margin-top: 1.25rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(139, 0, 0, 0.15);
+}
+
+.danger-level {
+    font-family: var(--font-corrupt);
+    font-size: 0.7rem;
+    color: rgba(212, 197, 169, 0.5);
+    letter-spacing: 0.05em;
+}
+
+.danger-stars {
+    color: var(--evil-blood);
+}
+
+/* ============================================
+   Ritual / Contact Section
+   ============================================ */
+
+.evil-ritual-section {
+    background:
+        radial-gradient(circle at center, rgba(139, 0, 0, 0.08) 0%, transparent 50%),
+        var(--evil-black);
+    text-align: center;
+}
+
+.evil-ritual-circle {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    margin: 0 auto 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ritual-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(139, 0, 0, 0.2);
+}
+
+.ring-outer {
+    width: 280px;
+    height: 280px;
+    animation: ringRotate 25s linear infinite;
+    border-style: dashed;
+}
+
+.ring-middle {
+    width: 220px;
+    height: 220px;
+    animation: ringRotate 18s linear infinite reverse;
+    border-color: rgba(139, 0, 0, 0.35);
+}
+
+.ring-inner {
+    width: 160px;
+    height: 160px;
+    animation: ringRotate 12s linear infinite;
+    border-color: rgba(255, 69, 0, 0.2);
+    border-style: dotted;
+}
+
+@keyframes ringRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Faint portrait behind summon button */
+.ritual-portrait-center {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    opacity: 0.15;
+    filter: grayscale(100%) contrast(2) brightness(0.3);
+    z-index: 1;
+}
+
+.ritual-center-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+}
+
+.evil-summon-btn {
+    position: relative;
+    z-index: 10;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139, 0, 0, 0.6), rgba(40, 0, 0, 0.8));
+    border: 2px solid rgba(139, 0, 0, 0.6);
+    color: var(--evil-bone);
+    font-family: var(--font-corrupt);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(139, 0, 0, 0.3), inset 0 0 20px rgba(0, 0, 0, 0.4);
+    line-height: 1.4;
+}
+
+.evil-summon-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 40px rgba(139, 0, 0, 0.5), 0 0 80px rgba(139, 0, 0, 0.2), inset 0 0 20px rgba(0, 0, 0, 0.4);
+    border-color: var(--evil-blood);
+}
+
+.evil-summon-btn:active {
+    transform: scale(0.95);
+}
+
+.evil-summon-btn.summoning {
+    animation: summonPulse 0.4s ease-in-out infinite;
+}
+
+@keyframes summonPulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(139, 0, 0, 0.3), inset 0 0 20px rgba(0, 0, 0, 0.4); }
+    50% { box-shadow: 0 0 50px rgba(139, 0, 0, 0.6), 0 0 100px rgba(139, 0, 0, 0.2), inset 0 0 20px rgba(0, 0, 0, 0.4); }
+}
+
+.evil-summon-result {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.summon-message {
+    background: rgba(139, 0, 0, 0.07);
+    border: 1px solid rgba(139, 0, 0, 0.3);
+    border-radius: 4px;
+    padding: 2.5rem 2rem;
+    animation: fadeInUp 0.8s ease;
+}
+
+.result-portrait {
+    width: 100px;
+    height: 130px;
+    margin: 0 auto 1.5rem;
+    overflow: hidden;
+    border: 2px solid rgba(139, 0, 0, 0.4);
+    box-shadow: var(--evil-glow-red);
+}
+
+.result-portrait-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    filter: grayscale(50%) contrast(1.3) brightness(0.6) sepia(20%);
+    animation: resultGlitch 3s ease-in-out infinite;
+}
+
+@keyframes resultGlitch {
+    0%, 95%, 100% { transform: translate(0); }
+    96% { transform: translate(2px, -1px); filter: grayscale(50%) contrast(1.5) brightness(0.4) hue-rotate(20deg); }
+    97% { transform: translate(-1px, 1px); }
+    98% { transform: translate(1px, -1px); filter: grayscale(50%) contrast(1.3) brightness(0.6) sepia(20%); }
+}
+
+.summon-message h3 {
+    font-family: var(--font-corrupt);
+    font-size: 1rem;
+    color: var(--evil-blood);
+    text-shadow: 0 0 10px rgba(139, 0, 0, 0.3);
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+}
+
+.result-text {
+    text-align: left;
+    margin-bottom: 2rem !important;
+}
+
+.summon-message p {
+    font-family: var(--font-evil-body);
+    color: rgba(212, 197, 169, 0.6);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.evil-btn {
+    background: linear-gradient(135deg, rgba(139, 0, 0, 0.6), rgba(60, 0, 0, 0.8)) !important;
+    color: var(--evil-bone) !important;
+    border: 1px solid rgba(139, 0, 0, 0.5);
+    font-family: var(--font-corrupt) !important;
+    font-size: 0.8rem !important;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.evil-btn:hover {
+    background: linear-gradient(135deg, rgba(139, 0, 0, 0.8), rgba(90, 0, 0, 0.9)) !important;
+    box-shadow: 0 0 20px rgba(139, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+/* ============================================
+   Evil Footer
+   ============================================ */
+
+.evil-footer {
+    background: var(--evil-black) !important;
+    border-top: 1px solid rgba(139, 0, 0, 0.2);
+}
+
+.evil-footer .footer-main {
+    padding: 2.5rem 0;
+}
+
+.evil-footer-symbol {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: rgba(139, 0, 0, 0.3);
+    margin-bottom: 1rem;
+}
+
+.evil-footer-text {
+    font-family: var(--font-corrupt);
+    font-size: 0.85rem;
+    color: rgba(139, 0, 0, 0.5);
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.1em;
+}
+
+.evil-footer-disclaimer {
+    font-family: var(--font-evil-body);
+    font-size: 0.8rem;
+    color: rgba(212, 197, 169, 0.25);
+    max-width: 500px;
+    margin: 0 auto 0.75rem;
+    line-height: 1.6;
+    font-style: italic;
+}
+
+.evil-footer-copy {
+    font-family: var(--font-corrupt);
+    font-size: 0.7rem;
+    color: rgba(212, 197, 169, 0.2);
+    letter-spacing: 0.05em;
+}
+
+/* ============================================
+   Transition Overlay (contact form -> here)
+   ============================================ */
+
+.evil-transition-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--evil-black);
+    z-index: 999999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.evil-transition-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.evil-transition-overlay .pentagram-spinner {
+    width: 80px;
+    height: 80px;
+}
+
+.pentagram-spinner {
+    animation: pentagramSpin 3s linear infinite;
+}
+
+.pentagram-svg {
+    width: 100%;
+    height: 100%;
+    color: var(--evil-blood);
+    filter: drop-shadow(var(--evil-glow-red));
+}
+
+@keyframes pentagramSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.evil-transition-overlay p {
+    font-family: var(--font-corrupt);
+    color: var(--evil-blood);
+    font-size: 1rem;
+    margin-top: 1.5rem;
+    text-shadow: 0 0 15px rgba(139, 0, 0, 0.5);
+    animation: evilPulse 1.5s ease-in-out infinite;
+    letter-spacing: 0.1em;
+}
+
+/* ============================================
+   Screen Shake
+   ============================================ */
+
+.screen-shake {
+    animation: screenShake 0.4s ease-in-out;
+}
+
+@keyframes screenShake {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-4px, -2px); }
+    20% { transform: translate(4px, 2px); }
+    30% { transform: translate(-2px, 4px); }
+    40% { transform: translate(2px, -4px); }
+    50% { transform: translate(-4px, 1px); }
+    60% { transform: translate(4px, -1px); }
+    70% { transform: translate(-1px, 3px); }
+    80% { transform: translate(1px, -3px); }
+    90% { transform: translate(-2px, 2px); }
+}
+
+/* ============================================
+   Mobile
+   ============================================ */
+
+@media (max-width: 767px) {
+    .evil-hero-content {
+        padding: 7rem 1rem 3rem;
+    }
+
+    .portrait-glitch-container {
+        width: 160px;
+        height: 220px;
+    }
+
+    .evil-section {
+        padding: 4rem 0;
+    }
+
+    .evil-section-header {
+        margin-bottom: 2.5rem;
+    }
+
+    .evil-ritual-circle {
+        width: 220px;
+        height: 220px;
+    }
+
+    .ring-outer { width: 220px; height: 220px; }
+    .ring-middle { width: 175px; height: 175px; }
+    .ring-inner { width: 130px; height: 130px; }
+
+    .evil-summon-btn {
+        width: 95px;
+        height: 95px;
+        font-size: 0.7rem;
+    }
+
+    .candle { display: none; }
+    .candle-3 { display: block; }
+
+    .shrine-candle { display: none; }
+}
