@@ -8,7 +8,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
@@ -343,6 +343,21 @@
         </style>
     </div>
 
+    <!-- Wanted Transition Overlay -->
+    <div id="wanted-transition" style="opacity:0;visibility:hidden;position:fixed;inset:0;z-index:999999;display:flex;align-items:center;justify-content:center;flex-direction:column;background:#0a1628;transition:opacity 0.4s ease,visibility 0.4s ease;">
+        <div style="font-family:'Archivo Black',sans-serif;font-size:0.65rem;color:rgba(255,255,255,0.6);letter-spacing:0.3em;margin-bottom:1.5rem;">ZETA RHO BUREAU OF INVESTIGATION</div>
+        <div style="font-family:'Archivo Black',sans-serif;font-size:2.5rem;color:#cc0000;letter-spacing:0.2em;animation:wanted-pulse 1s ease-in-out infinite;">MOST WANTED</div>
+        <div style="font-family:'Source Code Pro',monospace;font-size:0.75rem;color:#c5a855;letter-spacing:0.15em;margin-top:1rem;">ACCESSING CLASSIFIED DATABASE...</div>
+        <div style="width:200px;height:3px;background:#1e3a5f;margin-top:1rem;border-radius:2px;overflow:hidden;">
+            <div style="width:100%;height:100%;background:#cc0000;animation:wanted-load 2s ease-in-out infinite;"></div>
+        </div>
+        <style>
+            @keyframes wanted-pulse { 0%,100%{opacity:1;}50%{opacity:0.7;} }
+            @keyframes wanted-load { 0%{transform:translateX(-100%);}100%{transform:translateX(100%);} }
+            #wanted-transition.active { opacity:1!important; visibility:visible!important; }
+        </style>
+    </div>
+
     <script src="../js/main.js"></script>
     <link rel="stylesheet" href="../css/evil.css">
     <link rel="stylesheet" href="../css/shiesty.css">
@@ -426,6 +441,24 @@
 
         document.getElementById('firstName').addEventListener('input', checkForSpearMaster);
         document.getElementById('lastName').addEventListener('input', checkForSpearMaster);
+
+        // Isabella D'Elia detection - most wanted page
+        function checkForWanted() {
+            const firstName = document.getElementById('firstName').value.trim().toLowerCase();
+            const lastName = document.getElementById('lastName').value.trim().toLowerCase();
+
+            if (firstName === 'isabella' && (lastName === "d'elia" || lastName === 'delia')) {
+                const overlay = document.getElementById('wanted-transition');
+                overlay.classList.add('active');
+
+                setTimeout(() => {
+                    window.location.href = 'wanted.html';
+                }, 2800);
+            }
+        }
+
+        document.getElementById('firstName').addEventListener('input', checkForWanted);
+        document.getElementById('lastName').addEventListener('input', checkForWanted);
 
         // Form submission handling
         document.getElementById('contact-form').addEventListener('submit', function(e) {
