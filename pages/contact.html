@@ -372,93 +372,84 @@
             }
         });
 
-        // Evil name detection - check when either name field changes
+        // Helper: attach detection to both name fields with multiple event types for mobile
+        function attachDetection(fn) {
+            ['input', 'keyup', 'change'].forEach(function(evt) {
+                document.getElementById('firstName').addEventListener(evt, fn);
+                document.getElementById('lastName').addEventListener(evt, fn);
+            });
+        }
+
+        // Track if a redirect is already in progress
+        var redirecting = false;
+
+        // Evil name detection - Alex Klapperich
         function checkForEvilAlex() {
+            if (redirecting) return;
             const firstName = document.getElementById('firstName').value.trim().toLowerCase();
             const lastName = document.getElementById('lastName').value.trim().toLowerCase();
 
             if (firstName === 'alex' && lastName === 'klapperich') {
-                // Trigger the evil transition
+                redirecting = true;
                 const overlay = document.getElementById('evil-transition');
                 overlay.classList.add('active');
-
-                // Shake the screen
                 document.body.classList.add('screen-shake');
                 setTimeout(() => document.body.classList.remove('screen-shake'), 500);
-
-                // Redirect to evil page after dramatic pause
-                setTimeout(() => {
-                    window.location.href = 'evil-ritual.html';
-                }, 2500);
+                setTimeout(() => { window.location.href = 'evil-ritual.html'; }, 2500);
             }
         }
-
-        document.getElementById('firstName').addEventListener('input', checkForEvilAlex);
-        document.getElementById('lastName').addEventListener('input', checkForEvilAlex);
+        attachDetection(checkForEvilAlex);
 
         // Brother Shiesty detection - gangster court page
         function checkForShiesty() {
+            if (redirecting) return;
             const firstName = document.getElementById('firstName').value.trim().toLowerCase();
             const lastName = document.getElementById('lastName').value.trim().toLowerCase();
 
             if (firstName === 'brother' && lastName === 'shiesty') {
-                // Trigger the gangster transition
+                redirecting = true;
                 const overlay = document.getElementById('shiesty-transition');
                 overlay.classList.add('active');
-
-                // Bass shake
-                document.body.style.animation = 'none';
-                document.body.offsetHeight; // reflow
-                document.body.style.animation = '';
                 document.body.classList.add('bass-shake');
                 setTimeout(() => document.body.classList.remove('bass-shake'), 400);
-
-                // Redirect to shiesty page after dramatic pause
-                setTimeout(() => {
-                    window.location.href = 'shiesty.html';
-                }, 2200);
+                setTimeout(() => { window.location.href = 'shiesty.html'; }, 2200);
             }
         }
-
-        document.getElementById('firstName').addEventListener('input', checkForShiesty);
-        document.getElementById('lastName').addEventListener('input', checkForShiesty);
+        attachDetection(checkForShiesty);
 
         // Spear Master detection - hideous 90s page
         function checkForSpearMaster() {
+            if (redirecting) return;
             const firstName = document.getElementById('firstName').value.trim().toLowerCase();
             const lastName = document.getElementById('lastName').value.trim().toLowerCase();
 
             if (firstName === 'spear' && lastName === 'master') {
+                redirecting = true;
                 const overlay = document.getElementById('spear-transition');
                 overlay.classList.add('active');
-
-                // Redirect to the GeoCities nightmare
-                setTimeout(() => {
-                    window.location.href = 'spearmaster.html';
-                }, 2500);
+                setTimeout(() => { window.location.href = 'spearmaster.html'; }, 2500);
             }
         }
-
-        document.getElementById('firstName').addEventListener('input', checkForSpearMaster);
-        document.getElementById('lastName').addEventListener('input', checkForSpearMaster);
+        attachDetection(checkForSpearMaster);
 
         // Isabella D'Elia detection - most wanted page
+        // Normalize all apostrophe variants (smart quotes, curly, etc.) to straight apostrophe
+        function normalizeApostrophes(str) {
+            return str.replace(/[\u2018\u2019\u2032\u0060\u00B4\u02BC\u02BB]/g, "'");
+        }
         function checkForWanted() {
+            if (redirecting) return;
             const firstName = document.getElementById('firstName').value.trim().toLowerCase();
-            const lastName = document.getElementById('lastName').value.trim().toLowerCase();
+            const lastName = normalizeApostrophes(document.getElementById('lastName').value.trim().toLowerCase());
 
             if (firstName === 'isabella' && (lastName === "d'elia" || lastName === 'delia')) {
+                redirecting = true;
                 const overlay = document.getElementById('wanted-transition');
                 overlay.classList.add('active');
-
-                setTimeout(() => {
-                    window.location.href = 'wanted.html';
-                }, 2800);
+                setTimeout(() => { window.location.href = 'wanted.html'; }, 2800);
             }
         }
-
-        document.getElementById('firstName').addEventListener('input', checkForWanted);
-        document.getElementById('lastName').addEventListener('input', checkForWanted);
+        attachDetection(checkForWanted);
 
         // Form submission handling
         document.getElementById('contact-form').addEventListener('submit', function(e) {
