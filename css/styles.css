@@ -1550,6 +1550,18 @@ button {
     margin: 0;
 }
 
+.officer-email {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--purple);
+    margin-top: 0.25rem;
+    text-decoration: none;
+}
+
+.officer-email:hover {
+    text-decoration: underline;
+}
+
 /* ============================================
    Social Section
    ============================================ */
