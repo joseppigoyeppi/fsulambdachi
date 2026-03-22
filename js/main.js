@@ -300,20 +300,37 @@ function initLazyImages() {
 }
 
 /* ============================================
+   Hero Entrance Animation
+   ============================================ */
+function initHeroEntrance() {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+
+    // Trigger the loaded state after a small delay to allow CSS transitions
+    requestAnimationFrame(() => {
+        setTimeout(() => {
+            hero.classList.add('hero--loaded');
+        }, 100);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initHeroEntrance);
+
+/* ============================================
    Parallax Effect (subtle, for hero)
    ============================================ */
 function initParallax() {
-    const hero = document.querySelector('.hero-background');
-    if (!hero) return;
+    const heroBg = document.querySelector('.hero-background');
+    if (!heroBg) return;
 
+    // Use passive scroll listener for performance
     window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
-        const rate = scrolled * 0.3;
-
         if (scrolled < window.innerHeight) {
-            hero.style.transform = `translateY(${rate}px)`;
+            const rate = scrolled * 0.25;
+            heroBg.style.transform = `translateY(${rate}px)`;
         }
-    });
+    }, { passive: true });
 }
 
 // Initialize parallax if exists
