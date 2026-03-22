@@ -111,7 +111,12 @@ function initScrollAnimations() {
         .section-tag,
         .section-title,
         .stat-item,
-        .contact-info-card
+        .contact-info-card,
+        .mentor-card,
+        .officer-card,
+        .house-gallery-item,
+        .heritage-divider,
+        .contact-form
     `);
 
     // Create observer
@@ -300,18 +305,26 @@ function initLazyImages() {
 }
 
 /* ============================================
-   Hero Entrance Animation
+   Hero & Page Hero Entrance Animations
    ============================================ */
 function initHeroEntrance() {
     const hero = document.querySelector('.hero');
-    if (!hero) return;
+    if (hero) {
+        requestAnimationFrame(() => {
+            setTimeout(() => {
+                hero.classList.add('hero--loaded');
+            }, 100);
+        });
+    }
 
-    // Trigger the loaded state after a small delay to allow CSS transitions
-    requestAnimationFrame(() => {
-        setTimeout(() => {
-            hero.classList.add('hero--loaded');
-        }, 100);
-    });
+    const pageHero = document.querySelector('.page-hero');
+    if (pageHero) {
+        requestAnimationFrame(() => {
+            setTimeout(() => {
+                pageHero.classList.add('page-hero--loaded');
+            }, 100);
+        });
+    }
 }
 
 document.addEventListener('DOMContentLoaded', initHeroEntrance);
