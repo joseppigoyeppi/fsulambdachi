@@ -452,7 +452,7 @@ button {
     z-index: 3;
     text-align: center;
     color: var(--white);
-    padding: 7rem var(--space-xl) 5rem;
+    padding: 7rem var(--space-xl) 7rem;
     max-width: 860px;
     width: 100%;
 }
