@@ -2703,8 +2703,8 @@ button {
     display: flex;
     gap: var(--space-md);
     flex-wrap: wrap;
-    padding-bottom: var(--space-lg);
-    border-bottom: 1px solid var(--gray-200);
+    margin-bottom: var(--space-2xl);
+    justify-content: center;
 }
 
 .newsletter-archive-link {
@@ -2717,6 +2717,18 @@ button {
     text-decoration: none;
     color: var(--gray-700);
     transition: all var(--transition-base);
+    background: none;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* Show/hide newsletter issues */
+.newsletter-issue {
+    display: none;
+}
+
+.newsletter-issue.active {
+    display: block;
 }
 
 .newsletter-archive-link:hover,

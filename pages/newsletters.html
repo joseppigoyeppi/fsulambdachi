@@ -58,25 +58,22 @@
         </div>
     </section>
 
-    <!-- Newsletter Archive Navigation -->
-    <section class="page-content" style="padding-bottom: 0;">
+    <!-- Newsletter Content -->
+    <section class="page-content">
         <div class="container">
+            <!-- Archive Tab Buttons -->
             <div class="newsletter-archive-nav">
-                <a href="#march-2026" class="newsletter-archive-link active">
+                <button class="newsletter-archive-link" data-newsletter="january-2026" onclick="showNewsletter('january-2026')">
+                    <span class="newsletter-archive-month">January 2026</span>
+                </button>
+                <button class="newsletter-archive-link active" data-newsletter="march-2026" onclick="showNewsletter('march-2026')">
                     <span class="newsletter-archive-month">March 2026</span>
                     <span class="newsletter-archive-label">Latest</span>
-                </a>
-                <a href="#january-2026" class="newsletter-archive-link">
-                    <span class="newsletter-archive-month">January 2026</span>
-                </a>
+                </button>
             </div>
-        </div>
-    </section>
 
-    <!-- March 2026 Newsletter -->
-    <section class="page-content" id="march-2026">
-        <div class="container">
-            <article class="newsletter-article">
+            <!-- March 2026 Newsletter -->
+            <article class="newsletter-article newsletter-issue active" id="march-2026">
                 <!-- Newsletter Header -->
                 <div class="newsletter-header">
                     <div class="newsletter-header-content">
@@ -169,13 +166,9 @@
                     </div>
                 </div>
             </article>
-        </div>
-    </section>
 
-    <!-- January 2026 Newsletter -->
-    <section class="page-content" id="january-2026">
-        <div class="container">
-            <article class="newsletter-article">
+            <!-- January 2026 Newsletter -->
+            <article class="newsletter-article newsletter-issue" id="january-2026">
                 <!-- Newsletter Header -->
                 <div class="newsletter-header">
                     <div class="newsletter-header-content">
@@ -255,6 +248,19 @@
             </article>
         </div>
     </section>
+
+    <script>
+    function showNewsletter(id) {
+        document.querySelectorAll('.newsletter-issue').forEach(function(el) {
+            el.classList.remove('active');
+        });
+        document.querySelectorAll('.newsletter-archive-link').forEach(function(btn) {
+            btn.classList.remove('active');
+        });
+        document.getElementById(id).classList.add('active');
+        document.querySelector('[data-newsletter="' + id + '"]').classList.add('active');
+    }
+    </script>
 
     <!-- CTA -->
     <section class="rush-cta">
