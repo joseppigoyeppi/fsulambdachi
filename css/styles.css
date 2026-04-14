@@ -2694,6 +2694,8 @@ button {
 
 /* ============================================
    Newsletter Styles
+   Matches original email newsletter design:
+   Playfair Display + Source Sans 3, #4B0082/#6A0DAD/#C5A000
    ============================================ */
 
 /* Archive Navigation */
@@ -2711,7 +2713,7 @@ button {
     align-items: center;
     padding: var(--space-sm) var(--space-lg);
     border: 2px solid var(--gray-300);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-sm);
     text-decoration: none;
     color: var(--gray-700);
     transition: all var(--transition-base);
@@ -2719,14 +2721,14 @@ button {
 
 .newsletter-archive-link:hover,
 .newsletter-archive-link.active {
-    border-color: var(--gold);
-    color: var(--purple);
-    background: rgba(201, 162, 39, 0.06);
+    border-color: #C5A000;
+    color: #4B0082;
+    background: rgba(197, 160, 0, 0.06);
 }
 
 .newsletter-archive-month {
-    font-family: var(--font-display);
-    font-weight: 600;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
     font-size: 0.95rem;
 }
 
@@ -2734,28 +2736,31 @@ button {
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    color: var(--gold);
+    color: #C5A000;
     font-weight: 600;
 }
 
-/* Newsletter Article */
+/* Newsletter Article — matches original email layout */
 .newsletter-article {
-    max-width: 800px;
+    max-width: 750px;
     margin: 0 auto;
-    background: var(--white);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-xl);
-    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    font-family: 'Source Sans 3', 'Segoe UI', Arial, sans-serif;
+    color: #2d2d2d;
+    line-height: 1.6;
 }
 
+/* Newsletter Header */
 .newsletter-header {
-    background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple) 40%, var(--purple-light) 100%);
-    color: var(--white);
-    padding: var(--space-2xl) var(--space-2xl) var(--space-xl);
+    background: linear-gradient(135deg, #4B0082 0%, #6A0DAD 40%, #8B5CF6 100%);
+    color: white;
+    padding: 40px 45px 35px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
+    overflow: hidden;
 }
 
 .newsletter-header::after {
@@ -2765,57 +2770,58 @@ button {
     right: 0;
     bottom: 0;
     width: 40%;
-    background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.04) 100%);
+    background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.05) 100%);
     pointer-events: none;
 }
 
 .newsletter-title {
-    font-family: var(--font-display);
-    font-size: 2rem;
-    font-weight: 700;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 38px;
+    font-weight: 900;
     letter-spacing: 0.5px;
+    margin-bottom: 4px;
 }
 
 .newsletter-edition {
-    font-size: 0.9rem;
-    opacity: 0.8;
-    margin-top: var(--space-xs);
+    font-size: 15px;
+    opacity: 0.85;
+    font-weight: 400;
 }
 
 .newsletter-date-badge {
-    background: rgba(255,255,255,0.12);
-    border: 1.5px solid rgba(255,255,255,0.35);
-    padding: var(--space-sm) var(--space-lg);
-    border-radius: var(--radius-sm);
-    font-size: 0.8rem;
+    background: rgba(255,255,255,0.15);
+    border: 1.5px solid rgba(255,255,255,0.4);
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-size: 14px;
     font-weight: 700;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     z-index: 1;
     white-space: nowrap;
 }
 
 /* Newsletter Body */
 .newsletter-body {
-    padding: var(--space-2xl);
+    padding: 35px 45px 25px;
 }
 
 .newsletter-greeting {
-    font-family: var(--font-display);
-    font-size: 1rem;
-    color: var(--purple);
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 17px;
+    color: #6A0DAD;
     font-style: italic;
-    margin-bottom: var(--space-xl);
+    margin-bottom: 25px;
 }
 
 .newsletter-section-title {
-    font-family: var(--font-display);
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--purple);
-    margin-top: var(--space-2xl);
-    margin-bottom: var(--space-sm);
-    padding-bottom: var(--space-xs);
-    border-bottom: 2.5px solid var(--gold);
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #4B0082;
+    margin-top: 30px;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 2.5px solid #C5A000;
 }
 
 .newsletter-section-title:first-of-type {
@@ -2823,112 +2829,180 @@ button {
 }
 
 .newsletter-body p {
-    font-size: 0.95rem;
-    line-height: 1.75;
-    margin-bottom: var(--space-md);
-    color: var(--gray-800);
+    font-family: 'Source Sans 3', 'Segoe UI', Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 14px;
+    color: #2d2d2d;
+    text-align: justify;
 }
 
 .newsletter-callout {
-    background: rgba(201, 162, 39, 0.08);
-    border-left: 4px solid var(--gold);
-    padding: var(--space-md) var(--space-lg);
-    margin: var(--space-lg) 0;
-    font-size: 0.95rem;
+    background: #FFF9E6;
+    border-left: 4px solid #C5A000;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 15px;
     font-weight: 600;
-    color: var(--purple);
-    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    color: #4B0082;
 }
 
 .newsletter-zp {
     font-weight: 400;
-    color: var(--gray-500);
-    font-size: 0.85rem;
+    color: #666;
+    font-size: 13px;
 }
 
 .newsletter-gold {
-    color: var(--gold-dark);
+    color: #B8960C;
     font-weight: 700;
 }
 
 .newsletter-purple {
-    color: var(--purple-light);
+    color: #6A0DAD;
+    font-weight: 700;
+}
+
+/* Newsletter CTA buttons (override site buttons inside newsletter) */
+.newsletter-body .newsletter-cta {
+    display: inline-block;
+    background: #6A0DAD;
+    color: white !important;
+    text-decoration: none;
+    padding: 10px 24px;
+    border-radius: 4px;
     font-weight: 600;
+    font-size: 14px;
+    margin: 6px 0;
+    transition: background 0.2s;
+    font-family: 'Source Sans 3', 'Segoe UI', Arial, sans-serif;
+}
+
+.newsletter-body .newsletter-cta:hover {
+    background: #4B0082;
 }
 
 /* Newsletter Photos */
 .newsletter-photo {
-    margin: var(--space-lg) 0;
+    margin: 18px 0;
     text-align: center;
 }
 
 .newsletter-photo img {
     max-width: 100%;
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-lg);
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
 }
 
 .newsletter-caption {
-    font-size: 0.8rem;
-    color: var(--gray-500);
+    font-size: 12.5px;
+    color: #777;
     font-style: italic;
-    margin-top: var(--space-sm);
+    margin-top: 6px;
 }
 
 .newsletter-content-with-photo {
     overflow: hidden;
 }
 
+.newsletter-content-with-photo::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
 .newsletter-photo-float {
     float: right;
-    margin: var(--space-xs) 0 var(--space-md) var(--space-xl);
-    max-width: 280px;
+    margin: 4px 0 14px 22px;
+    max-width: 300px;
 }
 
 .newsletter-photo-float img {
     width: 100%;
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-lg);
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
 }
 
-/* Newsletter Sign-off */
+/* Newsletter links */
+.newsletter-body a {
+    color: #6A0DAD;
+    text-decoration: underline;
+}
+
+.newsletter-body a:hover {
+    color: #4B0082;
+}
+
+.newsletter-body .gold-link {
+    color: #B8960C;
+    font-weight: 600;
+}
+
+/* Newsletter Footer / Sign-off */
 .newsletter-signoff {
-    margin-top: var(--space-2xl);
-    padding-top: var(--space-xl);
-    border-top: 2px solid var(--gold);
+    background: #fafafa;
+    border-top: 3px solid #C5A000;
+    padding: 25px 45px;
+    margin: 0 -45px -25px;
+    position: relative;
+}
+
+.newsletter-signoff::before {
+    content: 'ΛΧΑ';
+    position: absolute;
+    right: 45px;
+    bottom: 20px;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 72px;
+    font-weight: 900;
+    color: rgba(75, 0, 130, 0.06);
+    line-height: 1;
 }
 
 .newsletter-signoff-line {
-    font-family: var(--font-display);
+    font-family: 'Playfair Display', Georgia, serif;
     font-style: italic;
-    color: var(--purple);
-    font-size: 1rem;
-    margin-bottom: 0 !important;
+    color: #6A0DAD;
+    font-size: 15px;
+    margin-bottom: 2px !important;
+    text-align: left;
 }
 
 .newsletter-signoff-sub {
-    font-family: var(--font-display);
+    font-family: 'Playfair Display', Georgia, serif;
     font-style: italic;
-    color: var(--purple);
-    font-size: 0.9rem;
-    margin-bottom: var(--space-lg) !important;
+    color: #6A0DAD;
+    font-size: 14px;
+    margin-bottom: 12px !important;
+    text-align: left;
 }
 
 .newsletter-signoff-contact {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    font-size: 0.85rem;
-    color: var(--gray-600);
-    gap: var(--space-xl);
+    align-items: flex-end;
+    font-size: 13px;
+    color: #555;
 }
 
 .newsletter-signoff-contact a {
-    color: var(--purple);
+    color: #6A0DAD;
+    font-size: 13px;
+}
+
+.newsletter-signoff-contact .contact-name {
+    font-weight: 700;
+    color: #2d2d2d;
 }
 
 .newsletter-signoff-social {
     text-align: right;
+}
+
+.newsletter-signoff-social .stay {
+    font-weight: 700;
+    color: #C5A000;
+    font-size: 14px;
 }
 
 /* Newsletter Responsive */
@@ -2936,30 +3010,42 @@ button {
     .newsletter-header {
         flex-direction: column;
         align-items: flex-start;
-        gap: var(--space-md);
-        padding: var(--space-xl);
+        gap: 12px;
+        padding: 25px 20px;
+    }
+
+    .newsletter-title {
+        font-size: 28px;
     }
 
     .newsletter-body {
-        padding: var(--space-xl);
+        padding: 25px 20px 15px;
     }
 
     .newsletter-photo-float {
         float: none;
         max-width: 100%;
-        margin: var(--space-md) 0;
+        margin: 12px 0;
+    }
+
+    .newsletter-signoff {
+        padding: 20px;
+        margin: 0 -20px -15px;
     }
 
     .newsletter-signoff-contact {
         flex-direction: column;
-        gap: var(--space-md);
+        gap: 12px;
+        align-items: flex-start;
     }
 
     .newsletter-signoff-social {
         text-align: left;
     }
 
-    .newsletter-title {
-        font-size: 1.5rem;
+    .newsletter-signoff::before {
+        font-size: 48px;
+        right: 20px;
+        bottom: 15px;
     }
 }
