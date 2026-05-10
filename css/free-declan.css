@@ -1,0 +1,822 @@
+/* ============================================
+   FREE DECLAN — Vigil / Campaign Page
+   ============================================ */
+
+:root {
+    --fd-night: #0a0d18;
+    --fd-night-2: #131826;
+    --fd-night-3: #1c2236;
+    --fd-cream: #f5e9c8;
+    --fd-cream-soft: #ece1c1;
+    --fd-paper: #f8efd6;
+    --fd-amber: #e8a838;
+    --fd-amber-bright: #ffc857;
+    --fd-amber-deep: #b87a1f;
+    --fd-orange: #ff6b35;
+    --fd-orange-deep: #c8451a;
+    --fd-garnet: #7a2030;
+    --fd-garnet-deep: #4a0f1c;
+    --fd-bar: #2a3146;
+    --fd-bar-light: #3a425e;
+    --fd-glow: rgba(255, 200, 87, 0.35);
+
+    --fd-serif: 'Playfair Display', 'Cormorant Garamond', serif;
+    --fd-display: 'Bebas Neue', 'Oswald', sans-serif;
+    --fd-body: 'Inter', system-ui, sans-serif;
+    --fd-mono: 'IBM Plex Mono', 'Source Code Pro', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+.fd-body {
+    background: var(--fd-night);
+    color: var(--fd-cream);
+    font-family: var(--fd-body);
+    overflow-x: hidden;
+    min-height: 100vh;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+.fd-container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* ============================================
+   Marquee Banner
+   ============================================ */
+.fd-marquee {
+    background: linear-gradient(90deg, var(--fd-garnet-deep), var(--fd-garnet), var(--fd-garnet-deep));
+    border-top: 1px solid rgba(255, 200, 87, 0.3);
+    border-bottom: 1px solid rgba(255, 200, 87, 0.3);
+    overflow: hidden;
+    padding: 0.55rem 0;
+    position: relative;
+}
+.fd-marquee::before, .fd-marquee::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0; width: 80px;
+    z-index: 2;
+    pointer-events: none;
+}
+.fd-marquee::before { left: 0; background: linear-gradient(90deg, var(--fd-garnet-deep), transparent); }
+.fd-marquee::after { right: 0; background: linear-gradient(-90deg, var(--fd-garnet-deep), transparent); }
+
+.fd-marquee-track {
+    display: flex;
+    gap: 3rem;
+    white-space: nowrap;
+    animation: fd-scroll 40s linear infinite;
+    font-family: var(--fd-display);
+    font-size: 0.95rem;
+    letter-spacing: 0.35em;
+    color: var(--fd-amber-bright);
+}
+.fd-marquee-track span { display: inline-flex; align-items: center; gap: 0.8rem; }
+.fd-marquee-track i { color: var(--fd-cream); font-size: 0.7rem; }
+
+@keyframes fd-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+/* ============================================
+   Top Nav
+   ============================================ */
+.fd-topnav {
+    background: rgba(10, 13, 24, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 200, 87, 0.18);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+.fd-topnav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+.fd-topnav-brand {
+    font-family: var(--fd-serif);
+    font-style: italic;
+    font-weight: 700;
+    color: var(--fd-amber-bright);
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    font-size: 1.15rem;
+}
+.fd-topnav-brand small {
+    display: block;
+    font-family: var(--fd-mono);
+    font-style: normal;
+    font-size: 0.65rem;
+    color: var(--fd-cream-soft);
+    opacity: 0.6;
+    letter-spacing: 0.3em;
+    margin-top: 0.15rem;
+}
+.fd-topnav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    flex-wrap: wrap;
+}
+.fd-topnav-links a {
+    color: var(--fd-cream-soft);
+    text-decoration: none;
+    font-family: var(--fd-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+}
+.fd-topnav-links a:hover {
+    color: var(--fd-amber-bright);
+    border-bottom-color: var(--fd-amber-bright);
+}
+.fd-topnav-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--fd-cream-soft);
+    text-decoration: none;
+    font-family: var(--fd-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+}
+.fd-topnav-back:hover { color: var(--fd-amber-bright); }
+
+/* ============================================
+   Hero
+   ============================================ */
+.fd-hero {
+    position: relative;
+    padding: 5rem 0 6rem;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 50% 30%, rgba(255, 200, 87, 0.18), transparent 60%),
+        radial-gradient(ellipse at 50% 100%, rgba(122, 32, 48, 0.4), transparent 70%),
+        var(--fd-night);
+}
+.fd-hero::before {
+    /* film grain */
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0.9  0 0 0 0 0.85  0 0 0 0 0.65  0 0 0 0.18 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity: 0.4;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+}
+
+.fd-hero-eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    font-family: var(--fd-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--fd-amber-bright);
+}
+.fd-hero-eyebrow::before, .fd-hero-eyebrow::after {
+    content: "";
+    width: 60px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--fd-amber-bright));
+}
+.fd-hero-eyebrow::after { background: linear-gradient(-90deg, transparent, var(--fd-amber-bright)); }
+
+.fd-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
+    align-items: center;
+}
+@media (max-width: 900px) {
+    .fd-hero-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+
+.fd-mugshot-frame {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    max-width: 460px;
+    margin: 0 auto;
+    width: 100%;
+    border: 1px solid rgba(255, 200, 87, 0.4);
+    padding: 14px;
+    background: linear-gradient(160deg, rgba(255, 200, 87, 0.08), rgba(255, 200, 87, 0.02));
+    box-shadow:
+        0 0 60px rgba(255, 200, 87, 0.15),
+        0 30px 80px rgba(0, 0, 0, 0.6),
+        inset 0 0 0 1px rgba(255, 200, 87, 0.12);
+}
+.fd-mugshot-frame::before {
+    content: "EVIDENCE · ZP CASE FILE";
+    position: absolute;
+    top: -10px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--fd-night);
+    padding: 0 0.8rem;
+    font-family: var(--fd-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    color: var(--fd-amber-bright);
+}
+.fd-mugshot-frame::after {
+    content: "PHOTO · TAMPA · 04 MAY 2026";
+    position: absolute;
+    bottom: -10px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--fd-night);
+    padding: 0 0.8rem;
+    font-family: var(--fd-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.35em;
+    color: var(--fd-cream-soft);
+    opacity: 0.7;
+}
+.fd-mugshot-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: contrast(1.02) saturate(0.95);
+}
+/* Jail bar overlay */
+.fd-jailbars {
+    position: absolute;
+    inset: 14px;
+    background-image: repeating-linear-gradient(
+        90deg,
+        rgba(0,0,0,0) 0px,
+        rgba(0,0,0,0) 38px,
+        rgba(20, 24, 36, 0.55) 38px,
+        rgba(20, 24, 36, 0.65) 46px,
+        rgba(0,0,0,0) 46px,
+        rgba(0,0,0,0) 50px
+    );
+    pointer-events: none;
+    mix-blend-mode: multiply;
+    opacity: 0.7;
+}
+.fd-mugshot-id {
+    position: absolute;
+    left: 24px;
+    bottom: 28px;
+    background: var(--fd-cream);
+    color: var(--fd-night);
+    padding: 0.35rem 0.7rem;
+    font-family: var(--fd-mono);
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+}
+
+.fd-hero-text { text-align: left; }
+@media (max-width: 900px) {
+    .fd-hero-text { text-align: center; }
+    .fd-hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.3em; }
+}
+
+.fd-hero-title {
+    font-family: var(--fd-display);
+    font-size: clamp(4rem, 11vw, 8.5rem);
+    line-height: 0.85;
+    letter-spacing: 0.02em;
+    color: var(--fd-cream);
+    margin-bottom: 0.4rem;
+    text-shadow: 0 0 40px var(--fd-glow);
+}
+.fd-hero-title strong {
+    display: block;
+    color: var(--fd-amber-bright);
+    font-weight: 400;
+    background: linear-gradient(180deg, var(--fd-amber-bright), var(--fd-amber-deep));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.fd-hero-sub {
+    font-family: var(--fd-serif);
+    font-style: italic;
+    font-size: clamp(1.05rem, 1.6vw, 1.4rem);
+    color: var(--fd-cream-soft);
+    margin: 1.5rem 0 2rem;
+    max-width: 520px;
+    line-height: 1.5;
+}
+@media (max-width: 900px) { .fd-hero-sub { margin-left: auto; margin-right: auto; } }
+
+.fd-hero-meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255, 200, 87, 0.15);
+    border: 1px solid rgba(255, 200, 87, 0.2);
+    margin-bottom: 2rem;
+}
+.fd-hero-meta div {
+    background: rgba(10, 13, 24, 0.85);
+    padding: 1rem 1rem;
+    text-align: center;
+}
+.fd-hero-meta dt {
+    display: block;
+    font-family: var(--fd-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fd-cream-soft);
+    opacity: 0.65;
+    margin-bottom: 0.4rem;
+}
+.fd-hero-meta dd {
+    font-family: var(--fd-display);
+    font-size: 1.5rem;
+    color: var(--fd-amber-bright);
+    letter-spacing: 0.05em;
+}
+@media (max-width: 600px) {
+    .fd-hero-meta { grid-template-columns: 1fr; }
+}
+
+.fd-hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+@media (max-width: 900px) { .fd-hero-cta { justify-content: center; } }
+
+.fd-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 1rem 1.6rem;
+    font-family: var(--fd-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--fd-amber-bright);
+    color: var(--fd-night);
+    background: var(--fd-amber-bright);
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    cursor: pointer;
+    font-weight: 600;
+}
+.fd-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(255, 200, 87, 0.3);
+    background: var(--fd-amber);
+}
+.fd-btn-ghost {
+    background: transparent;
+    color: var(--fd-amber-bright);
+}
+.fd-btn-ghost:hover {
+    background: rgba(255, 200, 87, 0.1);
+    box-shadow: none;
+    color: var(--fd-amber-bright);
+}
+
+/* ============================================
+   Section base
+   ============================================ */
+.fd-section {
+    padding: 6rem 0;
+    position: relative;
+}
+.fd-section-alt {
+    background:
+        linear-gradient(180deg, var(--fd-night-2), var(--fd-night));
+    border-top: 1px solid rgba(255, 200, 87, 0.1);
+    border-bottom: 1px solid rgba(255, 200, 87, 0.1);
+}
+
+.fd-section-head {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+.fd-tag {
+    display: inline-block;
+    font-family: var(--fd-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--fd-amber-bright);
+    padding: 0.4rem 1rem;
+    border: 1px solid rgba(255, 200, 87, 0.4);
+    margin-bottom: 1.2rem;
+}
+.fd-h2 {
+    font-family: var(--fd-display);
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    color: var(--fd-cream);
+    margin-bottom: 1.2rem;
+}
+.fd-h2 em {
+    font-family: var(--fd-serif);
+    font-style: italic;
+    color: var(--fd-amber-bright);
+    font-weight: 400;
+}
+.fd-lede {
+    font-family: var(--fd-serif);
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--fd-cream-soft);
+    max-width: 660px;
+    margin: 0 auto;
+    opacity: 0.85;
+}
+
+.fd-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1.5rem auto 2rem;
+}
+.fd-divider span {
+    width: 60px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--fd-amber-bright), transparent);
+}
+.fd-divider i { color: var(--fd-amber-bright); font-size: 0.8rem; }
+
+/* ============================================
+   The Story
+   ============================================ */
+.fd-story {
+    max-width: 780px;
+    margin: 0 auto;
+    font-family: var(--fd-serif);
+    font-size: 1.2rem;
+    line-height: 1.85;
+    color: var(--fd-cream-soft);
+}
+.fd-story p { margin-bottom: 1.4rem; }
+.fd-story p::first-letter,
+.fd-story p:first-of-type::first-letter {
+    /* drop cap on first paragraph only */
+}
+.fd-story p:first-of-type::first-letter {
+    font-family: var(--fd-display);
+    font-size: 5rem;
+    float: left;
+    line-height: 0.85;
+    padding: 0.4rem 0.8rem 0 0;
+    color: var(--fd-amber-bright);
+}
+.fd-story-pull {
+    font-family: var(--fd-display);
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    line-height: 1.15;
+    color: var(--fd-amber-bright);
+    text-align: center;
+    margin: 2.5rem 0;
+    padding: 2rem 0;
+    border-top: 1px solid rgba(255, 200, 87, 0.25);
+    border-bottom: 1px solid rgba(255, 200, 87, 0.25);
+    letter-spacing: 0.02em;
+}
+
+/* ============================================
+   Bail Goal Progress
+   ============================================ */
+.fd-bail-card {
+    max-width: 760px;
+    margin: 0 auto;
+    background: linear-gradient(170deg, rgba(255, 200, 87, 0.06), rgba(255, 107, 53, 0.04));
+    border: 1px solid rgba(255, 200, 87, 0.25);
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+}
+.fd-bail-card::before {
+    content: "";
+    position: absolute;
+    top: -1px; left: -1px; right: -1px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--fd-orange), var(--fd-amber-bright), var(--fd-orange));
+}
+.fd-bail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.6rem;
+    font-family: var(--fd-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--fd-cream-soft);
+    opacity: 0.85;
+}
+.fd-bail-amounts {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.fd-bail-current {
+    font-family: var(--fd-display);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    color: var(--fd-amber-bright);
+    line-height: 1;
+}
+.fd-bail-target {
+    font-family: var(--fd-serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--fd-cream-soft);
+    opacity: 0.8;
+}
+
+.fd-progress {
+    height: 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 200, 87, 0.18);
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 1.4rem;
+}
+.fd-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--fd-orange), var(--fd-amber-bright));
+    box-shadow: 0 0 20px rgba(255, 200, 87, 0.5);
+    transition: width 1.4s ease-out;
+}
+
+.fd-bail-tally {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+}
+.fd-bail-tally div {
+    text-align: center;
+    padding: 1rem 0.5rem;
+    border: 1px solid rgba(255, 200, 87, 0.15);
+    background: rgba(10, 13, 24, 0.5);
+}
+.fd-bail-tally dt {
+    font-family: var(--fd-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--fd-cream-soft);
+    opacity: 0.6;
+    margin-bottom: 0.3rem;
+}
+.fd-bail-tally dd {
+    font-family: var(--fd-display);
+    font-size: 1.4rem;
+    color: var(--fd-amber-bright);
+}
+@media (max-width: 600px) {
+    .fd-bail-tally { grid-template-columns: 1fr 1fr; }
+    .fd-bail-tally div:last-child { grid-column: span 2; }
+}
+
+/* ============================================
+   Reasons (Why he must be freed)
+   ============================================ */
+.fd-reasons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+.fd-reason {
+    background: linear-gradient(165deg, rgba(255, 255, 255, 0.03), rgba(255, 200, 87, 0.04));
+    border: 1px solid rgba(255, 200, 87, 0.18);
+    padding: 2.2rem 1.8rem;
+    position: relative;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+.fd-reason:hover {
+    transform: translateY(-4px);
+    border-color: var(--fd-amber-bright);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+}
+.fd-reason-num {
+    position: absolute;
+    top: 0.8rem; right: 1.2rem;
+    font-family: var(--fd-display);
+    font-size: 3.5rem;
+    color: rgba(255, 200, 87, 0.12);
+    line-height: 1;
+}
+.fd-reason-icon {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 200, 87, 0.1);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--fd-amber-bright);
+    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+    border: 1px solid rgba(255, 200, 87, 0.25);
+}
+.fd-reason h3 {
+    font-family: var(--fd-display);
+    font-size: 1.4rem;
+    letter-spacing: 0.04em;
+    color: var(--fd-cream);
+    margin-bottom: 0.6rem;
+    line-height: 1.1;
+}
+.fd-reason p {
+    color: var(--fd-cream-soft);
+    opacity: 0.85;
+    font-size: 0.95rem;
+    line-height: 1.65;
+}
+
+/* ============================================
+   Witness Statements
+   ============================================ */
+.fd-witnesses {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+.fd-witness {
+    background: var(--fd-paper);
+    color: #2a2218;
+    padding: 2.2rem 2rem 2rem;
+    position: relative;
+    box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(0, 0, 0, 0.2);
+    transform: rotate(-0.6deg);
+    transition: transform 0.4s;
+}
+.fd-witness:nth-child(2n) { transform: rotate(0.8deg); }
+.fd-witness:nth-child(3n) { transform: rotate(-1.2deg); }
+.fd-witness:hover { transform: rotate(0deg) translateY(-4px); }
+.fd-witness::before {
+    content: "\201C";
+    position: absolute;
+    top: -10px; left: 14px;
+    font-family: var(--fd-serif);
+    font-size: 6rem;
+    line-height: 1;
+    color: var(--fd-garnet);
+    opacity: 0.85;
+}
+.fd-witness-quote {
+    font-family: var(--fd-serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #1f1a13;
+}
+.fd-witness-attrib {
+    border-top: 1px solid rgba(122, 32, 48, 0.25);
+    padding-top: 1rem;
+    font-family: var(--fd-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fd-garnet);
+}
+.fd-witness-attrib strong {
+    display: block;
+    font-family: var(--fd-display);
+    font-size: 1.1rem;
+    color: #1f1a13;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.2rem;
+    text-transform: none;
+    font-weight: 400;
+}
+
+/* ============================================
+   Help Section
+   ============================================ */
+.fd-help {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+.fd-help-card {
+    background: rgba(10, 13, 24, 0.7);
+    border: 1px solid rgba(255, 200, 87, 0.2);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: border-color 0.3s, transform 0.3s;
+}
+.fd-help-card:hover {
+    border-color: var(--fd-amber-bright);
+    transform: translateY(-4px);
+}
+.fd-help-card i {
+    font-size: 2rem;
+    color: var(--fd-amber-bright);
+    margin-bottom: 1rem;
+}
+.fd-help-card h3 {
+    font-family: var(--fd-display);
+    font-size: 1.2rem;
+    letter-spacing: 0.05em;
+    color: var(--fd-cream);
+    margin-bottom: 0.4rem;
+}
+.fd-help-card p {
+    font-size: 0.88rem;
+    color: var(--fd-cream-soft);
+    opacity: 0.8;
+    line-height: 1.5;
+}
+
+/* ============================================
+   Petition CTA
+   ============================================ */
+.fd-petition {
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(255, 200, 87, 0.15), transparent 60%),
+        var(--fd-night-2);
+    text-align: center;
+    padding: 7rem 0;
+    border-top: 1px solid rgba(255, 200, 87, 0.18);
+}
+.fd-petition .fd-h2 { margin-bottom: 1.2rem; }
+.fd-petition .fd-lede { margin-bottom: 2.5rem; }
+
+.fd-petition-stamp {
+    margin: 3rem auto 0;
+    width: 200px; height: 200px;
+    border: 4px solid var(--fd-orange-deep);
+    border-radius: 50%;
+    color: var(--fd-orange-deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--fd-display);
+    font-size: 1.6rem;
+    line-height: 1.05;
+    letter-spacing: 0.06em;
+    transform: rotate(-12deg);
+    text-align: center;
+    padding: 1rem;
+    opacity: 0.92;
+    box-shadow: inset 0 0 0 2px rgba(200, 69, 26, 0.2);
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+.fd-footer {
+    background: var(--fd-night);
+    border-top: 1px solid rgba(255, 200, 87, 0.15);
+    padding: 3rem 0 2rem;
+    text-align: center;
+}
+.fd-footer-brand {
+    font-family: var(--fd-serif);
+    font-style: italic;
+    color: var(--fd-amber-bright);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+.fd-footer p {
+    font-family: var(--fd-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    color: var(--fd-cream-soft);
+    opacity: 0.5;
+    text-transform: uppercase;
+    line-height: 1.7;
+}
+.fd-footer-disclaimer {
+    margin-top: 1.2rem;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: var(--fd-body) !important;
+    font-style: italic;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    font-size: 0.78rem !important;
+    line-height: 1.6 !important;
+}
+

@@ -397,6 +397,21 @@
         </style>
     </div>
 
+    <!-- Free Declan Transition Overlay -->
+    <div id="free-declan-transition" style="opacity:0;visibility:hidden;position:fixed;inset:0;z-index:999999;display:flex;align-items:center;justify-content:center;flex-direction:column;background:radial-gradient(ellipse at 50% 30%, rgba(255,200,87,0.18), transparent 60%), #0a0d18;transition:opacity 0.4s ease,visibility 0.4s ease;">
+        <div style="font-family:'Source Code Pro',monospace;font-size:0.7rem;color:rgba(245,233,200,0.65);letter-spacing:0.4em;margin-bottom:1.5rem;text-transform:uppercase;">A Plea From Zeta Rho</div>
+        <div style="font-family:'Bebas Neue','Archivo Black',sans-serif;font-size:3.5rem;color:#ffc857;letter-spacing:0.06em;line-height:0.95;text-align:center;text-shadow:0 0 40px rgba(255,200,87,0.4);animation:fd-flicker 1.4s ease-in-out infinite;">FREE<br>DECLAN.</div>
+        <div style="font-family:'Source Code Pro',monospace;font-size:0.72rem;color:#f5e9c8;letter-spacing:0.2em;margin-top:1.4rem;opacity:0.8;">UNSEALING CASE FILE...</div>
+        <div style="width:220px;height:3px;background:rgba(255,200,87,0.15);margin-top:1rem;overflow:hidden;">
+            <div style="width:100%;height:100%;background:linear-gradient(90deg,#ff6b35,#ffc857);animation:fd-loadbar 1.8s ease-in-out infinite;"></div>
+        </div>
+        <style>
+            @keyframes fd-flicker { 0%,100%{opacity:1;}50%{opacity:0.78;} }
+            @keyframes fd-loadbar { 0%{transform:translateX(-100%);}100%{transform:translateX(100%);} }
+            #free-declan-transition.active { opacity:1!important; visibility:visible!important; }
+        </style>
+    </div>
+
     <!-- Wanted Transition Overlay -->
     <div id="wanted-transition" style="opacity:0;visibility:hidden;position:fixed;inset:0;z-index:999999;display:flex;align-items:center;justify-content:center;flex-direction:column;background:#0a1628;transition:opacity 0.4s ease,visibility 0.4s ease;">
         <div style="font-family:'Archivo Black',sans-serif;font-size:0.65rem;color:rgba(255,255,255,0.6);letter-spacing:0.3em;margin-bottom:1.5rem;">ZETA RHO BUREAU OF INVESTIGATION</div>
@@ -479,6 +494,21 @@
             }
         }
         attachDetection(checkForWanted);
+
+        // Declan Coyne detection - free declan plea page
+        function checkForDeclan() {
+            if (redirecting) return;
+            const firstName = document.getElementById('firstName').value.trim().toLowerCase();
+            const lastName = document.getElementById('lastName').value.trim().toLowerCase();
+
+            if (firstName === 'declan' && lastName === 'coyne') {
+                redirecting = true;
+                const overlay = document.getElementById('free-declan-transition');
+                overlay.classList.add('active');
+                setTimeout(() => { window.location.href = 'free-declan.html'; }, 2400);
+            }
+        }
+        attachDetection(checkForDeclan);
 
         // Form submission handling
         document.getElementById('contact-form').addEventListener('submit', function(e) {
