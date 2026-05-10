@@ -38,12 +38,16 @@
                 The Coyne Defense Fund
                 <small>ZETA RHO · LAMBDA CHI ALPHA</small>
             </a>
-            <ul class="fd-topnav-links">
+            <button class="fd-topnav-toggle" id="fd-topnav-toggle" aria-label="Toggle menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="fd-topnav-links" id="fd-topnav-links">
                 <li><a href="#story">The Story</a></li>
                 <li><a href="#bail">Bail Goal</a></li>
                 <li><a href="#reasons">Why Free Him</a></li>
                 <li><a href="#witnesses">Brothers Speak</a></li>
                 <li><a href="#help">How To Help</a></li>
+                <li><a href="../index.html" class="fd-topnav-home-mobile"><i class="fas fa-arrow-left"></i> Home</a></li>
             </ul>
             <a href="../index.html" class="fd-topnav-back"><i class="fas fa-arrow-left"></i> Home</a>
         </div>
@@ -56,9 +60,11 @@
 
             <div class="fd-hero-grid">
                 <div class="fd-mugshot-frame">
+                    <span class="fd-mugshot-tag fd-mugshot-tag--top">EVIDENCE · ZP CASE FILE</span>
                     <img src="../images/declan-coyne-mugshot.jpg" alt="Declan Coyne — Tampa booking photograph">
                     <div class="fd-jailbars" aria-hidden="true"></div>
                     <div class="fd-mugshot-id">D. COYNE · 05/04/26</div>
+                    <span class="fd-mugshot-tag fd-mugshot-tag--bottom">PHOTO · TAMPA · 04 MAY 2026</span>
                 </div>
 
                 <div class="fd-hero-text">
@@ -395,6 +401,23 @@
                 });
             }, { threshold: 0.4 });
             obs.observe(bar.parentElement);
+        })();
+
+        // Mobile menu toggle
+        (function () {
+            const btn = document.getElementById('fd-topnav-toggle');
+            const list = document.getElementById('fd-topnav-links');
+            if (!btn || !list) return;
+            btn.addEventListener('click', () => {
+                const open = list.classList.toggle('is-open');
+                btn.classList.toggle('is-open', open);
+                btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+            });
+            list.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+                list.classList.remove('is-open');
+                btn.classList.remove('is-open');
+                btn.setAttribute('aria-expanded', 'false');
+            }));
         })();
     </script>
 </body>
