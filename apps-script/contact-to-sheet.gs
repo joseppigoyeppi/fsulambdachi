@@ -41,6 +41,7 @@ function doPost(e) {
         'Phone: ' + (p.phone || ''),
         'Initiation year: ' + (p.initiationYear || ''),
         'Graduation year: ' + (p.graduationYear || ''),
+        'Profession: ' + (p.profession || ''),
         'City/State: ' + [p.city, p.state].filter(Boolean).join(', '),
         '',
         'Sheet: ' + SpreadsheetApp.getActiveSpreadsheet().getUrl(),
@@ -80,6 +81,8 @@ function valueForColumn(header, p) {
       return p.initiationYear || '';
     case 'graduationyear': case 'gradyear': case 'graduation': case 'classof':
       return p.graduationYear || '';
+    case 'profession': case 'occupation': case 'career': case 'job': case 'jobtitle':
+      return p.profession || '';
     case 'city': case 'primarycity':
       return p.city || '';
     case 'state': case 'primarystate':
