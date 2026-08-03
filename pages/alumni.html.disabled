@@ -39,7 +39,7 @@
                 <!-- <li class="nav-item"><a href="rush.html" class="nav-link">Rush</a></li> -->
                 <li class="nav-item"><a href="alumni.html" class="nav-link active">Alumni</a></li>
                 <li class="nav-item"><a href="newsletters.html" class="nav-link">Newsletters</a></li>
-                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -417,7 +417,7 @@
                 <h2>Reconnect With Your Chapter</h2>
                 <p>As we re-establish Zeta Rho at FSU, we need our alumni more than ever. Update your contact information and let us know how you'd like to be involved.</p>
                 <div class="rush-buttons">
-                    <a href="contact.html" class="btn btn-primary btn-large">
+                    <a href="/contact" class="btn btn-primary btn-large">
                         <span>Get in Touch</span>
                         <i class="fas fa-arrow-right"></i>
                     </a>
@@ -457,7 +457,7 @@
                             <!-- <li><a href="rush.html">Rush</a></li> -->
                             <li><a href="alumni.html">Alumni</a></li>
                             <li><a href="newsletters.html">Newsletters</a></li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="/contact">Contact</a></li>
                         </ul>
                     </div>
 

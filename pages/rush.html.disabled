@@ -37,7 +37,7 @@
                 <li class="nav-item"><a href="rush.html" class="nav-link active">Rush</a></li>
                 <!-- RSVP_TOGGLE: Restore to alumni.html / "Alumni" after the cookout -->
                 <li class="nav-item"><a href="/rsvp" class="nav-link">RSVP</a></li>
-                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -61,7 +61,7 @@
                     <p class="section-text">This is a once-in-a-lifetime opportunity. As Lambda Chi Alpha returns to FSU in Spring 2025, you have the chance to be a Founding Father of the re-established Zeta Rho Chapter.</p>
                     <p class="section-text">Founding Fathers don't just join a fraternity—they build one. You'll shape our chapter's culture, traditions, and future for generations to come. This is leadership on day one.</p>
                     <p class="section-text">With over 300,000 brothers worldwide and a powerful alumni network, Lambda Chi Alpha offers connections that last a lifetime. Our alumni include CEOs, professional athletes, politicians, and leaders in every field.</p>
-                    <a href="contact.html" class="btn btn-primary">
+                    <a href="/contact" class="btn btn-primary">
                         <span>Get in Touch</span>
                         <i class="fas fa-arrow-right"></i>
                     </a>
@@ -216,7 +216,7 @@
                 <h2>Ready to Rush?</h2>
                 <p>Fill out our interest form and a brother will reach out to you with more information about upcoming events.</p>
                 <div class="rush-buttons">
-                    <a href="contact.html" class="btn btn-primary btn-large">
+                    <a href="/contact" class="btn btn-primary btn-large">
                         <span>Register Interest</span>
                         <i class="fas fa-arrow-right"></i>
                     </a>
@@ -259,7 +259,7 @@
                             <li><a href="rush.html">Rush</a></li>
                             <!-- RSVP_TOGGLE: Restore to alumni.html / "Alumni" after the cookout -->
                             <li><a href="/rsvp">RSVP</a></li>
-                            <li><a href="contact.html">Contact</a></li>
+                            <li><a href="/contact">Contact</a></li>
                         </ul>
                     </div>
 
