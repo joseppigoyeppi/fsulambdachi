@@ -74,6 +74,7 @@
                     </div>
 
                     <form class="contact-form" id="contact-form" action="https://formspree.io/f/xojnjalq" method="POST">
+                        <input type="text" name="_gotcha" style="display: none !important;" tabindex="-1" autocomplete="off" aria-hidden="true">
                         <div style="display: grid; gap: 1.5rem; grid-template-columns: repeat(3, 1fr);">
                             <div class="form-group">
                                 <label for="firstName">First Name *</label>
@@ -361,7 +362,13 @@
 
     <script src="../js/main.js"></script>
     <script>
-        // Form submission handling
+        // Contact form submission handling.
+        // Posts to the Google Apps Script web app that appends each submission to
+        // the "Zeta-Rho Zeta Alumni Contact List" sheet and emails the chapter
+        // inbox (see apps-script/README.md). Until the URL below is filled in,
+        // submissions fall back to the Formspree action on the form tag.
+        const CONTACT_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxSd3x_CaoNqWy2b-yQmGBuBkrur5baDsrmetaB6oFoDN_rBN5CJRQIKEQINUrMYQ4B/exec';
+
         document.getElementById('contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -369,15 +376,29 @@
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalContent = submitBtn.innerHTML;
 
+            const showError = function() {
+                submitBtn.innerHTML = '<span>Something went wrong</span><i class="fas fa-exclamation-triangle"></i>';
+                submitBtn.style.background = 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)';
+                setTimeout(function() {
+                    submitBtn.innerHTML = originalContent;
+                    submitBtn.style.background = '';
+                    submitBtn.disabled = false;
+                }, 3000);
+            };
+
             submitBtn.innerHTML = '<span>Sending...</span><i class="fas fa-spinner fa-spin"></i>';
             submitBtn.disabled = true;
 
-            fetch(form.action, {
+            // URLSearchParams (not FormData) because Apps Script only parses
+            // urlencoded bodies into e.parameter, and it avoids a CORS preflight.
+            fetch(CONTACT_ENDPOINT || form.action, {
                 method: 'POST',
-                body: new FormData(form),
-                headers: { 'Accept': 'application/json' }
+                body: new URLSearchParams(new FormData(form))
             }).then(function(response) {
-                if (response.ok) {
+                return response.json();
+            }).then(function(data) {
+                // Apps Script replies {result: 'success'}; Formspree replies {ok/next}.
+                if (data.result === 'success' || data.ok || data.next) {
                     submitBtn.innerHTML = '<span>Info Updated!</span><i class="fas fa-check"></i>';
                     submitBtn.style.background = 'linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%)';
                     setTimeout(function() {
@@ -387,23 +408,9 @@
                         form.reset();
                     }, 3000);
                 } else {
-                    submitBtn.innerHTML = '<span>Something went wrong</span><i class="fas fa-exclamation-triangle"></i>';
-                    submitBtn.style.background = 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)';
-                    setTimeout(function() {
-                        submitBtn.innerHTML = originalContent;
-                        submitBtn.style.background = '';
-                        submitBtn.disabled = false;
-                    }, 3000);
+                    showError();
                 }
-            }).catch(function() {
-                submitBtn.innerHTML = '<span>Something went wrong</span><i class="fas fa-exclamation-triangle"></i>';
-                submitBtn.style.background = 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)';
-                setTimeout(function() {
-                    submitBtn.innerHTML = originalContent;
-                    submitBtn.style.background = '';
-                    submitBtn.disabled = false;
-                }, 3000);
-            });
+            }).catch(showError);
         });
     </script>
 </body>

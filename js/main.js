@@ -242,49 +242,6 @@ function initSmoothScroll() {
 }
 
 /* ============================================
-   Form Handling (for contact page)
-   ============================================ */
-function initContactForm() {
-    const form = document.getElementById('contact-form');
-    if (!form) return;
-
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        // Get form data
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData);
-
-        // Simple validation
-        let isValid = true;
-        const requiredFields = form.querySelectorAll('[required]');
-
-        requiredFields.forEach(field => {
-            if (!field.value.trim()) {
-                isValid = false;
-                field.classList.add('error');
-            } else {
-                field.classList.remove('error');
-            }
-        });
-
-        if (isValid) {
-            // Show success message (in real implementation, this would send to server)
-            const submitBtn = form.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Message Sent!';
-            submitBtn.disabled = true;
-
-            setTimeout(() => {
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                form.reset();
-            }, 3000);
-        }
-    });
-}
-
-/* ============================================
    Image Lazy Loading Enhancement
    ============================================ */
 function initLazyImages() {
