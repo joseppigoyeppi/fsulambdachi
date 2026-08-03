@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<!--
+  RSVP_TOGGLE: Temporary page for the 2026 Alumni Cookout RSVP push.
+  Served at www.fsulambdachi.com/rsvp (GitHub Pages resolves extensionless
+  URLs to .html files). The regular alumni page is preserved at
+  pages/alumni.html.disabled.
+  To restore after the cookout:
+    1. Delete pages/alumni.html (the redirect stub) and rename
+       pages/alumni.html.disabled back to alumni.html.
+    2. Search the site for "RSVP_TOGGLE" and follow each comment.
+    3. Delete this file and pages/rsvp.html (or keep them, renamed
+       *.disabled, for the next event).
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSVP | Lambda Chi Alpha at FSU</title>
+    <meta name="description" content="RSVP for the Lambda Chi Alpha Zeta Rho 2026 Alumni Cookout. Labor Day, September 7, 2026 at 1944 Heritage Grove Circle, Tallahassee.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon">ΛΧΑ</div>
+                <div class="logo-text">
+                    <span class="logo-primary">Lambda Chi Alpha</span>
+                    <span class="logo-secondary">Zeta Rho | Florida State</span>
+                </div>
+            </a>
+
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="pages/brotherhood.html" class="nav-link">Brotherhood</a></li>
+                <li class="nav-item"><a href="pages/leadership.html" class="nav-link">Leadership</a></li>
+                <!-- RUSH_TOGGLE: Uncomment below when rush is active -->
+                <!-- <li class="nav-item"><a href="pages/rush.html" class="nav-link">Rush</a></li> -->
+                <!-- RSVP_TOGGLE: Restore to pages/alumni.html / "Alumni" after the cookout -->
+                <li class="nav-item"><a href="/rsvp" class="nav-link active">RSVP</a></li>
+                <li class="nav-item"><a href="pages/newsletters.html" class="nav-link">Newsletters</a></li>
+                <li class="nav-item"><a href="pages/contact.html" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1 class="section-title" data-page-animate>2026 Alumni Cookout</h1>
+            <div class="heritage-divider" data-page-animate>
+                <span class="heritage-divider__wing"></span>
+                <span class="heritage-divider__diamond"></span>
+                <span class="heritage-divider__wing"></span>
+            </div>
+            <p class="page-subtitle" data-page-animate>Join us at the house on Labor Day before the Seminoles take on the SMU Mustangs. Let us know you're coming so we can plan the food.</p>
+        </div>
+    </section>
+
+    <!-- Alumni Cookout RSVP -->
+    <section class="page-content" id="cookout-rsvp" style="background: var(--white);">
+        <div class="container">
+            <div style="max-width: 800px; margin: 0 auto; width: 100%;">
+                <div style="max-width: 600px; margin: 0 auto 2rem;">
+                    <dl style="display: grid; grid-template-columns: auto 1fr; gap: 0.75rem 1.5rem; margin: 0; background: var(--gray-100); border-radius: 12px; padding: 1.5rem;">
+                        <dt style="font-size: 0.8rem; font-weight: 600; color: var(--gray-700); text-transform: uppercase; letter-spacing: 0.05em;">Date</dt>
+                        <dd style="margin: 0; color: var(--gray-900);">Monday, September 7, 2026 (Labor Day)</dd>
+                        <dt style="font-size: 0.8rem; font-weight: 600; color: var(--gray-700); text-transform: uppercase; letter-spacing: 0.05em;">Time</dt>
+                        <dd style="margin: 0; color: var(--gray-900);">1:00&ndash;3:00 PM</dd>
+                        <dt style="font-size: 0.8rem; font-weight: 600; color: var(--gray-700); text-transform: uppercase; letter-spacing: 0.05em;">Location</dt>
+                        <dd style="margin: 0; color: var(--gray-900);">1944 Heritage Grove Circle, Tallahassee, FL 32304</dd>
+                        <dt style="font-size: 0.8rem; font-weight: 600; color: var(--gray-700); text-transform: uppercase; letter-spacing: 0.05em;">Gameday</dt>
+                        <dd style="margin: 0; color: var(--gray-900);">Florida State Seminoles vs. SMU Mustangs</dd>
+                    </dl>
+                </div>
+
+                <form class="contact-form" id="rsvp-form" action="https://formspree.io/f/xojnjalq" method="POST">
+                    <input type="hidden" name="_subject" value="2026 Alumni Cookout RSVP">
+                    <input type="hidden" name="formType" value="Alumni Cookout RSVP">
+                    <input type="text" name="_gotcha" style="display: none !important;" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+                    <div class="form-group">
+                        <label for="rsvpName">Brother's Name *</label>
+                        <input type="text" id="rsvpName" name="name" required>
+                    </div>
+
+                    <div style="display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                        <div class="form-group">
+                            <label for="rsvpInitiationYear">Initiation Year *</label>
+                            <input type="number" id="rsvpInitiationYear" name="initiationYear" required min="1947" max="2026" placeholder="e.g. 1985">
+                        </div>
+                        <div class="form-group">
+                            <label for="rsvpGuests">Guests You're Bringing *</label>
+                            <input type="number" id="rsvpGuests" name="guests" required min="0" max="20" placeholder="0 if it's just you">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rsvpEmail">Email Address *</label>
+                        <input type="email" id="rsvpEmail" name="email" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                        <span>Send RSVP</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <div class="footer-logo">
+                            <div class="logo-icon">ΛΧΑ</div>
+                            <div class="logo-text">
+                                <span class="logo-primary">Lambda Chi Alpha</span>
+                                <span class="logo-secondary">Zeta Rho Chapter</span>
+                            </div>
+                        </div>
+                        <p class="footer-tagline">"The crescent is our symbol; pure, high, ever growing, and the cross is our guide."</p>
+                        <div class="footer-social">
+                            <a href="https://instagram.com/fsulambdachi" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="footer-links">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="pages/brotherhood.html">Brotherhood</a></li>
+                            <li><a href="pages/leadership.html">Leadership</a></li>
+                            <!-- RUSH_TOGGLE: Uncomment when rush is active -->
+                            <!-- <li><a href="pages/rush.html">Rush</a></li> -->
+                            <!-- RSVP_TOGGLE: Restore to pages/alumni.html / "Alumni" after the cookout -->
+                            <li><a href="/rsvp">RSVP</a></li>
+                            <li><a href="pages/newsletters.html">Newsletters</a></li>
+                            <li><a href="pages/contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-links">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="https://www.lambdachi.org" target="_blank">National Headquarters</a></li>
+                            <li><a href="https://www.fsu.edu" target="_blank">Florida State University</a></li>
+                            <li><a href="https://www.fsuifc.com" target="_blank">FSU IFC</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-contact">
+                        <h4>Contact Us</h4>
+                        <address>
+                            <p><i class="fas fa-map-marker-alt"></i> 1944 Heritage Grove Circle<br>Tallahassee, FL 32304<br><small style="color: var(--gold);">Moving in Fall 2026</small></p>
+                            <p><i class="fas fa-envelope"></i> <a href="mailto:zeta.rho.zeta.lca@gmail.com">zeta.rho.zeta.lca@gmail.com</a></p>
+                        </address>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 Lambda Chi Alpha - Zeta Rho Chapter at Florida State University. All rights reserved.</p>
+                <p class="footer-motto">Vir Quisque Vir. Every Man a Man.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.6;">Site by Joseph Goyette, ZP 2677 · <a href="mailto:jsg24c@fsu.edu" style="color: inherit;">jsg24c@fsu.edu</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // RSVP form submission handling.
+        // Posts to the Google Apps Script web app that logs RSVPs to the chapter's
+        // Google Sheet and emails the chapter inbox (see apps-script/README.md).
+        // Until the URL below is filled in, submissions fall back to the Formspree
+        // action on the form tag.
+        const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwWl5xJOfkt6aqSqz3bte3YpkUxNiXKB0wYDljJzc0bINLg1Fb4FzecJ31dQPlM6fpD/exec';
+
+        document.getElementById('rsvp-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const form = this;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalContent = submitBtn.innerHTML;
+
+            const showError = function() {
+                submitBtn.innerHTML = '<span>Something went wrong</span><i class="fas fa-exclamation-triangle"></i>';
+                submitBtn.style.background = 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)';
+                setTimeout(function() {
+                    submitBtn.innerHTML = originalContent;
+                    submitBtn.style.background = '';
+                    submitBtn.disabled = false;
+                }, 3000);
+            };
+
+            submitBtn.innerHTML = '<span>Sending...</span><i class="fas fa-spinner fa-spin"></i>';
+            submitBtn.disabled = true;
+
+            // URLSearchParams (not FormData) because Apps Script only parses
+            // urlencoded bodies into e.parameter, and it avoids a CORS preflight.
+            fetch(RSVP_ENDPOINT || form.action, {
+                method: 'POST',
+                body: new URLSearchParams(new FormData(form))
+            }).then(function(response) {
+                return response.json();
+            }).then(function(data) {
+                // Apps Script replies {result: 'success'}; Formspree replies {ok/next}.
+                if (data.result === 'success' || data.ok || data.next) {
+                    submitBtn.innerHTML = '<span>RSVP Received!</span><i class="fas fa-check"></i>';
+                    submitBtn.style.background = 'linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%)';
+                    setTimeout(function() {
+                        submitBtn.innerHTML = originalContent;
+                        submitBtn.style.background = '';
+                        submitBtn.disabled = false;
+                        form.reset();
+                    }, 3000);
+                } else {
+                    showError();
+                }
+            }).catch(showError);
+        });
+    </script>
+</body>
+</html>

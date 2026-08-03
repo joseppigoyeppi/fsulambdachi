@@ -36,7 +36,7 @@
                 <li class="nav-item"><a href="leadership.html" class="nav-link">Leadership</a></li>
                 <li class="nav-item"><a href="rush.html" class="nav-link active">Rush</a></li>
                 <!-- RSVP_TOGGLE: Restore to alumni.html / "Alumni" after the cookout -->
-                <li class="nav-item"><a href="rsvp.html" class="nav-link">RSVP</a></li>
+                <li class="nav-item"><a href="/rsvp" class="nav-link">RSVP</a></li>
                 <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
             </ul>
         </div>
@@ -258,7 +258,7 @@
                             <li><a href="leadership.html">Leadership</a></li>
                             <li><a href="rush.html">Rush</a></li>
                             <!-- RSVP_TOGGLE: Restore to alumni.html / "Alumni" after the cookout -->
-                            <li><a href="rsvp.html">RSVP</a></li>
+                            <li><a href="/rsvp">RSVP</a></li>
                             <li><a href="contact.html">Contact</a></li>
                         </ul>
                     </div>
