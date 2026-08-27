@@ -1,8 +1,5 @@
 (() => {
   const ticket = document.getElementById('ticket');
-  const fullscreenButton = document.getElementById('fullscreenButton');
-  const closeButton = document.getElementById('closeButton');
-  const toast = document.getElementById('toast');
   const readerVideo = document.getElementById('readerVideo');
   const readerFallback = document.getElementById('readerFallback');
 
@@ -10,16 +7,8 @@
   let currentOffset = 0;
   let dragging = false;
   let maxUp = -72;
-  let toastTimer;
 
   const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
-
-  function showToast(message, ms = 3300) {
-    clearTimeout(toastTimer);
-    toast.textContent = message;
-    toast.classList.add('show');
-    toastTimer = setTimeout(() => toast.classList.remove('show'), ms);
-  }
 
   function setTicketY(y) {
     currentOffset = y;
@@ -75,33 +64,6 @@
   ticket.addEventListener('pointerup', endDrag);
   ticket.addEventListener('pointercancel', endDrag);
   ticket.addEventListener('lostpointercapture', endDrag);
-
-  async function enterFullscreen() {
-    try {
-      const root = document.documentElement;
-      const request = root.requestFullscreen || root.webkitRequestFullscreen;
-
-      if (request) {
-        await request.call(root);
-        return;
-      }
-
-      const standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-      if (standalone) {
-        showToast('Already running in standalone mode.');
-      } else {
-        showToast('For a true address-bar-free iPhone view, use Share → Add to Home Screen, then open FSU Tickets from the Home Screen.', 5600);
-      }
-    } catch (error) {
-      showToast('iPhone Safari may block page fullscreen. Use Share → Add to Home Screen for the seamless standalone view.', 5600);
-    }
-  }
-
-  fullscreenButton.addEventListener('click', enterFullscreen);
-
-  closeButton.addEventListener('click', () => {
-    window.location.href = '../index.html';
-  });
 
   // If the supplied screen recording exists, it becomes the loop automatically.
   readerVideo.addEventListener('loadeddata', () => {
