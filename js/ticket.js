@@ -9,6 +9,7 @@
   let startY = null;
   let currentOffset = 0;
   let dragging = false;
+  let maxUp = -72;
   let toastTimer;
 
   const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
@@ -51,23 +52,24 @@
     dragging = true;
     startY = event.clientY;
     currentOffset = 0;
+    // Allow dragging until only a sliver of the ticket is still on screen.
+    maxUp = -(ticket.getBoundingClientRect().bottom - 40);
     ticket.setPointerCapture?.(event.pointerId);
   });
 
   ticket.addEventListener('pointermove', (event) => {
     if (!dragging || startY === null) return;
     const delta = event.clientY - startY;
-    // Only follow upward movement, with increasing resistance.
-    const resisted = delta < 0 ? delta * .58 : delta * .12;
-    setTicketY(clamp(resisted, -72, 10));
+    // Follow the finger upward; resist downward movement.
+    const followed = delta < 0 ? delta : delta * .12;
+    setTicketY(clamp(followed, maxUp, 10));
   });
 
   const endDrag = () => {
     if (!dragging) return;
     dragging = false;
     startY = null;
-    const launchPoint = currentOffset < -18 ? Math.min(currentOffset - 16, -48) : currentOffset;
-    springHome(launchPoint);
+    springHome(currentOffset);
   };
 
   ticket.addEventListener('pointerup', endDrag);
