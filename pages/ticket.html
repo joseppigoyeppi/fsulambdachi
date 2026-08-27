@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="FSU Tickets" />
+  <meta name="robots" content="noindex" />
+  <link rel="manifest" href="./ticket.webmanifest" />
+  <link rel="icon" type="image/svg+xml" href="../images/favicon.svg" />
+  <link rel="stylesheet" href="../css/ticket.css" />
+  <title>FSU Mobile Ticket</title>
+</head>
+<body>
+  <main class="app-shell" aria-label="FSU mobile ticket">
+    <header class="app-header">
+      <button class="round-button" id="closeButton" type="button" aria-label="Close ticket">
+        <span class="x-icon" aria-hidden="true"></span>
+      </button>
+
+      <button class="round-button" id="fullscreenButton" type="button" aria-label="Enter full screen">
+        <span class="fullscreen-icon" aria-hidden="true"></span>
+      </button>
+    </header>
+
+    <section class="ticket-stage">
+      <div class="ticket-wrap" id="ticket" aria-label="Florida State student ticket. Swipe up for motion.">
+        <img
+          src="../images/IMG_7666.jpg"
+          alt="Florida State student ticket for New Mexico State at Doak Campbell Stadium"
+          draggable="false"
+        />
+      </div>
+
+      <div class="reader-area" aria-label="Hold near reader animation">
+        <video
+          id="readerVideo"
+          class="reader-video"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto"
+          aria-label="Hold near reader animation"
+        >
+          <source src="../images/ticket-reader.mov" type="video/quicktime" />
+        </video>
+
+        <div class="reader-fallback" id="readerFallback" aria-hidden="true">
+          <div class="phone-ring">
+            <div class="phone-shape"><span></span></div>
+          </div>
+          <p>Hold Near Reader</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </main>
+
+  <script src="../js/ticket.js"></script>
+</body>
+</html>

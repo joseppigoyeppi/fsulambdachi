@@ -2188,6 +2188,19 @@ button {
     font-style: italic;
 }
 
+.footer-ticket {
+    display: inline-block;
+    margin-top: var(--space-sm);
+    font-size: 0.7rem;
+    color: var(--gray-500);
+    opacity: 0.4;
+}
+
+.footer-ticket:hover {
+    opacity: 0.8;
+    color: var(--gray-400);
+}
+
 /* ============================================
    Page Styles (for inner pages)
    ============================================ */

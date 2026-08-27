@@ -1,0 +1,9 @@
+{
+  "name": "FSU Mobile Tickets",
+  "short_name": "FSU Tickets",
+  "start_url": "./ticket.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary"
+}
