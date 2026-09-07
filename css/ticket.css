@@ -154,6 +154,12 @@ button, img, video { -webkit-user-select: none; user-select: none; }
   display: block;
   object-fit: contain;
   background: transparent;
+  pointer-events: none;
+}
+
+.reader-video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
 }
 
 .reader-video:not([data-loaded="true"]) { opacity: 0; }

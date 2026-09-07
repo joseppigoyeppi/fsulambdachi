@@ -77,10 +77,23 @@
     readerFallback.classList.remove('hidden');
   });
 
-  // Re-attempt playback after user interaction in case iOS paused autoplay.
-  document.addEventListener('touchstart', () => {
+  // Keep the loop running no matter what: iOS pauses autoplay in Low Power
+  // Mode, when the tab is backgrounded, or after fullscreen changes.
+  const tryPlay = () => {
     if (readerVideo.dataset.loaded === 'true' && readerVideo.paused) {
       readerVideo.play().catch(() => {});
     }
-  }, { passive: true, once: true });
+  };
+
+  readerVideo.addEventListener('pause', () => setTimeout(tryPlay, 100));
+
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) tryPlay();
+  });
+
+  ['touchstart', 'pointerdown', 'click'].forEach((type) => {
+    document.addEventListener(type, tryPlay, { passive: true });
+  });
+
+  setInterval(tryPlay, 2000);
 })();
