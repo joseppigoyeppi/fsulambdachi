@@ -1,0 +1,27 @@
+{
+  "settings": {
+    "storeName": "Zeta Rho Orders",
+    "chapterName": "Lambda Chi Alpha · Zeta Rho",
+    "tagline": "Pick your drinks, pay the chapter, upload the screenshot. Done.",
+    "paymentInstructions": "Venmo the chapter treasurer (update this in Admin → Settings) and put your full name in the note.",
+    "storeOpen": true,
+    "closedMessage": "Ordering is closed right now. Check back before the next run.",
+    "brandOrder": ["Sun Cruiser", "Twisted Tea", "Sinless"],
+    "nextOrderNumber": 1001
+  },
+  "products": [
+    { "id": "sc-classic-iced-tea", "category": "drinks", "brand": "Sun Cruiser", "name": "Classic Iced Tea", "tag": "8-pack · 12 oz cans", "description": "Real brewed tea + vodka. 4.5% ABV, 100 cal, no bubbles.", "priceCents": 1200, "image": "products/sc-classic-iced-tea.webp", "imageFit": "contain" },
+    { "id": "sc-half-and-half", "category": "drinks", "brand": "Sun Cruiser", "name": "Half & Half", "tag": "8-pack · 12 oz cans", "description": "Lemonade + iced tea + vodka. 4.5% ABV, 100 cal.", "priceCents": 1200, "image": "products/sc-half-and-half.webp", "imageFit": "contain" },
+    { "id": "sc-peach-iced-tea", "category": "drinks", "brand": "Sun Cruiser", "name": "Peach Iced Tea", "tag": "8-pack · 12 oz cans", "description": "Peach iced tea + vodka. 4.5% ABV, 100 cal.", "priceCents": 1200, "image": "products/sc-peach-iced-tea.webp", "imageFit": "contain" },
+    { "id": "sc-raspberry-iced-tea", "category": "drinks", "brand": "Sun Cruiser", "name": "Raspberry Iced Tea", "tag": "8-pack · 12 oz cans", "description": "Raspberry iced tea + vodka. 4.5% ABV, 100 cal.", "priceCents": 1200, "image": "products/sc-raspberry-iced-tea.webp", "imageFit": "contain" },
+    { "id": "sc-classic-lemonade", "category": "drinks", "brand": "Sun Cruiser", "name": "Classic Lemonade", "tag": "8-pack · 12 oz cans", "description": "Classic lemonade + vodka. 4.5% ABV, 100 cal.", "priceCents": 1200, "image": "products/sc-classic-lemonade.webp", "imageFit": "contain" },
+    { "id": "sc-pink-lemonade", "category": "drinks", "brand": "Sun Cruiser", "name": "Pink Lemonade", "tag": "8-pack · 12 oz cans", "description": "Pink lemonade + vodka. 4.5% ABV, 100 cal.", "priceCents": 1200, "image": "products/sc-pink-lemonade.webp", "imageFit": "contain" },
+    { "id": "sc-strawberry-lemonade", "category": "drinks", "brand": "Sun Cruiser", "name": "Strawberry Lemonade", "tag": "8-pack · 12 oz cans", "description": "Strawberry lemonade + vodka. 4.5% ABV, 100 cal.", "priceCents": 1200, "image": "products/sc-strawberry-lemonade.webp", "imageFit": "contain" },
+    { "id": "sc-blueberry-lemonade", "category": "drinks", "brand": "Sun Cruiser", "name": "Blueberry Lemonade", "tag": "8-pack · 12 oz cans", "description": "Blueberry lemonade + vodka. 4.5% ABV, 100 cal.", "priceCents": 1200, "image": "products/sc-blueberry-lemonade.webp", "imageFit": "contain" },
+    { "id": "sc-variety-iced-tea", "category": "drinks", "brand": "Sun Cruiser", "name": "Iced Tea Variety Pack", "tag": "8-pack · 12 oz cans", "description": "2 of each: Classic, Half & Half, Peach, Raspberry.", "priceCents": 1200, "image": "products/sc-variety-iced-tea.webp", "imageFit": "contain" },
+    { "id": "sc-variety-lemonade", "category": "drinks", "brand": "Sun Cruiser", "name": "Lemonade Variety Pack", "tag": "8-pack · 12 oz cans", "description": "2 of each: Classic, Pink, Strawberry, Blueberry.", "priceCents": 1200, "image": "products/sc-variety-lemonade.webp", "imageFit": "contain" },
+    { "id": "tt-party-pack", "category": "drinks", "brand": "Twisted Tea", "name": "Party Pack (Variety)", "tag": "12-pack · 12 oz cans", "description": "Original, Half & Half, Rocket Pop, Lemonade. 5% ABV.", "priceCents": 1700, "image": "products/tt-party-pack.png", "imageFit": "contain" },
+    { "id": "tt-light-party-pack", "category": "drinks", "brand": "Twisted Tea", "name": "Light Party Pack (Variety)", "tag": "12-pack · 12 oz cans", "description": "Half & Half, Lemon, Raspberry, Peach. 4% ABV, 110 cal.", "priceCents": 1700, "image": "products/tt-light-party-pack.png", "imageFit": "contain" },
+    { "id": "sinless-variety", "category": "drinks", "brand": "Sinless", "name": "Sinless Variety Pack", "tag": "8-pack · 12 oz cans", "description": "Cranberry, Black Cherry, Peach, Pineapple. 5% ABV, 0 sugar, 100 cal.", "priceCents": 1200, "image": "products/sinless-variety.png", "imageFit": "cover" }
+  ]
+}
