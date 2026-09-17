@@ -1,0 +1,38 @@
+{
+  "name": "zeta-rho-orders",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "mock": "node scripts/mock-backend.mjs",
+    "build": "next build && node scripts/publish.mjs",
+    "serve": "node scripts/static-server.mjs",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "e2e": "node scripts/e2e.mjs"
+  },
+  "dependencies": {
+    "@react-three/drei": "^10.7.8",
+    "@react-three/fiber": "^9.7.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.44.0",
+    "motion": "^13.2.0",
+    "next": "16.3.4",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "tailwind-merge": "^3.6.0",
+    "three": "^0.186.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/three": "^0.185.4",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.4",
+    "playwright": "^1.63.0",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

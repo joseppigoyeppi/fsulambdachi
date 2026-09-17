@@ -1,0 +1,167 @@
+@import "tailwindcss";
+
+/*
+  Design tokens — dark, liquid-glass system adapted from the Asme template.
+  Monochrome surfaces, one gold accent as a nod to Lambda Chi Alpha.
+  Text tones are chosen to hold 4.5:1 against pure black (muted = #9b9b9b ≈ 6:1).
+*/
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument-serif), "Iowan Old Style", Georgia, serif;
+
+  --color-background: #000000;
+  --color-foreground: #ffffff;
+  --color-card: #0a0a0a;
+  --color-card-foreground: #ffffff;
+  --color-muted: #1a1a1a;
+  --color-muted-foreground: #9b9b9b;
+  --color-border: #2a2a2a;
+  --color-input: #2e2e2e;
+  --color-ring: #9b9b9b;
+  --color-primary: #ffffff;
+  --color-primary-foreground: #000000;
+  --color-accent: #e6b955;
+  --color-accent-foreground: #000000;
+  --color-tile: #ffffff;
+  --color-success: #4ade80;
+  --color-warning: #fbbf24;
+  --color-danger: #f87171;
+  --color-info: #7dd3fc;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(255, 255, 255, 0.25);
+  color: #000;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 2px;
+}
+
+/* Frosted pill / card surface (from Asme). Gradient border drawn via masked pseudo-element. */
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: none;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  isolation: isolate;
+}
+.liquid-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(255, 255, 255, 0.15) 20%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.15) 80%,
+    rgba(255, 255, 255, 0.45) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Heavier glass for drawers/dialogs that sit over busy content. */
+.glass-strong {
+  background: rgba(10, 10, 10, 0.82);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.08),
+    0 30px 80px rgba(0, 0, 0, 0.6);
+}
+
+.glow-top {
+  background: radial-gradient(ellipse at top, rgba(255, 255, 255, 0.04) 0%, transparent 70%);
+}
+.glow-center {
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.03) 0%, transparent 60%);
+}
+
+/* Hero atmosphere: two slow-drifting tinted glows (tea amber + lemonade gold) over black. */
+.hero-atmosphere {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.hero-atmosphere::before,
+.hero-atmosphere::after {
+  content: "";
+  position: absolute;
+  border-radius: 9999px;
+  opacity: 0.7;
+  will-change: transform;
+}
+.hero-atmosphere::before {
+  width: 70vw;
+  height: 70vw;
+  left: -20vw;
+  top: -10vw;
+  background: radial-gradient(circle, rgba(230, 185, 85, 0.35) 0%, rgba(230, 185, 85, 0) 65%);
+  animation: drift-a 26s ease-in-out infinite alternate;
+}
+.hero-atmosphere::after {
+  width: 60vw;
+  height: 60vw;
+  right: -20vw;
+  bottom: -20vw;
+  background: radial-gradient(circle, rgba(120, 90, 40, 0.5) 0%, rgba(120, 90, 40, 0) 65%);
+  animation: drift-b 32s ease-in-out infinite alternate;
+}
+@keyframes drift-a {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(12vw, 8vw, 0) scale(1.15); }
+}
+@keyframes drift-b {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(-10vw, -6vw, 0) scale(1.1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .hero-atmosphere::before,
+  .hero-atmosphere::after { animation: none; }
+}
+
+/* Thin, unobtrusive scrollbars inside glass panels. */
+.scroll-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+/* Number inputs: hide spinners, we render our own steppers. */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
