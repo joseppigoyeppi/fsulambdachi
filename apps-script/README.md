@@ -73,3 +73,28 @@ Setup differs from the form scripts in three places:
 Each order also emails `NOTIFY_EMAIL` (top of the script) with the items, total, and a
 link to the screenshot. Set it to `''` to turn that off. After editing the script, deploy
 a **New version** as described above; the URL stays the same.
+
+**Who can get in.** The page shows nothing until a brother enters a first name + last
+name that is on the `members` tab and the current access code (`accessCode` in the
+`settings` tab, default `ZETARHO`). Both are edited on the page itself: Admin > Members
+(paste names, one per line) and Admin > Settings (the code). Changing the code signs
+everyone out until they enter the new one. `setup()` also stores a `MEMBER_SECRET`
+script property that signs the sign-in tokens — leave it alone.
+
+**Order runs.** Admin > Settings holds the current run's name (e.g. "Fall Smth") and its
+access code. Every order is stamped with the run name it was placed under (`run`
+column on the `orders` tab), the `runs` tab keeps the history of names + codes, and the
+Orders page can filter by run.
+
+**Leaderboard.** The page shows brothers an all-time top 10 by paid packs. It is computed
+from the `orders` tab, so it lasts as long as the rows do — never delete old orders if
+you want the board to keep counting.
+
+**Ranks.** Brothers see their own order history and a rank (Bronze/Silver/Gold/Platinum/
+Alcoholic) from packs in orders you have marked **paid** or delivered — so nothing counts
+until the money is in. Admin > Members shows the leaderboard.
+
+**Updating the script later** (e.g. after pulling a new `orders-backend.gs`): paste the
+new code over the old, save, run `setup` once more (it adds any new tabs/settings and is
+safe to repeat), then Deploy > Manage deployments > pencil > Version: New version >
+Deploy. The URL does not change, so `config.js` stays as it is.

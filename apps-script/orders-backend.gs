@@ -7,7 +7,11 @@
 // Script properties (Project Settings > Script properties) — REQUIRED before deploying:
 //   ADMIN_USERNAME  who can open /admin on the page (e.g. tarokh)
 //   ADMIN_PASSWORD  their password
+// setup() adds MEMBER_SECRET itself (signs the brothers' sign-in tokens). Leave it alone.
 // Optional: NOTIFY_EMAIL below — set to '' to turn off the per-order email.
+//
+// Who can see the page: only names on the "members" tab, and only with the access
+// code (settings tab / Admin > Settings). Both are edited from the page's admin area.
 
 const NOTIFY_EMAIL = 'zeta.rho.zeta.lca@gmail.com';
 const DRIVE_FOLDER = 'Zeta Rho Orders';
@@ -15,8 +19,10 @@ const SESSION_SECONDS = 21600; // 6 hours, the most the cache allows
 
 const SHEETS = {
   products: ['id', 'category', 'brand', 'name', 'tag', 'description', 'priceCents', 'image', 'imageFit', 'available', 'sortOrder', 'createdAt', 'updatedAt'],
-  orders: ['id', 'number', 'createdAt', 'updatedAt', 'firstName', 'lastName', 'status', 'totalCents', 'items', 'screenshotId', 'note', 'adminNote'],
+  orders: ['id', 'number', 'createdAt', 'updatedAt', 'firstName', 'lastName', 'status', 'totalCents', 'items', 'screenshotId', 'note', 'adminNote', 'run'],
   settings: ['key', 'value'],
+  members: ['firstName', 'lastName', 'addedAt'],
+  runs: ['name', 'code', 'startedAt'],
 };
 
 const DEFAULT_SETTINGS = {
@@ -28,6 +34,8 @@ const DEFAULT_SETTINGS = {
   closedMessage: 'Ordering is closed right now. Check back before the next run.',
   brandOrder: ['Sun Cruiser', 'Twisted Tea', 'Sinless'],
   nextOrderNumber: 1001,
+  accessCode: 'ZETARHO',
+  runName: 'First run',
 };
 
 // Starter menu, written the first time setup() runs. Edit prices on the page afterwards.
@@ -75,8 +83,22 @@ function setup() {
   Object.keys(DEFAULT_SETTINGS).forEach(function (key) {
     if (settings[key] === undefined) writeSetting(key, DEFAULT_SETTINGS[key]);
   });
+  // Sheets created by an older version may be missing newer columns (e.g. orders.run).
+  Object.keys(SHEETS).forEach(function (name) {
+    const sheet = ss.getSheetByName(name);
+    const headers = sheet.getRange(1, 1, 1, Math.max(sheet.getLastColumn(), 1)).getValues()[0];
+    SHEETS[name].forEach(function (h, i) {
+      if (headers[i] !== h) sheet.getRange(1, i + 1).setValue(h);
+    });
+  });
+  if (ss.getSheetByName('runs').getLastRow() < 2) {
+    const current = readSettings();
+    ss.getSheetByName('runs').appendRow([current.runName, current.accessCode, new Date().toISOString()]);
+  }
   getFolder('Screenshots');
   getFolder('Product images');
+  const props = PropertiesService.getScriptProperties();
+  if (!props.getProperty('MEMBER_SECRET')) props.setProperty('MEMBER_SECRET', Utilities.getUuid() + Utilities.getUuid());
   MailApp.getRemainingDailyQuota();
   Logger.log('Setup complete. Now add ADMIN_USERNAME and ADMIN_PASSWORD under Project Settings > Script properties, then deploy.');
 }
@@ -91,10 +113,22 @@ function doGet(e) {
       case 'ping':
         return { version: 'apps-script' };
       case 'catalog':
+        requireMember(p.token);
         return { products: listProducts(), settings: publicSettings() };
+      case 'leaderboard':
+        return leaderboardFor(requireMember(p.token));
+      case 'myOrders': {
+        // A brother's own history: no screenshot ids or admin notes leave the sheet.
+        const me = requireMember(p.token);
+        return {
+          orders: listOrders()
+            .filter(function (o) { return norm(o.firstName) === norm(me.firstName) && norm(o.lastName) === norm(me.lastName); })
+            .map(function (o) { return { id: o.id, number: o.number, firstName: o.firstName, lastName: o.lastName, fullName: o.fullName, items: o.items, totalCents: o.totalCents, note: o.note, status: o.status, run: o.run, createdAt: o.createdAt, updatedAt: o.updatedAt }; }),
+        };
+      }
       case 'admin':
         requireAdmin(p.token);
-        return { products: listProducts(), settings: readSettings(), orders: listOrders() };
+        return { products: listProducts(), settings: readSettings(), orders: listOrders(), members: listMembers(), runs: listRuns() };
       case 'screenshot': {
         requireAdmin(p.token);
         const order = findOrder(p.id);
@@ -111,6 +145,8 @@ function doPost(e) {
   return respond(function () {
     const p = JSON.parse((e.postData && e.postData.contents) || '{}');
     switch (p.action) {
+      case 'memberLogin':
+        return memberLogin(p);
       case 'submitOrder':
         return submitOrder(p);
       case 'login':
@@ -146,6 +182,8 @@ function doPost(e) {
           return moveBrand(p.brand, p.direction);
         case 'updateSettings':
           return updateSettings(p.settings || {});
+        case 'saveMembers':
+          return { members: saveMembers(p.members) };
         default:
           throw new Error('Unknown action: ' + p.action);
       }
@@ -188,14 +226,102 @@ function requireAdmin(token) {
 }
 
 // ---------------------------------------------------------------------------
+// Member gate. A brother signs in with first + last name (matched against the
+// "members" tab, ignoring case and spacing) plus the shared access code. They get
+// a signed token carrying the canonical name; it stays valid until the access code
+// changes or the name is taken off the list — no sessions to expire.
+
+function memberLogin(p) {
+  const first = clean(p.firstName, 40);
+  const last = clean(p.lastName, 40);
+  if (!first || !last) throw new Error('Enter your first and last name.');
+  const settings = readSettings();
+  if (norm(p.code) !== norm(settings.accessCode)) throw new Error('Wrong access code.');
+  const member = findMember(first, last);
+  if (!member) throw new Error('That name is not on the list. Check the spelling, or ask the treasurer to add you.');
+  return { token: issueMemberToken(member, settings.accessCode), firstName: member.firstName, lastName: member.lastName };
+}
+
+function requireMember(token) {
+  const fail = function () {
+    const err = new Error('Please sign in first.');
+    err.code = 'unauthorized';
+    throw err;
+  };
+  if (!token || typeof token !== 'string') fail();
+  const parts = token.split('.');
+  if (parts.length !== 2 || signMember(parts[0]) !== parts[1]) fail();
+  let data;
+  try {
+    data = JSON.parse(Utilities.newBlob(Utilities.base64DecodeWebSafe(parts[0])).getDataAsString());
+  } catch (err) {
+    fail();
+  }
+  if (data.c !== codeHash(readSettings().accessCode)) fail();
+  const member = findMember(data.f, data.l);
+  if (!member) fail();
+  return member;
+}
+
+function issueMemberToken(member, accessCode) {
+  const payload = Utilities.base64EncodeWebSafe(JSON.stringify({ f: member.firstName, l: member.lastName, c: codeHash(accessCode) }));
+  return payload + '.' + signMember(payload);
+}
+
+function memberSecret() {
+  const secret = PropertiesService.getScriptProperties().getProperty('MEMBER_SECRET');
+  if (!secret) throw new Error('MEMBER_SECRET is missing — run setup() once.');
+  return secret;
+}
+
+function signMember(payload) {
+  return Utilities.base64EncodeWebSafe(Utilities.computeHmacSha256Signature(payload, memberSecret()));
+}
+
+/** Short fingerprint of the access code, baked into tokens so changing the code signs everyone out. */
+function codeHash(code) {
+  return Utilities.base64EncodeWebSafe(Utilities.computeHmacSha256Signature('code:' + norm(code), memberSecret())).slice(0, 16);
+}
+
+function norm(v) {
+  return String(v == null ? '' : v).toLowerCase().replace(/\s+/g, ' ').trim();
+}
+
+function listMembers() {
+  return readRows('members')
+    .map(function (r) { return { firstName: String(r.firstName || ''), lastName: String(r.lastName || '') }; })
+    .filter(function (m) { return m.firstName && m.lastName; });
+}
+
+function findMember(first, last) {
+  return listMembers().filter(function (m) { return norm(m.firstName) === norm(first) && norm(m.lastName) === norm(last); })[0] || null;
+}
+
+/** Replaces the whole list. Blank or duplicate names are dropped. */
+function saveMembers(list) {
+  const seen = {};
+  const members = (Array.isArray(list) ? list : [])
+    .map(function (m) { return { firstName: clean(m && m.firstName, 40), lastName: clean(m && m.lastName, 40) }; })
+    .filter(function (m) {
+      const key = norm(m.firstName + ' ' + m.lastName);
+      if (!m.firstName || !m.lastName || seen[key]) return false;
+      seen[key] = true;
+      return true;
+    });
+  const s = sheet('members');
+  if (s.getLastRow() > 1) s.deleteRows(2, s.getLastRow() - 1);
+  const now = new Date().toISOString();
+  members.forEach(function (m) { s.appendRow([m.firstName, m.lastName, now]); });
+  return members;
+}
+
+// ---------------------------------------------------------------------------
 // Orders
 
 function submitOrder(p) {
-  const firstName = clean(p.firstName, 40);
-  const lastName = clean(p.lastName, 40);
-  if (!firstName && !lastName) throw new Error('Enter your first and last name.');
-  if (!firstName) throw new Error('Enter your first name.');
-  if (!lastName) throw new Error('Enter your last name.');
+  const member = requireMember(p.token);
+  const firstName = member.firstName;
+  const lastName = member.lastName;
   const shot = p.screenshot || {};
   if (!shot.data) throw new Error('Add a screenshot of your payment.');
   if (!/^image\//.test(String(shot.type || ''))) throw new Error('That file is not an image. Upload a PNG, JPG, WebP, or HEIC screenshot.');
@@ -239,6 +365,7 @@ function submitOrder(p) {
       screenshotId: file.getId(),
       note: clean(p.note, 500),
       adminNote: '',
+      run: settings.runName,
     });
     writeSetting('nextOrderNumber', number + 1);
 
@@ -286,6 +413,7 @@ function listOrders() {
         note: String(r.note || ''),
         status: STATUSES.indexOf(r.status) === -1 ? 'pending' : r.status,
         adminNote: String(r.adminNote || ''),
+        run: String(r.run || ''),
         createdAt: isoDate(r.createdAt),
         updatedAt: isoDate(r.updatedAt),
       };
@@ -445,6 +573,7 @@ function readSettings() {
 function publicSettings() {
   const s = readSettings();
   delete s.nextOrderNumber;
+  delete s.accessCode;
   return s;
 }
 
@@ -458,8 +587,19 @@ function writeSetting(key, value) {
 function updateSettings(s) {
   const storeName = clean(s.storeName, 60);
   const paymentInstructions = String(s.paymentInstructions || '').trim().slice(0, 600);
+  const accessCode = clean(s.accessCode, 40);
+  const runName = clean(s.runName, 60);
   if (!storeName) throw new Error('Store name cannot be empty.');
   if (!paymentInstructions) throw new Error('Tell people how to pay — that text shows at checkout.');
+  if (accessCode.length < 4) throw new Error('The access code needs at least 4 characters.');
+  if (!runName) throw new Error('Give the current order run a name (e.g. Fall Smth).');
+  // A new name or code starts a new entry in the run history.
+  const current = readSettings();
+  if (runName !== current.runName || norm(accessCode) !== norm(current.accessCode)) {
+    sheet('runs').appendRow([runName, accessCode, new Date().toISOString()]);
+  }
+  writeSetting('accessCode', accessCode);
+  writeSetting('runName', runName);
   writeSetting('storeName', storeName);
   writeSetting('chapterName', clean(s.chapterName, 80));
   writeSetting('tagline', clean(s.tagline, 200));
@@ -467,6 +607,39 @@ function updateSettings(s) {
   writeSetting('closedMessage', clean(s.closedMessage, 200));
   writeSetting('storeOpen', Boolean(s.storeOpen));
   return {};
+}
+
+function listRuns() {
+  return readRows('runs')
+    .map(function (r) { return { name: String(r.name || ''), code: String(r.code || ''), startedAt: isoDate(r.startedAt) }; })
+    .reverse();
+}
+
+/** Top 10 by paid packs across every order ever placed, plus where the caller stands. */
+function leaderboardFor(me) {
+  const tally = {};
+  const order = [];
+  listOrders().forEach(function (o) {
+    if (o.status !== 'confirmed' && o.status !== 'delivered') return;
+    const key = norm(o.firstName + ' ' + o.lastName);
+    if (!tally[key]) {
+      tally[key] = { firstName: o.firstName, lastName: o.lastName, packs: 0, orders: 0 };
+      order.push(key);
+    }
+    tally[key].packs += o.items.reduce(function (s, i) { return s + i.quantity; }, 0);
+    tally[key].orders += 1;
+  });
+  const ranked = order.map(function (k) { return tally[k]; }).sort(function (a, b) {
+    return b.packs - a.packs || a.lastName.localeCompare(b.lastName) || a.firstName.localeCompare(b.firstName);
+  });
+  const myKey = norm(me.firstName + ' ' + me.lastName);
+  let position = -1;
+  ranked.forEach(function (e, i) { if (position === -1 && norm(e.firstName + ' ' + e.lastName) === myKey) position = i; });
+  return {
+    top: ranked.slice(0, 10),
+    me: position === -1 ? null : { position: position + 1, packs: ranked[position].packs },
+    totalBrothers: ranked.length,
+  };
 }
 
 // ---------------------------------------------------------------------------
