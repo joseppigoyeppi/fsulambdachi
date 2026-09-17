@@ -8,6 +8,7 @@ No submission limits, no third-party service.
 |---|---|---|---|
 | Cookout RSVP | `pages/alumni.html` | `rsvp-to-sheet.gs` | 2026 Alumni Cookout RSVPs |
 | Contact update | `pages/contact.html` | `contact-to-sheet.gs` | Zeta-Rho Zeta Alumni Contact List |
+| Drink orders (hidden page) | `zr-orders-…/` (built from `orders-app/`) | `orders-backend.gs` | Zeta Rho Orders |
 
 Each page has an endpoint constant near the bottom of its inline script
 (`RSVP_ENDPOINT` / `CONTACT_ENDPOINT`). While a constant is empty, that form
@@ -45,3 +46,30 @@ falls back to Formspree, so a half-finished setup never breaks the site.
 Changes to the code do NOT go live on save. After editing, go to
 Deploy > Manage deployments > pencil icon > Version: "New version" > Deploy.
 The URL stays the same.
+
+## Orders backend (`orders-backend.gs`)
+
+Backs the hidden drink-order page at `/zr-orders-…/` (not linked anywhere on the site).
+Unlike the two form scripts it is a small API: the page reads the menu from it, submits
+orders + payment screenshots to it, and the admin dashboard on the page logs in
+through it. Data lives in the "Zeta Rho Orders" spreadsheet (tabs `products`, `orders`,
+`settings`) and screenshots in Drive under "Zeta Rho Orders / Screenshots".
+
+Setup differs from the form scripts in three places:
+
+1. Create a new spreadsheet named **Zeta Rho Orders** in the chapter account, paste in
+   `orders-backend.gs`, save.
+2. Run **`setup`** (not `authorize`) once from the function dropdown and grant the
+   permissions. It creates the tabs, the Drive folders, and the starter menu.
+3. **Project Settings (gear icon) > Script properties > Add script property**, twice:
+   `ADMIN_USERNAME` and `ADMIN_PASSWORD`. That is the only login for the page's admin
+   area; whoever knows it can change prices and see every order. Do not put the
+   password in the code or in the repo.
+4. Deploy as a Web app exactly like the others (Execute as **Me**, access **Anyone**)
+   and copy the `/exec` URL.
+5. Paste the URL into `zr-orders-…/config.js` (the `endpoint` value) and commit. That is
+   the equivalent of `RSVP_ENDPOINT`. The page works the moment it is pushed.
+
+Each order also emails `NOTIFY_EMAIL` (top of the script) with the items, total, and a
+link to the screenshot. Set it to `''` to turn that off. After editing the script, deploy
+a **New version** as described above; the URL stays the same.
