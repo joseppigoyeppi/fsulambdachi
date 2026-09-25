@@ -23,6 +23,7 @@ const SHEETS = {
   settings: ['key', 'value'],
   members: ['firstName', 'lastName', 'addedAt'],
   runs: ['name', 'code', 'startedAt'],
+  log: ['at', 'level', 'event', 'who', 'detail', 'device'],
 };
 
 const DEFAULT_SETTINGS = {
@@ -91,6 +92,7 @@ function setup() {
       if (headers[i] !== h) sheet.getRange(1, i + 1).setValue(h);
     });
   });
+  writeLog('info', 'setup.run', adminName(), 'setup() ran — sheets and settings checked', '');
   if (ss.getSheetByName('runs').getLastRow() < 2) {
     const current = readSettings();
     ss.getSheetByName('runs').appendRow([current.runName, current.accessCode, new Date().toISOString()]);
@@ -107,8 +109,8 @@ function setup() {
 // Web app entry points
 
 function doGet(e) {
-  return respond(function () {
-    const p = e.parameter || {};
+  const p = (e && e.parameter) || {};
+  return respond(p.action, p, function () {
     switch (p.action) {
       case 'ping':
         return { version: 'apps-script' };
@@ -129,6 +131,9 @@ function doGet(e) {
       case 'admin':
         requireAdmin(p.token);
         return { products: listProducts(), settings: readSettings(), orders: listOrders(), members: listMembers(), runs: listRuns() };
+      case 'log':
+        requireAdmin(p.token);
+        return { entries: readLog(Number(p.limit) || 1000) };
       case 'screenshot': {
         requireAdmin(p.token);
         const order = findOrder(p.id);
@@ -136,17 +141,26 @@ function doGet(e) {
         return { dataUrl: 'data:' + blob.getContentType() + ';base64,' + Utilities.base64Encode(blob.getBytes()) };
       }
       default:
-        throw new Error('Unknown action: ' + p.action);
+        throw userError('Unknown action: ' + p.action);
     }
   });
 }
 
 function doPost(e) {
-  return respond(function () {
-    const p = JSON.parse((e.postData && e.postData.contents) || '{}');
+  let p = {};
+  try {
+    p = JSON.parse((e && e.postData && e.postData.contents) || '{}');
+  } catch (err) {
+    p = {};
+  }
+  return respond(p.action, p, function () {
     switch (p.action) {
       case 'memberLogin':
         return memberLogin(p);
+      case 'memberLogout':
+        // The browser forgets the token by itself; this only records the sign-out.
+        LOG_CTX.who = claimedMemberName(p.token);
+        return {};
       case 'submitOrder':
         return submitOrder(p);
       case 'login':
@@ -154,28 +168,41 @@ function doPost(e) {
       case 'logout':
         if (p.token) CacheService.getScriptCache().remove(p.token);
         return {};
+      case 'clientLog':
+        return clientLog(p);
     }
     requireAdmin(p.token);
     return withLock(function () {
       switch (p.action) {
         case 'setOrderStatus': {
-          if (STATUSES.indexOf(p.status) === -1) throw new Error('Bad status');
+          if (STATUSES.indexOf(p.status) === -1) throw userError('Bad status');
+          const before = findOrder(p.id);
           updateOrder(p.id, { status: p.status });
+          LOG_CTX.detail = '#' + before.number + ' ' + before.firstName + ' ' + before.lastName + ': ' + before.status + ' → ' + p.status;
           return {};
         }
-        case 'setOrderAdminNote':
+        case 'setOrderAdminNote': {
+          const order = findOrder(p.id);
           updateOrder(p.id, { adminNote: clean(p.adminNote, 500) });
+          LOG_CTX.detail = '#' + order.number + ' ' + order.firstName + ' ' + order.lastName;
           return {};
+        }
         case 'deleteOrder':
           return deleteOrder(p.id);
         case 'saveProduct':
           return { product: saveProduct(p.product || {}, p.imageUpload) };
-        case 'deleteProduct':
+        case 'deleteProduct': {
+          const gone = readRows('products').filter(function (r) { return String(r.id) === String(p.id); })[0];
           deleteRowById('products', p.id);
+          LOG_CTX.detail = gone ? String(gone.brand) + ' ' + String(gone.name) : String(p.id);
           return {};
-        case 'setProductAvailability':
+        }
+        case 'setProductAvailability': {
+          const product = readRows('products').filter(function (r) { return String(r.id) === String(p.id); })[0];
           updateProduct(p.id, { available: p.available ? 'TRUE' : 'FALSE' });
+          LOG_CTX.detail = (product ? String(product.name) : String(p.id)) + ' → ' + (p.available ? 'available' : 'sold out');
           return {};
+        }
         case 'moveProduct':
           return moveProduct(p.id, p.direction);
         case 'moveBrand':
@@ -185,20 +212,141 @@ function doPost(e) {
         case 'saveMembers':
           return { members: saveMembers(p.members) };
         default:
-          throw new Error('Unknown action: ' + p.action);
+          throw userError('Unknown action: ' + p.action);
       }
     });
   });
 }
 
-function respond(fn) {
+function respond(action, p, fn) {
+  LOG_CTX = { who: '', detail: '' };
   let body;
   try {
     body = Object.assign({ ok: true }, fn());
+    logSuccess(action, p);
   } catch (err) {
     body = { ok: false, error: String((err && err.message) || err), code: err && err.code };
+    logFailure(action, p, err);
   }
   return ContentService.createTextOutput(JSON.stringify(body)).setMimeType(ContentService.MimeType.JSON);
+}
+
+/** An error we throw on purpose (wrong code, empty cart…). Anything else is a bug. */
+function userError(message) {
+  const err = new Error(message);
+  err.user = true;
+  return err;
+}
+
+// ---------------------------------------------------------------------------
+// Activity log: the "log" tab. One row per sign-in, sign-out, order, admin change,
+// and error, so there is a record of who got in and what broke. Newest rows are at
+// the bottom; the oldest are trimmed once the tab passes LOG_MAX_ROWS.
+
+const LOG_MAX_ROWS = 5000;
+let LOG_CTX = { who: '', detail: '' };
+
+// Actions worth a row when they succeed. Reads (catalog, admin, log…) are not logged.
+const LOG_EVENTS = {
+  memberLogin: 'member.login',
+  memberLogout: 'member.logout',
+  login: 'admin.login',
+  logout: 'admin.logout',
+  submitOrder: 'order.placed',
+  setOrderStatus: 'order.status',
+  setOrderAdminNote: 'order.note',
+  deleteOrder: 'order.deleted',
+  saveProduct: 'product.saved',
+  deleteProduct: 'product.deleted',
+  setProductAvailability: 'product.availability',
+  updateSettings: 'settings.saved',
+  saveMembers: 'members.saved',
+};
+
+const LOG_FAILURES = {
+  memberLogin: 'member.login_failed',
+  login: 'admin.login_failed',
+  submitOrder: 'order.failed',
+};
+
+function logSuccess(action, p) {
+  const event = LOG_EVENTS[action];
+  if (!event) return;
+  const who = LOG_CTX.who || (isAdminAction(action) ? adminName() : '');
+  writeLog('info', event, who, LOG_CTX.detail, p && p.device);
+}
+
+function logFailure(action, p, err) {
+  const bug = !(err && err.user);
+  const unauthorized = err && err.code === 'unauthorized';
+  const message = String((err && err.message) || err);
+  if (LOG_FAILURES[action]) {
+    const typed = action === 'login' ? clean(p && p.username, 40) : action === 'memberLogin' ? clean((p && p.firstName) + ' ' + (p && p.lastName), 80) : LOG_CTX.who || claimedMemberName(p && p.token);
+    writeLog(bug ? 'error' : 'warn', LOG_FAILURES[action], typed, message, p && p.device);
+  } else if (bug) {
+    writeLog('error', 'server.error', '', (action || 'no action') + ': ' + message + (err && err.stack ? ' | ' + String(err.stack).split('\n').slice(0, 3).join(' ') : ''), p && p.device);
+  } else if (unauthorized && action === 'catalog') {
+    // A remembered brother bounced back to the door (code changed or name removed).
+    writeLog('info', 'member.session_reset', claimedMemberName(p && p.token), 'sent back to the sign-in screen', p && p.device);
+  } else if (LOG_EVENTS[action] && !unauthorized) {
+    writeLog('warn', action + '.failed', LOG_CTX.who || '', message, p && p.device);
+  }
+}
+
+function isAdminAction(action) {
+  return ['login', 'logout', 'setOrderStatus', 'setOrderAdminNote', 'deleteOrder', 'saveProduct', 'deleteProduct', 'setProductAvailability', 'updateSettings', 'saveMembers'].indexOf(action) !== -1;
+}
+
+function adminName() {
+  return PropertiesService.getScriptProperties().getProperty('ADMIN_USERNAME') || 'admin';
+}
+
+/** Name inside a member token, unverified — only for labelling log rows. */
+function claimedMemberName(token) {
+  try {
+    const data = JSON.parse(Utilities.newBlob(Utilities.base64DecodeWebSafe(String(token).split('.')[0])).getDataAsString());
+    return clean(data.f + ' ' + data.l, 80);
+  } catch (err) {
+    return '';
+  }
+}
+
+function writeLog(level, event, who, detail, device) {
+  try {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    let s = ss.getSheetByName('log');
+    if (!s) {
+      s = ss.insertSheet('log');
+      s.appendRow(SHEETS.log);
+      s.setFrozenRows(1);
+    }
+    s.appendRow([new Date().toISOString(), level, event, clean(who, 80), clean(detail, 500), clean(device, 60)]);
+    if (s.getLastRow() > LOG_MAX_ROWS + 500) s.deleteRows(2, 500);
+  } catch (err) {
+    // Logging must never break the request it describes.
+  }
+}
+
+function readLog(limit) {
+  const values = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('log');
+  if (!values) return [];
+  return readRows('log')
+    .slice(-Math.min(Math.max(limit, 1), LOG_MAX_ROWS))
+    .reverse()
+    .map(function (r) {
+      return { at: isoDate(r.at), level: String(r.level || 'info'), event: String(r.event || ''), who: String(r.who || ''), detail: String(r.detail || ''), device: String(r.device || '') };
+    });
+}
+
+/** Errors reported by browsers (JavaScript crashes). Capped so a broken page cannot flood the tab. */
+function clientLog(p) {
+  const cache = CacheService.getScriptCache();
+  const bucket = 'clientlog:' + Math.floor(Date.now() / 60000);
+  const count = Number(cache.get(bucket) || 0);
+  if (count >= 30) return {};
+  cache.put(bucket, String(count + 1), 120);
+  writeLog('error', 'client.error', claimedMemberName(p.token), clean(p.message, 400) + (p.where ? ' @ ' + clean(p.where, 80) : ''), p.device);
+  return {};
 }
 
 // ---------------------------------------------------------------------------
@@ -208,10 +356,11 @@ function login(p) {
   const props = PropertiesService.getScriptProperties();
   const username = props.getProperty('ADMIN_USERNAME') || 'admin';
   const password = props.getProperty('ADMIN_PASSWORD');
-  if (!password) throw new Error('ADMIN_PASSWORD is not set in the script properties.');
+  if (!password) throw userError('ADMIN_PASSWORD is not set in the script properties.');
   const userOk = String(p.username || '').trim().toLowerCase() === username.toLowerCase();
   const passOk = String(p.password || '') === password;
-  if (!userOk || !passOk) throw new Error('Wrong username or password.');
+  if (!userOk || !passOk) throw userError('Wrong username or password.');
+  LOG_CTX.who = username;
   const token = Utilities.getUuid();
   CacheService.getScriptCache().put(token, '1', SESSION_SECONDS);
   return { token };
@@ -219,7 +368,7 @@ function login(p) {
 
 function requireAdmin(token) {
   if (!token || CacheService.getScriptCache().get(token) !== '1') {
-    const err = new Error('Please sign in again.');
+    const err = userError('Please sign in again.');
     err.code = 'unauthorized';
     throw err;
   }
@@ -234,17 +383,19 @@ function requireAdmin(token) {
 function memberLogin(p) {
   const first = clean(p.firstName, 40);
   const last = clean(p.lastName, 40);
-  if (!first || !last) throw new Error('Enter your first and last name.');
+  if (!first || !last) throw userError('Enter your first and last name.');
   const settings = readSettings();
-  if (norm(p.code) !== norm(settings.accessCode)) throw new Error('Wrong access code.');
+  if (norm(p.code) !== norm(settings.accessCode)) throw userError('Wrong access code.');
   const member = findMember(first, last);
-  if (!member) throw new Error('That name is not on the list. Check the spelling, or ask the treasurer to add you.');
+  if (!member) throw userError('That name is not on the list. Check the spelling, or ask the treasurer to add you.');
+  LOG_CTX.who = member.firstName + ' ' + member.lastName;
+  LOG_CTX.detail = 'run: ' + settings.runName;
   return { token: issueMemberToken(member, settings.accessCode), firstName: member.firstName, lastName: member.lastName };
 }
 
 function requireMember(token) {
   const fail = function () {
-    const err = new Error('Please sign in first.');
+    const err = userError('Please sign in first.');
     err.code = 'unauthorized';
     throw err;
   };
@@ -270,7 +421,7 @@ function issueMemberToken(member, accessCode) {
 
 function memberSecret() {
   const secret = PropertiesService.getScriptProperties().getProperty('MEMBER_SECRET');
-  if (!secret) throw new Error('MEMBER_SECRET is missing — run setup() once.');
+  if (!secret) throw userError('MEMBER_SECRET is missing — run setup() once.');
   return secret;
 }
 
@@ -308,6 +459,15 @@ function saveMembers(list) {
       seen[key] = true;
       return true;
     });
+  // Record who was added and who was removed, so the log answers "why can't X get in?".
+  const before = listMembers();
+  const key = function (m) { return norm(m.firstName + ' ' + m.lastName); };
+  const beforeKeys = before.map(key);
+  const afterKeys = members.map(key);
+  const added = members.filter(function (m) { return beforeKeys.indexOf(key(m)) === -1; });
+  const removed = before.filter(function (m) { return afterKeys.indexOf(key(m)) === -1; });
+  const names = function (list) { return list.slice(0, 8).map(function (m) { return m.firstName + ' ' + m.lastName; }).join(', ') + (list.length > 8 ? ' +' + (list.length - 8) + ' more' : ''); };
+  LOG_CTX.detail = members.length + ' on the list' + (added.length ? ' · added ' + added.length + ': ' + names(added) : '') + (removed.length ? ' · removed ' + removed.length + ': ' + names(removed) : '');
   const s = sheet('members');
   if (s.getLastRow() > 1) s.deleteRows(2, s.getLastRow() - 1);
   const now = new Date().toISOString();
@@ -322,23 +482,24 @@ function submitOrder(p) {
   const member = requireMember(p.token);
   const firstName = member.firstName;
   const lastName = member.lastName;
+  LOG_CTX.who = firstName + ' ' + lastName;
   const shot = p.screenshot || {};
-  if (!shot.data) throw new Error('Add a screenshot of your payment.');
-  if (!/^image\//.test(String(shot.type || ''))) throw new Error('That file is not an image. Upload a PNG, JPG, WebP, or HEIC screenshot.');
-  if (shot.data.length > 14 * 1024 * 1024) throw new Error('That screenshot is over 10 MB. Try a smaller one.');
+  if (!shot.data) throw userError('Add a screenshot of your payment.');
+  if (!/^image\//.test(String(shot.type || ''))) throw userError('That file is not an image. Upload a PNG, JPG, WebP, or HEIC screenshot.');
+  if (shot.data.length > 14 * 1024 * 1024) throw userError('That screenshot is over 10 MB. Try a smaller one.');
   const lines = Array.isArray(p.items) ? p.items : [];
-  if (!lines.length) throw new Error('Your cart is empty.');
+  if (!lines.length) throw userError('Your cart is empty.');
 
   return withLock(function () {
     const settings = readSettings();
-    if (!settings.storeOpen) throw new Error(settings.closedMessage || 'Ordering is closed right now.');
+    if (!settings.storeOpen) throw userError(settings.closedMessage || 'Ordering is closed right now.');
     const products = listProducts();
     const items = lines.map(function (line) {
       const qty = Number(line.quantity);
-      if (!(qty >= 1 && qty <= 99 && Math.floor(qty) === qty)) throw new Error('Bad quantity.');
+      if (!(qty >= 1 && qty <= 99 && Math.floor(qty) === qty)) throw userError('Bad quantity.');
       const product = products.filter(function (x) { return x.id === line.productId; })[0];
-      if (!product) throw new Error('One of the drinks in your cart is no longer on the menu. Refresh and try again.');
-      if (!product.available) throw new Error(product.name + ' just sold out. Remove it and try again.');
+      if (!product) throw userError('One of the drinks in your cart is no longer on the menu. Refresh and try again.');
+      if (!product.available) throw userError(product.name + ' just sold out. Remove it and try again.');
       return { productId: product.id, brand: product.brand, name: product.name, unitPriceCents: product.priceCents, quantity: qty };
     });
     const totalCents = items.reduce(function (sum, i) { return sum + i.unitPriceCents * i.quantity; }, 0);
@@ -368,6 +529,7 @@ function submitOrder(p) {
       run: settings.runName,
     });
     writeSetting('nextOrderNumber', number + 1);
+    LOG_CTX.detail = '#' + number + ' · $' + (totalCents / 100).toFixed(2) + ' · ' + items.map(function (i) { return i.quantity + 'x ' + i.name; }).join(', ') + ' · ' + settings.runName;
 
     if (NOTIFY_EMAIL) {
       try {
@@ -423,7 +585,7 @@ function listOrders() {
 
 function findOrder(id) {
   const row = readRows('orders').filter(function (r) { return String(r.id) === String(id); })[0];
-  if (!row) throw new Error('Order not found');
+  if (!row) throw userError('Order not found');
   return row;
 }
 
@@ -442,6 +604,7 @@ function deleteOrder(id) {
     Logger.log('Could not trash screenshot: ' + err);
   }
   sheet('orders').deleteRow(row._row);
+  LOG_CTX.detail = '#' + row.number + ' ' + row.firstName + ' ' + row.lastName + ' · $' + ((Number(row.totalCents) || 0) / 100).toFixed(2);
   return {};
 }
 
@@ -474,13 +637,13 @@ function saveProduct(input, imageUpload) {
   const name = clean(input.name, 80);
   const brand = clean(input.brand, 60);
   const priceCents = Number(input.priceCents);
-  if (!name) throw new Error('Give the product a name.');
-  if (!brand) throw new Error('Add a brand (e.g. Sun Cruiser).');
-  if (!(priceCents >= 0 && Math.floor(priceCents) === priceCents)) throw new Error('Enter a valid price like 18.99.');
+  if (!name) throw userError('Give the product a name.');
+  if (!brand) throw userError('Add a brand (e.g. Sun Cruiser).');
+  if (!(priceCents >= 0 && Math.floor(priceCents) === priceCents)) throw userError('Enter a valid price like 18.99.');
 
   let image = String(input.image || '').trim();
   if (imageUpload && imageUpload.data) {
-    if (!/^image\//.test(String(imageUpload.type || ''))) throw new Error('That file is not an image.');
+    if (!/^image\//.test(String(imageUpload.type || ''))) throw userError('That file is not an image.');
     const file = getFolder('Product images').createFile(
       Utilities.newBlob(Utilities.base64Decode(imageUpload.data), imageUpload.type, slug(name) + '-' + Date.now())
     );
@@ -504,10 +667,12 @@ function saveProduct(input, imageUpload) {
   const rows = readRows('products');
   if (input.id) {
     const row = rows.filter(function (r) { return String(r.id) === String(input.id); })[0];
-    if (!row) throw new Error('Product not found');
+    if (!row) throw userError('Product not found');
     updateRow('products', row._row, Object.assign({}, row, fields));
+    LOG_CTX.detail = 'updated ' + brand + ' ' + name + ' · $' + (priceCents / 100).toFixed(2) + (Number(row.priceCents) !== priceCents ? ' (was $' + (Number(row.priceCents) / 100).toFixed(2) + ')' : '');
     return listProducts().filter(function (x) { return x.id === String(input.id); })[0];
   }
+  LOG_CTX.detail = 'added ' + brand + ' ' + name + ' · $' + (priceCents / 100).toFixed(2);
   let id = slug(brand + '-' + name) || Utilities.getUuid();
   if (rows.some(function (r) { return String(r.id) === id; })) id = id + '-' + Utilities.getUuid().slice(0, 6);
   const maxSort = rows.reduce(function (m, r) { return Math.max(m, Number(r.sortOrder) || 0); }, -1);
@@ -519,7 +684,7 @@ function saveProduct(input, imageUpload) {
 
 function updateProduct(id, changes) {
   const row = readRows('products').filter(function (r) { return String(r.id) === String(id); })[0];
-  if (!row) throw new Error('Product not found');
+  if (!row) throw userError('Product not found');
   changes.updatedAt = new Date().toISOString();
   updateRow('products', row._row, Object.assign({}, row, changes));
 }
@@ -589,15 +754,21 @@ function updateSettings(s) {
   const paymentInstructions = String(s.paymentInstructions || '').trim().slice(0, 600);
   const accessCode = clean(s.accessCode, 40);
   const runName = clean(s.runName, 60);
-  if (!storeName) throw new Error('Store name cannot be empty.');
-  if (!paymentInstructions) throw new Error('Tell people how to pay — that text shows at checkout.');
-  if (accessCode.length < 4) throw new Error('The access code needs at least 4 characters.');
-  if (!runName) throw new Error('Give the current order run a name (e.g. Fall Smth).');
+  if (!storeName) throw userError('Store name cannot be empty.');
+  if (!paymentInstructions) throw userError('Tell people how to pay — that text shows at checkout.');
+  if (accessCode.length < 4) throw userError('The access code needs at least 4 characters.');
+  if (!runName) throw userError('Give the current order run a name (e.g. Fall Smth).');
   // A new name or code starts a new entry in the run history.
   const current = readSettings();
   if (runName !== current.runName || norm(accessCode) !== norm(current.accessCode)) {
     sheet('runs').appendRow([runName, accessCode, new Date().toISOString()]);
   }
+  const changes = [];
+  if (runName !== current.runName) changes.push('run "' + current.runName + '" → "' + runName + '"');
+  if (norm(accessCode) !== norm(current.accessCode)) changes.push('access code changed (everyone signed out)');
+  if (Boolean(s.storeOpen) !== Boolean(current.storeOpen)) changes.push(s.storeOpen ? 'ordering opened' : 'ordering closed');
+  if (paymentInstructions !== current.paymentInstructions) changes.push('payment instructions edited');
+  LOG_CTX.detail = changes.join(' · ') || 'saved, nothing changed';
   writeSetting('accessCode', accessCode);
   writeSetting('runName', runName);
   writeSetting('storeName', storeName);
@@ -647,7 +818,7 @@ function leaderboardFor(me) {
 
 function sheet(name) {
   const s = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(name);
-  if (!s) throw new Error('Sheet "' + name + '" is missing — run setup() first.');
+  if (!s) throw userError('Sheet "' + name + '" is missing — run setup() first.');
   return s;
 }
 

@@ -90,6 +90,12 @@ Orders page can filter by run.
 from the `orders` tab, so it lasts as long as the rows do — never delete old orders if
 you want the board to keep counting.
 
+**Activity log.** Every sign-in and sign-out (with the device), refused sign-ins (with the
+name typed and why), orders placed or refused, every admin change, and errors go to the
+`log` tab — newest at the bottom, trimmed to the latest 5000 rows. Admin > Activity reads
+it with filters (Sign-ins, Orders, Admin changes, Problems). Rows marked `error` are real
+bugs: `server.error` from this script, `client.error` from someone's browser.
+
 **Ranks.** Brothers see their own order history and a rank (Bronze/Silver/Gold/Platinum/
 Alcoholic) from packs in orders you have marked **paid** or delivered — so nothing counts
 until the money is in. Admin > Members shows the leaderboard.
