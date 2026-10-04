@@ -1,6 +1,6 @@
 # Form backends (Google Sheets + Apps Script)
 
-Both site forms post to Google Apps Script web apps that log each submission
+The site forms post to Google Apps Script web apps that log each submission
 to a Google Sheet in the chapter account and email zeta.rho.zeta.lca@gmail.com.
 No submission limits, no third-party service.
 
@@ -8,11 +8,13 @@ No submission limits, no third-party service.
 |---|---|---|---|
 | Cookout RSVP | `pages/alumni.html` | `rsvp-to-sheet.gs` | 2026 Alumni Cookout RSVPs |
 | Contact update | `pages/contact.html` | `contact-to-sheet.gs` | Zeta-Rho Zeta Alumni Contact List |
+| Career mentor request | `mentor.html` (served at `/mentor`, not in the nav) | `mentor-to-sheet.gs` | Career Mentor Requests |
 | Drink orders (hidden page) | `zr-orders-…/` (built from `orders-app/`) | `orders-backend.gs` | Zeta Rho Orders |
 
 Each page has an endpoint constant near the bottom of its inline script
-(`RSVP_ENDPOINT` / `CONTACT_ENDPOINT`). While a constant is empty, that form
-falls back to Formspree, so a half-finished setup never breaks the site.
+(`RSVP_ENDPOINT` / `CONTACT_ENDPOINT` / `MENTOR_ENDPOINT`). While a constant
+is empty, that form falls back to Formspree, so a half-finished setup never
+breaks the site.
 
 ## Deploying a script (about 3 minutes each)
 
@@ -40,6 +42,11 @@ falls back to Formspree, so a half-finished setup never breaks the site.
   to columns by the header names in row 1 (case/punctuation-insensitive).
   A header it doesn't recognize gets an empty cell; the mapping lives in
   `valueForColumn`, so add cases there if columns are renamed or added.
+- `mentor-to-sheet.gs` creates its own "Mentor Requests" tab with headers on
+  first use. The last two columns (Matched Mentor, Notes) are never written
+  by the form; fill them in by hand as associate members get paired. Rows
+  are written by position, so add new columns to the right of Notes rather
+  than inserting them in the middle.
 
 ## Editing a script later
 
