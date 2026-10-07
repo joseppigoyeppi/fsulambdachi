@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <!--
-  Career mentor request form for associate members. Served at
-  www.fsulambdachi.com/mentor (GitHub Pages resolves extensionless URLs to
-  .html files). Not linked from the nav on purpose: share the URL directly
-  with the associate member class.
+  RSVP_TOGGLE: Disabled copy of the 2026 Alumni Cookout RSVP page, kept
+  for the next event. While live it was rsvp.html, served at
+  www.fsulambdachi.com/rsvp (GitHub Pages resolves extensionless URLs to
+  .html files). /rsvp now redirects to the alumni mentor sign-up at
+  /become-a-mentor, which also took over this page's nav slot.
+  To run an RSVP push again:
+    1. Rename this file back to rsvp.html (replacing the redirect stub)
+       and update the event details, flyer and form subject.
+    2. Search the site for "RSVP_TOGGLE" to find the nav, footer and
+       homepage links to point back at /rsvp.
+  The regular alumni page is still parked at pages/alumni.html.disabled.
 -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Career Mentor Match | Lambda Chi Alpha at FSU</title>
-    <meta name="description" content="Associate members of Lambda Chi Alpha Zeta Rho: tell us your career goal and get matched with an alumni career mentor.">
-    <meta name="robots" content="noindex">
+    <title>RSVP | Lambda Chi Alpha at FSU</title>
+    <meta name="description" content="RSVP for the Lambda Chi Alpha Zeta Rho 2026 Alumni Cookout. Labor Day, September 7, 2026 at 1944 Heritage Grove Circle, Tallahassee.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,8 +50,8 @@
                 <li class="nav-item"><a href="pages/leadership.html" class="nav-link">Leadership</a></li>
                 <!-- RUSH_TOGGLE: Uncomment below when rush is active -->
                 <!-- <li class="nav-item"><a href="pages/rush.html" class="nav-link">Rush</a></li> -->
-                <!-- RSVP_TOGGLE: Alumni mentor sign-up. This slot was pages/alumni.html / "Alumni" before the cookout RSVP -->
-                <li class="nav-item"><a href="/become-a-mentor" class="nav-link">Mentor</a></li>
+                <!-- RSVP_TOGGLE: Restore to pages/alumni.html / "Alumni" after the cookout -->
+                <li class="nav-item"><a href="/rsvp" class="nav-link active">RSVP</a></li>
                 <li class="nav-item"><a href="pages/newsletters.html" class="nav-link">Newsletters</a></li>
                 <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
             </ul>
@@ -55,89 +61,50 @@
     <!-- Page Hero -->
     <section class="page-hero">
         <div class="container">
-            <span class="section-tag" data-page-animate>Associate Members</span>
-            <h1 class="section-title" data-page-animate>Career Mentor Match</h1>
+            <h1 class="section-title" data-page-animate>2026 Alumni Cookout</h1>
             <div class="heritage-divider" data-page-animate>
                 <span class="heritage-divider__wing"></span>
                 <span class="heritage-divider__diamond"></span>
                 <span class="heritage-divider__wing"></span>
             </div>
-            <p class="page-subtitle" data-page-animate>Tell us where you want your career to go, and we'll pair you with a Zeta Rho alumnus who has already been there.</p>
+            <p class="page-subtitle" data-page-animate>Join us at the house on Labor Day before the Seminoles take on the SMU Mustangs. Let us know you're coming so we can plan the food.</p>
         </div>
     </section>
 
-    <!-- Mentor Request Form -->
-    <section class="page-content">
+    <!-- Alumni Cookout RSVP -->
+    <section class="page-content" id="cookout-rsvp" style="background: var(--white);">
         <div class="container">
-            <div style="max-width: 800px; margin: 0 auto; width: 100%;">
-                <div class="values-header text-center" style="margin-bottom: 2rem;">
-                    <span class="section-tag">Get Matched</span>
-                    <h2 class="section-title">Your Career Goal</h2>
-                    <div class="heritage-divider">
-                        <span class="heritage-divider__wing"></span>
-                        <span class="heritage-divider__diamond"></span>
-                        <span class="heritage-divider__wing"></span>
-                    </div>
-                </div>
+            <div style="max-width: 1100px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 2.5rem; align-items: start;">
+                <img src="images/OldAlumniCookoutFlyer.png" alt="2026 Alumni Cookout flyer. Gameday in Tallahassee, Florida State Seminoles vs. SMU Mustangs. Labor Day, Monday, September 7, 2026, 1:00 to 3:00 PM, 1944 Heritage Grove Circle, Tallahassee, Florida." style="display: block; width: 100%; border-radius: 12px; box-shadow: var(--shadow-lg);">
 
-                <div style="max-width: 600px; margin: 0 auto 1.5rem; background: var(--gray-100); border-radius: 12px; padding: 1.25rem 1.5rem; text-align: center;">
-                    <p style="margin: 0;">The Alumni Chairman reads every response and will introduce you to an alumnus working in your field. The more specific you are, the better the match.</p>
-                </div>
-
-                <form class="contact-form" id="mentor-form" action="https://formspree.io/f/xojnjalq" method="POST">
-                    <input type="hidden" name="_subject" value="Career Mentor Request">
-                    <input type="hidden" name="formType" value="Career Mentor Request">
+                <form class="contact-form" id="rsvp-form" action="https://formspree.io/f/xojnjalq" method="POST">
+                    <input type="hidden" name="_subject" value="2026 Alumni Cookout RSVP">
+                    <input type="hidden" name="formType" value="Alumni Cookout RSVP">
                     <input type="text" name="_gotcha" style="display: none !important;" tabindex="-1" autocomplete="off" aria-hidden="true">
 
                     <div class="form-group">
-                        <label for="mentorName">Full Name *</label>
-                        <input type="text" id="mentorName" name="name" required autocomplete="name">
+                        <label for="rsvpName">Brother's Name *</label>
+                        <input type="text" id="rsvpName" name="name" required>
                     </div>
 
                     <div style="display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
                         <div class="form-group">
-                            <label for="mentorEmail">Email Address *</label>
-                            <input type="email" id="mentorEmail" name="email" required autocomplete="email">
+                            <label for="rsvpInitiationYear">Initiation Year *</label>
+                            <input type="number" id="rsvpInitiationYear" name="initiationYear" required min="1947" max="2026" placeholder="e.g. 1985">
                         </div>
                         <div class="form-group">
-                            <label for="mentorPhone">Phone Number *</label>
-                            <input type="tel" id="mentorPhone" name="phone" required autocomplete="tel">
-                        </div>
-                    </div>
-
-                    <div style="display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-                        <div class="form-group">
-                            <label for="mentorMajor">Major *</label>
-                            <input type="text" id="mentorMajor" name="major" required placeholder="e.g. Finance">
-                        </div>
-                        <div class="form-group">
-                            <label for="mentorGraduationYear">Expected Graduation Year *</label>
-                            <input type="number" id="mentorGraduationYear" name="graduationYear" required min="2026" max="2035" placeholder="e.g. 2029">
+                            <label for="rsvpGuests">Guests You're Bringing *</label>
+                            <input type="number" id="rsvpGuests" name="guests" required min="0" max="20" placeholder="0 if it's just you">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="mentorCareerField">Career Field *</label>
-                        <input type="text" id="mentorCareerField" name="careerField" required placeholder="e.g. Investment banking, law, medicine, engineering">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="mentorCareerGoal">Your Career Goal *</label>
-                        <textarea id="mentorCareerGoal" name="careerGoal" required placeholder="What do you want to be doing after graduation? Name the job, the kind of company, or the grad program if you have one in mind. If you're still deciding, tell us what you're choosing between."></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="mentorTargetLocation">Where You Want to Work</label>
-                        <input type="text" id="mentorTargetLocation" name="targetLocation" placeholder="e.g. Tampa, New York, anywhere">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="mentorHelpWanted">What You Want Help With</label>
-                        <input type="text" id="mentorHelpWanted" name="helpWanted" placeholder="e.g. Internships, resume, interviews, grad school">
+                        <label for="rsvpEmail">Email Address *</label>
+                        <input type="email" id="rsvpEmail" name="email" required>
                     </div>
 
                     <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
-                        <span>Request a Mentor</span>
+                        <span>Send RSVP</span>
                         <i class="fas fa-paper-plane"></i>
                     </button>
                 </form>
@@ -171,8 +138,8 @@
                             <li><a href="pages/leadership.html">Leadership</a></li>
                             <!-- RUSH_TOGGLE: Uncomment when rush is active -->
                             <!-- <li><a href="pages/rush.html">Rush</a></li> -->
-                            <!-- RSVP_TOGGLE: Alumni mentor sign-up. This slot was pages/alumni.html / "Alumni" before the cookout RSVP -->
-                            <li><a href="/become-a-mentor">Become a Mentor</a></li>
+                            <!-- RSVP_TOGGLE: Restore to pages/alumni.html / "Alumni" after the cookout -->
+                            <li><a href="/rsvp">RSVP</a></li>
                             <li><a href="pages/newsletters.html">Newsletters</a></li>
                             <li><a href="/contact">Contact</a></li>
                         </ul>
@@ -209,14 +176,14 @@
 
     <script src="js/main.js"></script>
     <script>
-        // Mentor request form submission handling.
-        // Posts to the Google Apps Script web app that logs each request to the
-        // chapter's mentor request Google Sheet and emails the chapter inbox
-        // (see apps-script/README.md). Until the URL below is filled in,
-        // submissions fall back to the Formspree action on the form tag.
-        const MENTOR_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxZmeNZxxEm4qCCQMJQX39ZLxSCokMqMpjELgVt3JNzb6BOQa46L2JZBGArZp7XmR_q/exec';
+        // RSVP form submission handling.
+        // Posts to the Google Apps Script web app that logs RSVPs to the chapter's
+        // Google Sheet and emails the chapter inbox (see apps-script/README.md).
+        // Until the URL below is filled in, submissions fall back to the Formspree
+        // action on the form tag.
+        const RSVP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwWl5xJOfkt6aqSqz3bte3YpkUxNiXKB0wYDljJzc0bINLg1Fb4FzecJ31dQPlM6fpD/exec';
 
-        document.getElementById('mentor-form').addEventListener('submit', function(e) {
+        document.getElementById('rsvp-form').addEventListener('submit', function(e) {
             e.preventDefault();
 
             const form = this;
@@ -238,18 +205,15 @@
 
             // URLSearchParams (not FormData) because Apps Script only parses
             // urlencoded bodies into e.parameter, and it avoids a CORS preflight.
-            // The Accept header is what makes the Formspree fallback answer in
-            // JSON instead of redirecting to its thank-you page.
-            fetch(MENTOR_ENDPOINT || form.action, {
+            fetch(RSVP_ENDPOINT || form.action, {
                 method: 'POST',
-                headers: { 'Accept': 'application/json' },
                 body: new URLSearchParams(new FormData(form))
             }).then(function(response) {
                 return response.json();
             }).then(function(data) {
                 // Apps Script replies {result: 'success'}; Formspree replies {ok/next}.
                 if (data.result === 'success' || data.ok || data.next) {
-                    submitBtn.innerHTML = '<span>Request Sent!</span><i class="fas fa-check"></i>';
+                    submitBtn.innerHTML = '<span>RSVP Received!</span><i class="fas fa-check"></i>';
                     submitBtn.style.background = 'linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%)';
                     setTimeout(function() {
                         submitBtn.innerHTML = originalContent;

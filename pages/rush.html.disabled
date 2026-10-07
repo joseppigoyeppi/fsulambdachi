@@ -35,8 +35,8 @@
                 <li class="nav-item"><a href="brotherhood.html" class="nav-link">Brotherhood</a></li>
                 <li class="nav-item"><a href="leadership.html" class="nav-link">Leadership</a></li>
                 <li class="nav-item"><a href="rush.html" class="nav-link active">Rush</a></li>
-                <!-- RSVP_TOGGLE: Restore to alumni.html / "Alumni" after the cookout -->
-                <li class="nav-item"><a href="/rsvp" class="nav-link">RSVP</a></li>
+                <!-- RSVP_TOGGLE: Alumni mentor sign-up. This slot was alumni.html / "Alumni" before the cookout RSVP -->
+                <li class="nav-item"><a href="/become-a-mentor" class="nav-link">Mentor</a></li>
                 <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
             </ul>
         </div>
@@ -257,8 +257,8 @@
                             <li><a href="brotherhood.html">Brotherhood</a></li>
                             <li><a href="leadership.html">Leadership</a></li>
                             <li><a href="rush.html">Rush</a></li>
-                            <!-- RSVP_TOGGLE: Restore to alumni.html / "Alumni" after the cookout -->
-                            <li><a href="/rsvp">RSVP</a></li>
+                            <!-- RSVP_TOGGLE: Alumni mentor sign-up. This slot was alumni.html / "Alumni" before the cookout RSVP -->
+                            <li><a href="/become-a-mentor">Become a Mentor</a></li>
                             <li><a href="/contact">Contact</a></li>
                         </ul>
                     </div>

@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <!--
-  Career mentor request form for associate members. Served at
-  www.fsulambdachi.com/mentor (GitHub Pages resolves extensionless URLs to
-  .html files). Not linked from the nav on purpose: share the URL directly
-  with the associate member class.
+  Alumni career mentor sign-up. Served at www.fsulambdachi.com/become-a-mentor
+  (GitHub Pages resolves extensionless URLs to .html files). This is the
+  alumni half of the mentor match: it collects the career details needed to
+  pair an alumnus with a brother who filled out the request form on mentor.html.
+  It took over the nav slot that held the 2026 Alumni Cookout RSVP (see
+  rsvp.html.disabled).
 -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Career Mentor Match | Lambda Chi Alpha at FSU</title>
-    <meta name="description" content="Associate members of Lambda Chi Alpha Zeta Rho: tell us your career goal and get matched with an alumni career mentor.">
-    <meta name="robots" content="noindex">
+    <title>Become a Career Mentor | Lambda Chi Alpha at FSU</title>
+    <meta name="description" content="Zeta Rho alumni: tell us about your career and get paired with an active Lambda Chi Alpha brother at Florida State who wants to follow the same path.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,7 +46,7 @@
                 <!-- RUSH_TOGGLE: Uncomment below when rush is active -->
                 <!-- <li class="nav-item"><a href="pages/rush.html" class="nav-link">Rush</a></li> -->
                 <!-- RSVP_TOGGLE: Alumni mentor sign-up. This slot was pages/alumni.html / "Alumni" before the cookout RSVP -->
-                <li class="nav-item"><a href="/become-a-mentor" class="nav-link">Mentor</a></li>
+                <li class="nav-item"><a href="/become-a-mentor" class="nav-link active">Mentor</a></li>
                 <li class="nav-item"><a href="pages/newsletters.html" class="nav-link">Newsletters</a></li>
                 <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
             </ul>
@@ -55,24 +56,22 @@
     <!-- Page Hero -->
     <section class="page-hero">
         <div class="container">
-            <span class="section-tag" data-page-animate>Associate Members</span>
-            <h1 class="section-title" data-page-animate>Career Mentor Match</h1>
+            <h1 class="section-title" data-page-animate>Become a Career Mentor</h1>
             <div class="heritage-divider" data-page-animate>
                 <span class="heritage-divider__wing"></span>
                 <span class="heritage-divider__diamond"></span>
                 <span class="heritage-divider__wing"></span>
             </div>
-            <p class="page-subtitle" data-page-animate>Tell us where you want your career to go, and we'll pair you with a Zeta Rho alumnus who has already been there.</p>
+            <p class="page-subtitle" data-page-animate>Tell us where your career has taken you, and we'll pair you with an active Zeta Rho brother who wants to go there.</p>
         </div>
     </section>
 
-    <!-- Mentor Request Form -->
+    <!-- Mentor Sign-Up Form -->
     <section class="page-content">
         <div class="container">
             <div style="max-width: 800px; margin: 0 auto; width: 100%;">
                 <div class="values-header text-center" style="margin-bottom: 2rem;">
-                    <span class="section-tag">Get Matched</span>
-                    <h2 class="section-title">Your Career Goal</h2>
+                    <h2 class="section-title">Your Career</h2>
                     <div class="heritage-divider">
                         <span class="heritage-divider__wing"></span>
                         <span class="heritage-divider__diamond"></span>
@@ -81,63 +80,58 @@
                 </div>
 
                 <div style="max-width: 600px; margin: 0 auto 1.5rem; background: var(--gray-100); border-radius: 12px; padding: 1.25rem 1.5rem; text-align: center;">
-                    <p style="margin: 0;">The Alumni Chairman reads every response and will introduce you to an alumnus working in your field. The more specific you are, the better the match.</p>
+                    <p style="margin: 0;">Brothers request a mentor by telling us their career field, the job or grad program they're aiming for, where they want to work, and what they want help with. Tell us about your own career below. The Alumni Chairman reads every response and will introduce you to a brother headed into your field.</p>
                 </div>
 
-                <form class="contact-form" id="mentor-form" action="https://formspree.io/f/xojnjalq" method="POST">
-                    <input type="hidden" name="_subject" value="Career Mentor Request">
-                    <input type="hidden" name="formType" value="Career Mentor Request">
+                <form class="contact-form" id="mentor-signup-form" action="https://formspree.io/f/xojnjalq" method="POST">
+                    <input type="hidden" name="_subject" value="Alumni Mentor Sign-Up">
+                    <input type="hidden" name="formType" value="Alumni Mentor Sign-Up">
                     <input type="text" name="_gotcha" style="display: none !important;" tabindex="-1" autocomplete="off" aria-hidden="true">
 
                     <div class="form-group">
-                        <label for="mentorName">Full Name *</label>
-                        <input type="text" id="mentorName" name="name" required autocomplete="name">
+                        <label for="signupName">Full Name *</label>
+                        <input type="text" id="signupName" name="name" required autocomplete="name">
                     </div>
 
                     <div style="display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
                         <div class="form-group">
-                            <label for="mentorEmail">Email Address *</label>
-                            <input type="email" id="mentorEmail" name="email" required autocomplete="email">
+                            <label for="signupEmail">Email Address *</label>
+                            <input type="email" id="signupEmail" name="email" required autocomplete="email">
                         </div>
                         <div class="form-group">
-                            <label for="mentorPhone">Phone Number *</label>
-                            <input type="tel" id="mentorPhone" name="phone" required autocomplete="tel">
+                            <label for="signupPhone">Phone Number *</label>
+                            <input type="tel" id="signupPhone" name="phone" required autocomplete="tel">
                         </div>
                     </div>
 
                     <div style="display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
                         <div class="form-group">
-                            <label for="mentorMajor">Major *</label>
-                            <input type="text" id="mentorMajor" name="major" required placeholder="e.g. Finance">
+                            <label for="signupMajor">FSU Major</label>
+                            <input type="text" id="signupMajor" name="major" placeholder="e.g. Finance">
                         </div>
                         <div class="form-group">
-                            <label for="mentorGraduationYear">Expected Graduation Year *</label>
-                            <input type="number" id="mentorGraduationYear" name="graduationYear" required min="2026" max="2035" placeholder="e.g. 2029">
+                            <label for="signupGraduationYear">Graduation Year *</label>
+                            <input type="number" id="signupGraduationYear" name="graduationYear" required min="1947" max="2026" placeholder="e.g. 2008">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="mentorCareerField">Career Field *</label>
-                        <input type="text" id="mentorCareerField" name="careerField" required placeholder="e.g. Investment banking, law, medicine, engineering">
+                        <label for="signupCareerField">Career Field *</label>
+                        <input type="text" id="signupCareerField" name="careerField" required placeholder="e.g. Investment banking, law, medicine, engineering">
                     </div>
 
                     <div class="form-group">
-                        <label for="mentorCareerGoal">Your Career Goal *</label>
-                        <textarea id="mentorCareerGoal" name="careerGoal" required placeholder="What do you want to be doing after graduation? Name the job, the kind of company, or the grad program if you have one in mind. If you're still deciding, tell us what you're choosing between."></textarea>
+                        <label for="signupCurrentRole">Current Role and Company *</label>
+                        <input type="text" id="signupCurrentRole" name="currentRole" required placeholder="Job title and employer">
                     </div>
 
                     <div class="form-group">
-                        <label for="mentorTargetLocation">Where You Want to Work</label>
-                        <input type="text" id="mentorTargetLocation" name="targetLocation" placeholder="e.g. Tampa, New York, anywhere">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="mentorHelpWanted">What You Want Help With</label>
-                        <input type="text" id="mentorHelpWanted" name="helpWanted" placeholder="e.g. Internships, resume, interviews, grad school">
+                        <label for="signupAboutYou">About You</label>
+                        <textarea id="signupAboutYou" name="aboutYou" placeholder="Anything that would help us pair you with the right brother: how you got to where you are, where you're based, what you'd be glad to help with."></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
-                        <span>Request a Mentor</span>
+                        <span>Sign Up as a Mentor</span>
                         <i class="fas fa-paper-plane"></i>
                     </button>
                 </form>
@@ -209,14 +203,16 @@
 
     <script src="js/main.js"></script>
     <script>
-        // Mentor request form submission handling.
-        // Posts to the Google Apps Script web app that logs each request to the
-        // chapter's mentor request Google Sheet and emails the chapter inbox
-        // (see apps-script/README.md). Until the URL below is filled in,
-        // submissions fall back to the Formspree action on the form tag.
-        const MENTOR_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxZmeNZxxEm4qCCQMJQX39ZLxSCokMqMpjELgVt3JNzb6BOQa46L2JZBGArZp7XmR_q/exec';
+        // Mentor sign-up form submission handling.
+        // Posts to the same Google Apps Script web app as mentor.html, which
+        // logs sign-ups to the "Alumni Mentors" tab of the mentor request
+        // Google Sheet and emails the chapter inbox (see apps-script/README.md).
+        // This is the same URL as MENTOR_ENDPOINT in mentor.html, so keep the
+        // two in step if the script ever moves to a new deployment. If it is
+        // emptied, submissions fall back to the Formspree action on the form tag.
+        const MENTOR_SIGNUP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxZmeNZxxEm4qCCQMJQX39ZLxSCokMqMpjELgVt3JNzb6BOQa46L2JZBGArZp7XmR_q/exec';
 
-        document.getElementById('mentor-form').addEventListener('submit', function(e) {
+        document.getElementById('mentor-signup-form').addEventListener('submit', function(e) {
             e.preventDefault();
 
             const form = this;
@@ -240,7 +236,7 @@
             // urlencoded bodies into e.parameter, and it avoids a CORS preflight.
             // The Accept header is what makes the Formspree fallback answer in
             // JSON instead of redirecting to its thank-you page.
-            fetch(MENTOR_ENDPOINT || form.action, {
+            fetch(MENTOR_SIGNUP_ENDPOINT || form.action, {
                 method: 'POST',
                 headers: { 'Accept': 'application/json' },
                 body: new URLSearchParams(new FormData(form))
@@ -249,7 +245,7 @@
             }).then(function(data) {
                 // Apps Script replies {result: 'success'}; Formspree replies {ok/next}.
                 if (data.result === 'success' || data.ok || data.next) {
-                    submitBtn.innerHTML = '<span>Request Sent!</span><i class="fas fa-check"></i>';
+                    submitBtn.innerHTML = '<span>You\'re Signed Up!</span><i class="fas fa-check"></i>';
                     submitBtn.style.background = 'linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%)';
                     setTimeout(function() {
                         submitBtn.innerHTML = originalContent;

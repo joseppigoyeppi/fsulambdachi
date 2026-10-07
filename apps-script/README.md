@@ -6,13 +6,15 @@ No submission limits, no third-party service.
 
 | Form | Page | Script | Spreadsheet |
 |---|---|---|---|
-| Cookout RSVP | `pages/alumni.html` | `rsvp-to-sheet.gs` | 2026 Alumni Cookout RSVPs |
+| Cookout RSVP | `rsvp.html.disabled` (parked after the 2026 cookout) | `rsvp-to-sheet.gs` | 2026 Alumni Cookout RSVPs |
 | Contact update | `pages/contact.html` | `contact-to-sheet.gs` | Zeta-Rho Zeta Alumni Contact List |
-| Career mentor request | `mentor.html` (served at `/mentor`, not in the nav) | `mentor-to-sheet.gs` | Career Mentor Requests |
+| Career mentor request | `mentor.html` (served at `/mentor`, not in the nav) | `mentor-to-sheet.gs` | Career Mentor Requests, "Mentor Requests" tab |
+| Alumni mentor sign-up | `become-a-mentor.html` (served at `/become-a-mentor`, "Mentor" in the nav) | `mentor-to-sheet.gs` (same deployment) | Career Mentor Requests, "Alumni Mentors" tab |
 | Drink orders (hidden page) | `zr-orders-…/` (built from `orders-app/`) | `orders-backend.gs` | Zeta Rho Orders |
 
 Each page has an endpoint constant near the bottom of its inline script
-(`RSVP_ENDPOINT` / `CONTACT_ENDPOINT` / `MENTOR_ENDPOINT`). While a constant
+(`RSVP_ENDPOINT` / `CONTACT_ENDPOINT` / `MENTOR_ENDPOINT` /
+`MENTOR_SIGNUP_ENDPOINT`). While a constant
 is empty, that form falls back to Formspree, so a half-finished setup never
 breaks the site.
 
@@ -42,11 +44,17 @@ breaks the site.
   to columns by the header names in row 1 (case/punctuation-insensitive).
   A header it doesn't recognize gets an empty cell; the mapping lives in
   `valueForColumn`, so add cases there if columns are renamed or added.
-- `mentor-to-sheet.gs` creates its own "Mentor Requests" tab with headers on
-  first use. The last two columns (Matched Mentor, Notes) are never written
-  by the form; fill them in by hand as associate members get paired. Rows
-  are written by position, so add new columns to the right of Notes rather
-  than inserting them in the middle.
+- `mentor-to-sheet.gs` serves both halves of the mentor match from one
+  deployment and one spreadsheet, so requests and mentors sit in neighboring
+  tabs. A POST whose hidden `formType` is "Alumni Mentor Sign-Up" (from
+  `become-a-mentor.html`) goes to the "Alumni Mentors" tab; everything else
+  (from `mentor.html`) goes to "Mentor Requests". Each tab is created with
+  headers on first use. The last two columns of each (Matched Mentor or
+  Matched Brothers, then Notes) are never written by the forms; fill them in
+  by hand as pairs are made. Rows are written by position, so add new
+  columns to the right of Notes rather than inserting them in the middle.
+  `MENTOR_SIGNUP_ENDPOINT` and `MENTOR_ENDPOINT` hold the same `/exec` URL;
+  if the script ever moves to a new deployment, update both pages.
 
 ## Editing a script later
 
