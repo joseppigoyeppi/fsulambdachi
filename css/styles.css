@@ -2972,6 +2972,24 @@ button {
     box-shadow: 0 2px 8px rgba(0,0,0,0.12);
 }
 
+.newsletter-photo-float--portrait {
+    max-width: 220px;
+}
+
+/* Signed letters (e.g. High Pi letter) */
+.newsletter-body .newsletter-letter-closing {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    color: #6A0DAD;
+    margin-top: 20px;
+    margin-bottom: 4px;
+}
+
+.newsletter-body .newsletter-letter-signature {
+    text-align: left;
+    line-height: 1.5;
+}
+
 /* Newsletter links */
 .newsletter-body a {
     color: #6A0DAD;
@@ -3075,6 +3093,11 @@ button {
         float: none;
         max-width: 100%;
         margin: 12px 0;
+    }
+
+    .newsletter-photo-float--portrait {
+        max-width: 240px;
+        margin: 12px auto;
     }
 
     .newsletter-signoff {
