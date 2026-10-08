@@ -2976,6 +2976,12 @@ button {
     max-width: 220px;
 }
 
+/* A callout next to a floated photo keeps to the text column
+   instead of running underneath the photo. */
+.newsletter-content-with-photo .newsletter-callout {
+    display: flow-root;
+}
+
 /* Signed letters (e.g. High Pi letter) */
 .newsletter-body .newsletter-letter-closing {
     font-family: 'Playfair Display', Georgia, serif;
