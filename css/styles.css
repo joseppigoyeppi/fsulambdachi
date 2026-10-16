@@ -2888,6 +2888,19 @@ button {
     color: #4B0082;
 }
 
+.newsletter-body .newsletter-list {
+    list-style: disc;
+    padding-left: 22px;
+    margin-bottom: 14px;
+}
+
+.newsletter-body .newsletter-list li {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #2d2d2d;
+    margin-bottom: 4px;
+}
+
 .newsletter-zp {
     font-weight: 400;
     color: #666;
