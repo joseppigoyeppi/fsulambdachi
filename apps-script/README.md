@@ -9,10 +9,12 @@ No submission limits, no third-party service.
 | Cookout RSVP | `pages/alumni.html` | `rsvp-to-sheet.gs` | 2026 Alumni Cookout RSVPs |
 | Contact update | `pages/contact.html` | `contact-to-sheet.gs` | Zeta-Rho Zeta Alumni Contact List |
 | Drink orders (hidden page) | `zr-orders-…/` (built from `orders-app/`) | `orders-backend.gs` | Zeta Rho Orders |
+| Chapter orders | `pages/orders.html` | `orders-to-sheet.gs` | Zeta Rho Orders (create it; the script fills it in) |
 
 Each page has an endpoint constant near the bottom of its inline script
-(`RSVP_ENDPOINT` / `CONTACT_ENDPOINT`). While a constant is empty, that form
-falls back to Formspree, so a half-finished setup never breaks the site.
+(`RSVP_ENDPOINT` / `CONTACT_ENDPOINT` / `ORDERS_ENDPOINT`). While a constant is
+empty, the RSVP and contact forms fall back to Formspree and the orders page
+shows "not set up yet", so a half-finished setup never breaks the site.
 
 ## Deploying a script (about 3 minutes each)
 
@@ -98,3 +100,35 @@ until the money is in. Admin > Members shows the leaderboard.
 new code over the old, save, run `setup` once more (it adds any new tabs/settings and is
 safe to repeat), then Deploy > Manage deployments > pencil > Version: New version >
 Deploy. The URL does not change, so `config.js` stays as it is.
+## Orders script (`orders-to-sheet.gs`)
+
+The orders page is not a plain form: it asks the script for the menu, then posts
+the order with the payment screenshot. Everything an officer needs is in the
+spreadsheet, so there is no separate admin site.
+
+- **Password.** Every request carries the chapter password and the script checks
+  it against the `Order password` cell on the Settings tab (starts as
+  `zetarho2026`). Change the cell to change the password; no redeploy needed.
+  Brothers' browsers remember the password for 60 days.
+- **Tabs.** Running `authorize` (or the first request) creates and seeds:
+  - `Settings`: password, `Ordering open` (untick to close the store), closed
+    message, payment instructions shown at checkout, notify email.
+  - `Products`: the menu. Edit prices, untick Available to sell out, add a row
+    for a new item. `Image` is a file name under `images/products/` on the site
+    or a full https URL. `Sort` orders items within a brand. `Category` is
+    `drinks` or `merch`.
+  - `Orders`: one row per order with a Status dropdown (Pending, Paid,
+    Delivered, Cancelled) and an admin note column. Change Status here.
+  - `Items`: one row per line item. Formulas; do not edit.
+  - `Totals`: per-product ordered, paid, delivered counts and revenue, plus a
+    summary block. All formulas, updates as you change statuses.
+- **Screenshots** are saved to a Drive folder called "Zeta Rho Order
+  Screenshots" in the chapter account (the script creates it and stores its ID
+  in Settings). Each Orders row links to its file. Each order also emails the
+  notify address with the screenshot attached.
+- **Limits.** Apps Script allows 100 emails a day on a free Gmail account and
+  the page shrinks screenshots to under about 700 KB before sending, so a busy
+  order night is fine.
+- **Authorizing** needs Sheets, Drive, and Gmail permissions (the `authorize`
+  function touches all three). Deploy as a web app with access set to
+  **Anyone**, exactly like the other two scripts.

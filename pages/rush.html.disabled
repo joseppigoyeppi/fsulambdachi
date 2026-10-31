@@ -37,6 +37,7 @@
                 <li class="nav-item"><a href="rush.html" class="nav-link active">Rush</a></li>
                 <!-- RSVP_TOGGLE: Restore to alumni.html / "Alumni" after the cookout -->
                 <li class="nav-item"><a href="/rsvp" class="nav-link">RSVP</a></li>
+                <li class="nav-item"><a href="orders.html" class="nav-link">Orders</a></li>
                 <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
             </ul>
         </div>
@@ -45,7 +46,6 @@
     <!-- Page Hero -->
     <section class="page-hero" style="background: linear-gradient(135deg, var(--green-dark) 0%, var(--purple) 100%);">
         <div class="container">
-            <span class="section-tag">Spring 2025</span>
             <h1 class="section-title">Rush Lambda Chi Alpha</h1>
             <p class="page-subtitle">Be part of something greater. Join the brotherhood returning to Florida State.</p>
         </div>
@@ -56,10 +56,9 @@
         <div class="container">
             <div class="about-grid">
                 <div class="about-content">
-                    <span class="section-tag">Why Lambda Chi?</span>
                     <h2 class="section-title">Become a Founding Father</h2>
                     <p class="section-text">This is a once-in-a-lifetime opportunity. As Lambda Chi Alpha returns to FSU in Spring 2025, you have the chance to be a Founding Father of the re-established Zeta Rho Chapter.</p>
-                    <p class="section-text">Founding Fathers don't just join a fraternity—they build one. You'll shape our chapter's culture, traditions, and future for generations to come. This is leadership on day one.</p>
+                    <p class="section-text">Founding Fathers don't just join a fraternity: they build one. You'll shape our chapter's culture, traditions, and future for generations to come. This is leadership on day one.</p>
                     <p class="section-text">With over 300,000 brothers worldwide and a powerful alumni network, Lambda Chi Alpha offers connections that last a lifetime. Our alumni include CEOs, professional athletes, politicians, and leaders in every field.</p>
                     <a href="/contact" class="btn btn-primary">
                         <span>Get in Touch</span>
@@ -87,7 +86,6 @@
     <section class="values-section">
         <div class="container">
             <div class="values-header">
-                <span class="section-tag">Our Standards</span>
                 <h2 class="section-title">What We Look For</h2>
                 <p class="section-subtitle">Lambda Chi Alpha seeks men who embody our core values.</p>
             </div>
@@ -110,7 +108,7 @@
                 <div class="value-card">
                     <div class="value-icon"><i class="fas fa-handshake"></i></div>
                     <h3>Genuine Character</h3>
-                    <p>Integrity, respect, and authenticity are non-negotiable. Be yourself—that's who we want.</p>
+                    <p>Integrity, respect, and authenticity are non-negotiable. Be yourself. That's who we want.</p>
                 </div>
             </div>
         </div>
@@ -120,7 +118,6 @@
     <section class="page-content" style="background: var(--white);">
         <div class="container">
             <div class="values-header text-center" style="margin-bottom: 3rem;">
-                <span class="section-tag">The Process</span>
                 <h2 class="section-title">Rush Timeline</h2>
                 <p class="section-subtitle" style="margin: 0 auto;">What to expect during the recruitment process.</p>
             </div>
@@ -130,7 +127,7 @@
                     <div class="timeline-marker">1</div>
                     <div class="timeline-content">
                         <h3>Interest Events</h3>
-                        <p>Casual events to meet our brothers and learn about Lambda Chi Alpha. No commitment required—just come hang out, ask questions, and see if we're a good fit for each other.</p>
+                        <p>Casual events to meet our brothers and learn about Lambda Chi Alpha. No commitment required. Come hang out, ask questions, and see if we're a good fit for each other.</p>
                     </div>
                 </div>
 
@@ -146,7 +143,7 @@
                     <div class="timeline-marker">3</div>
                     <div class="timeline-content">
                         <h3>Bid Day</h3>
-                        <p>If there's mutual interest, you'll receive a bid to join Lambda Chi Alpha. Accepting a bid makes you an Associate Member and begins your journey toward initiation.</p>
+                        <p>If there's mutual interest, you'll receive a bid to join Lambda Chi Alpha. Accepting a bid makes you an Associate Member and begins your path to initiation.</p>
                     </div>
                 </div>
 
@@ -162,7 +159,7 @@
                     <div class="timeline-marker">5</div>
                     <div class="timeline-content">
                         <h3>Initiation</h3>
-                        <p>The culmination of your journey. Through our meaningful initiation ritual, you become a full brother of Lambda Chi Alpha—a bond that lasts a lifetime.</p>
+                        <p>The final step. Through our initiation ritual, you become a full brother of Lambda Chi Alpha, a bond that lasts a lifetime.</p>
                     </div>
                 </div>
             </div>
@@ -173,7 +170,6 @@
     <section class="page-content" style="background: var(--gray-100);">
         <div class="container">
             <div class="values-header text-center" style="margin-bottom: 3rem;">
-                <span class="section-tag">Questions?</span>
                 <h2 class="section-title">Frequently Asked Questions</h2>
             </div>
 
@@ -195,7 +191,7 @@
 
                 <div style="background: var(--white); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; box-shadow: var(--shadow-md);">
                     <h4 style="font-family: var(--font-display); margin-bottom: 0.5rem; color: var(--purple);">What is hazing?</h4>
-                    <p style="color: var(--gray-600); line-height: 1.7;">Lambda Chi Alpha has a strict zero-tolerance policy on hazing. Our Associate Member program is educational and designed to integrate you into the brotherhood—not to demean or harm you. We're proud to be anti-hazing pioneers in the fraternity world.</p>
+                    <p style="color: var(--gray-600); line-height: 1.7;">Lambda Chi Alpha has a strict zero-tolerance policy on hazing. Our Associate Member program is educational and designed to integrate you into the brotherhood, not to demean or harm you. We're proud to be anti-hazing pioneers in the fraternity world.</p>
                 </div>
 
                 <div style="background: var(--white); border-radius: 12px; padding: 1.5rem; box-shadow: var(--shadow-md);">
@@ -213,7 +209,7 @@
         </div>
         <div class="container">
             <div class="rush-content">
-                <h2>Ready to Rush?</h2>
+                <h2>Register for Rush</h2>
                 <p>Fill out our interest form and a brother will reach out to you with more information about upcoming events.</p>
                 <div class="rush-buttons">
                     <a href="/contact" class="btn btn-primary btn-large">
@@ -259,6 +255,7 @@
                             <li><a href="rush.html">Rush</a></li>
                             <!-- RSVP_TOGGLE: Restore to alumni.html / "Alumni" after the cookout -->
                             <li><a href="/rsvp">RSVP</a></li>
+                            <li><a href="orders.html">Orders</a></li>
                             <li><a href="/contact">Contact</a></li>
                         </ul>
                     </div>
@@ -286,7 +283,7 @@
         <div class="footer-bottom">
             <div class="container">
                 <p>&copy; 2025 Lambda Chi Alpha - Zeta Rho Chapter at Florida State University. All rights reserved.</p>
-                <p class="footer-motto">Vir Quisque Vir — Every Man a Man</p>
+                <p class="footer-motto">Vir Quisque Vir. Every Man a Man.</p>
             </div>
         </div>
     </footer>

@@ -1,2 +1,4 @@
 .DS_Store
 *.DS_Store
+# Earlier standalone order app, replaced by pages/orders.html + apps-script/orders-to-sheet.gs
+zeta-rho-orders/

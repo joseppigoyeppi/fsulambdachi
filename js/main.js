@@ -7,8 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize all components
     initNavbar();
     initMobileNav();
-    initScrollAnimations();
-    initCounterAnimation();
     initSmoothScroll();
     initScrollToTop();
 });
@@ -94,129 +92,6 @@ function initMobileNav() {
 }
 
 /* ============================================
-   Scroll Animations (Intersection Observer)
-   ============================================ */
-function initScrollAnimations() {
-    // Elements to animate
-    const animatedElements = document.querySelectorAll(`
-        .about-content,
-        .about-images,
-        .value-card,
-        .alumni-card,
-        .philanthropy-image,
-        .philanthropy-content,
-        .instagram-item,
-        .leader-card,
-        .timeline-item,
-        .section-tag,
-        .section-title,
-        .stat-item,
-        .contact-info-card,
-        .mentor-card,
-        .officer-card,
-        .house-gallery-item,
-        .heritage-divider,
-        .contact-form
-    `);
-
-    // Create observer
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px 0px -50px 0px',
-        threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-
-                // Add stagger delay for grid items
-                const parent = entry.target.parentElement;
-                if (parent) {
-                    const siblings = Array.from(parent.children);
-                    const index = siblings.indexOf(entry.target);
-                    entry.target.style.transitionDelay = `${index * 0.1}s`;
-                }
-            }
-        });
-    }, observerOptions);
-
-    // Add initial class and observe
-    animatedElements.forEach(el => {
-        el.classList.add('fade-in');
-        observer.observe(el);
-    });
-}
-
-/* ============================================
-   Counter Animation
-   ============================================ */
-function initCounterAnimation() {
-    const stats = document.querySelectorAll('.stat-number');
-
-    const observerOptions = {
-        root: null,
-        threshold: 0.5
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const target = entry.target;
-                const text = target.textContent;
-
-                // Don't animate if already animated
-                if (target.dataset.animated) return;
-                target.dataset.animated = 'true';
-
-                // Check if it's a number we can animate
-                const match = text.match(/(\d+)/);
-                if (match) {
-                    const endValue = parseInt(match[1]);
-                    const prefix = text.slice(0, text.indexOf(match[1]));
-                    const suffix = text.slice(text.indexOf(match[1]) + match[1].length);
-
-                    animateCounter(target, 0, endValue, 2000, prefix, suffix);
-                }
-            }
-        });
-    }, observerOptions);
-
-    stats.forEach(stat => observer.observe(stat));
-}
-
-function animateCounter(element, start, end, duration, prefix = '', suffix = '') {
-    const startTime = performance.now();
-
-    function update(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-
-        // Easing function (ease-out cubic)
-        const easeOut = 1 - Math.pow(1 - progress, 3);
-
-        const current = Math.floor(start + (end - start) * easeOut);
-
-        // Format number with K/M suffix if needed
-        let displayValue;
-        if (end >= 1000 && suffix.includes('K')) {
-            displayValue = Math.floor(current / 1000) + 'K';
-        } else {
-            displayValue = current.toLocaleString();
-        }
-
-        element.textContent = prefix + displayValue + suffix;
-
-        if (progress < 1) {
-            requestAnimationFrame(update);
-        }
-    }
-
-    requestAnimationFrame(update);
-}
-
-/* ============================================
    Smooth Scroll for Anchor Links
    ============================================ */
 function initSmoothScroll() {
@@ -262,7 +137,7 @@ function initLazyImages() {
 }
 
 /* ============================================
-   Hero & Page Hero Entrance Animations
+   Hero Entrance Animation (homepage only)
    ============================================ */
 function initHeroEntrance() {
     const hero = document.querySelector('.hero');
@@ -270,15 +145,6 @@ function initHeroEntrance() {
         requestAnimationFrame(() => {
             setTimeout(() => {
                 hero.classList.add('hero--loaded');
-            }, 100);
-        });
-    }
-
-    const pageHero = document.querySelector('.page-hero');
-    if (pageHero) {
-        requestAnimationFrame(() => {
-            setTimeout(() => {
-                pageHero.classList.add('page-hero--loaded');
             }, 100);
         });
     }

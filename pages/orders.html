@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders | Lambda Chi Alpha at FSU</title>
+    <meta name="description" content="Drink and merch orders for brothers of the Zeta Rho Chapter of Lambda Chi Alpha at Florida State University.">
+    <meta name="robots" content="noindex">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <div class="logo-icon">ΛΧΑ</div>
+                <div class="logo-text">
+                    <span class="logo-primary">Lambda Chi Alpha</span>
+                    <span class="logo-secondary">Zeta Rho | Florida State</span>
+                </div>
+            </a>
+
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item"><a href="../index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="brotherhood.html" class="nav-link">Brotherhood</a></li>
+                <li class="nav-item"><a href="leadership.html" class="nav-link">Leadership</a></li>
+                <!-- RUSH_TOGGLE: Uncomment below when rush is active -->
+                <!-- <li class="nav-item"><a href="rush.html" class="nav-link">Rush</a></li> -->
+                <!-- RSVP_TOGGLE: Restore to alumni.html / "Alumni" after the cookout -->
+                <li class="nav-item"><a href="/rsvp" class="nav-link">RSVP</a></li>
+                <li class="nav-item"><a href="newsletters.html" class="nav-link">Newsletters</a></li>
+                <li class="nav-item"><a href="orders.html" class="nav-link active">Orders</a></li>
+                <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1 class="section-title" data-page-animate>Chapter Orders</h1>
+            <div class="heritage-divider" data-page-animate>
+                <span class="heritage-divider__wing"></span>
+                <span class="heritage-divider__diamond"></span>
+                <span class="heritage-divider__wing"></span>
+            </div>
+            <p class="page-subtitle" data-page-animate>Drinks for brothers. Enter the chapter password, pick your items, pay the chapter, and upload the screenshot.</p>
+        </div>
+    </section>
+
+    <!-- Order form. Products, prices, and the password live in the chapter's Google
+         Sheet; this page talks to the Apps Script bound to it (apps-script/orders-to-sheet.gs). -->
+    <section class="page-content orders-page">
+        <div class="container">
+            <div class="orders-notice" id="orders-notice" hidden></div>
+
+            <form class="contact-form orders-gate" id="orders-gate" hidden>
+                <div class="form-group">
+                    <label for="orders-password">Chapter password</label>
+                    <input type="password" id="orders-password" name="password" required autocomplete="current-password">
+                    <span class="error-message" id="orders-gate-error" hidden></span>
+                </div>
+                <button type="submit" class="btn btn-primary" id="orders-gate-submit"><span>Open orders</span></button>
+                <p class="orders-note">Brothers only. Ask an officer if you need the password.</p>
+            </form>
+
+            <p class="orders-loading" id="orders-loading" hidden>Loading the menu...</p>
+
+            <div class="orders-notice" id="orders-closed" hidden></div>
+
+            <div class="orders-store" id="orders-store" hidden>
+                <div class="orders-menu" id="orders-menu"></div>
+
+                <form class="contact-form orders-checkout" id="orders-form" novalidate>
+                    <h2 class="orders-checkout__title">Your order</h2>
+                    <ul class="orders-lines" id="orders-lines"></ul>
+                    <p class="orders-empty" id="orders-empty">Nothing picked yet. Use the plus buttons above.</p>
+                    <div class="orders-total"><span>Total</span><span class="orders-total__amount" id="orders-total">$0</span></div>
+
+                    <div class="orders-names">
+                        <div class="form-group">
+                            <label for="orders-first">First name *</label>
+                            <input type="text" id="orders-first" name="firstName" autocomplete="given-name" maxlength="40" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="orders-last">Last name *</label>
+                            <input type="text" id="orders-last" name="lastName" autocomplete="family-name" maxlength="40" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="orders-note">Note (optional)</label>
+                        <textarea id="orders-note" name="note" rows="2" maxlength="500" placeholder="Anything the chapter should know"></textarea>
+                    </div>
+
+                    <div class="orders-pay">
+                        <h3 class="orders-pay__title">How to pay</h3>
+                        <p id="orders-pay-text"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="orders-screenshot">Payment screenshot *</label>
+                        <input type="file" id="orders-screenshot" name="screenshot" accept="image/*">
+                        <span class="error-message" id="orders-screenshot-error" hidden></span>
+                        <div class="orders-preview" id="orders-preview" hidden>
+                            <img id="orders-preview-img" alt="Your payment screenshot">
+                            <div class="orders-preview__meta">
+                                <span id="orders-preview-name"></span>
+                                <button type="button" class="orders-link" id="orders-preview-remove">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="text" name="website" class="orders-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+                    <span class="error-message" id="orders-form-error" hidden></span>
+
+                    <button type="submit" class="btn btn-primary" id="orders-submit"><span>Submit order</span><i class="fas fa-paper-plane"></i></button>
+                    <p class="orders-note"><button type="button" class="orders-link" id="orders-signout">Forget the password on this device</button></p>
+                </form>
+            </div>
+
+            <div class="contact-form orders-done" id="orders-done" hidden>
+                <h2 class="orders-checkout__title">Order #<span id="orders-done-number"></span> received</h2>
+                <ul class="orders-lines" id="orders-done-lines"></ul>
+                <div class="orders-total"><span>Total</span><span class="orders-total__amount" id="orders-done-total"></span></div>
+                <p class="orders-done__text">Your screenshot went to the chapter for checking. If anything is off, an officer will reach out.</p>
+                <button type="button" class="btn btn-primary" id="orders-again"><span>Place another order</span></button>
+            </div>
+        </div>
+    </section>
+
+    <div class="orders-bar" id="orders-bar" hidden>
+        <span class="orders-bar__summary" id="orders-bar-summary"></span>
+        <a href="#orders-form" class="orders-bar__link">Checkout</a>
+    </div>
+
+    <script>
+    (function () {
+        // Web app URL of apps-script/orders-to-sheet.gs, deployed from the chapter
+        // Google account (see apps-script/README.md). Empty until it is deployed.
+        var ORDERS_ENDPOINT = '';
+
+        // Local development only: ?endpoint=http://localhost:8081 points the page at a
+        // stand-in server. Ignored on the live site.
+        var isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+        var endpoint = (isLocal && new URLSearchParams(location.search).get('endpoint')) || ORDERS_ENDPOINT;
+
+        var STORAGE_KEY = 'zrOrdersPassword';
+        var REMEMBER_DAYS = 60;
+        var MAX_FILE_BYTES = 10 * 1024 * 1024;
+        var SHRINK_MAX_EDGE = 1600;
+        var SHRINK_TARGET_BYTES = 700 * 1024;
+
+        var el = function (id) { return document.getElementById(id); };
+        var views = ['orders-notice', 'orders-gate', 'orders-loading', 'orders-closed', 'orders-store', 'orders-done'];
+        function show(id) {
+            views.forEach(function (v) { el(v).hidden = v !== id; });
+            el('orders-bar').hidden = true;
+            document.body.classList.remove('has-orders-bar');
+        }
+
+        var password = '';
+        var products = [];
+        var quantities = {};
+        var screenshot = null;      // { file, dataUrl }
+        var previewUrl = null;
+
+        // ---- Password memory ------------------------------------------------
+        function savedPassword() {
+            try {
+                var raw = localStorage.getItem(STORAGE_KEY);
+                if (!raw) return '';
+                var saved = JSON.parse(raw);
+                if (!saved.password || !saved.expires || saved.expires < Date.now()) return '';
+                return saved.password;
+            } catch (e) { return ''; }
+        }
+        function rememberPassword(value) {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify({ password: value, expires: Date.now() + REMEMBER_DAYS * 864e5 }));
+            } catch (e) { /* private mode */ }
+        }
+        function forgetPassword() {
+            try { localStorage.removeItem(STORAGE_KEY); } catch (e) { /* ignore */ }
+        }
+
+        // ---- Talking to the sheet -------------------------------------------
+        function post(payload) {
+            // text/plain keeps this a "simple" request, which Apps Script needs.
+            return fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify(payload)
+            }).then(function (response) { return response.json(); });
+        }
+
+        function money(n) {
+            var v = Number(n) || 0;
+            return '$' + (Number.isInteger(v) ? String(v) : v.toFixed(2));
+        }
+
+        function notice(text) {
+            el('orders-notice').textContent = text;
+            show('orders-notice');
+        }
+
+        // ---- Gate -----------------------------------------------------------
+        function showGate(error) {
+            var err = el('orders-gate-error');
+            err.textContent = error || '';
+            err.hidden = !error;
+            el('orders-password').classList.toggle('error', Boolean(error));
+            show('orders-gate');
+            el('orders-password').focus();
+        }
+
+        el('orders-gate').addEventListener('submit', function (e) {
+            e.preventDefault();
+            var value = el('orders-password').value;
+            if (!value) { showGate('Enter the chapter password.'); return; }
+            loadMenu(value);
+        });
+
+        function loadMenu(candidate) {
+            show('orders-loading');
+            post({ action: 'menu', password: candidate }).then(function (data) {
+                if (data.result !== 'success') {
+                    if (data.code === 'password') {
+                        forgetPassword();
+                        el('orders-password').value = '';
+                        showGate('That password is wrong. Try again.');
+                    } else {
+                        notice(data.message || 'Something went wrong loading the menu. Try again in a minute.');
+                    }
+                    return;
+                }
+                password = candidate;
+                rememberPassword(candidate);
+                if (!data.open) {
+                    el('orders-closed').textContent = data.closedMessage || 'Ordering is closed right now.';
+                    show('orders-closed');
+                    return;
+                }
+                products = data.products || [];
+                el('orders-pay-text').textContent = data.paymentInstructions || 'Pay the chapter, then upload the screenshot.';
+                renderMenu();
+                updateCart();
+                show('orders-store');
+            }).catch(function () {
+                notice('Could not reach the order sheet. Check your connection and try again in a minute.');
+            });
+        }
+
+        // ---- Menu -----------------------------------------------------------
+        function imageSrc(value) {
+            if (!value) return '';
+            return /^https?:\/\//.test(value) ? value : '../images/products/' + value;
+        }
+
+        function renderMenu() {
+            var menu = el('orders-menu');
+            menu.innerHTML = '';
+            var categories = [['drinks', 'Drinks'], ['merch', 'Merch']];
+            categories.forEach(function (cat) {
+                var inCat = products.filter(function (p) { return p.category === cat[0]; });
+                if (!inCat.length) return;
+                var section = document.createElement('div');
+                section.className = 'orders-category';
+                var title = document.createElement('h2');
+                title.className = 'orders-category__title';
+                title.textContent = cat[1];
+                section.appendChild(title);
+
+                var brands = [];
+                inCat.forEach(function (p) { if (brands.indexOf(p.brand) === -1) brands.push(p.brand); });
+                brands.forEach(function (brand) {
+                    var group = document.createElement('div');
+                    group.className = 'orders-brand';
+                    var h = document.createElement('h3');
+                    h.className = 'orders-brand__title';
+                    h.textContent = brand;
+                    group.appendChild(h);
+                    inCat.filter(function (p) { return p.brand === brand; }).forEach(function (p) {
+                        group.appendChild(renderItem(p));
+                    });
+                    section.appendChild(group);
+                });
+                menu.appendChild(section);
+            });
+        }
+
+        function renderItem(p) {
+            var row = document.createElement('div');
+            row.className = 'orders-item';
+            row.dataset.id = p.id;
+
+            var src = imageSrc(p.image);
+            var media = document.createElement(src ? 'img' : 'div');
+            media.className = 'orders-item__img';
+            if (src) { media.src = src; media.alt = ''; media.loading = 'lazy'; }
+            row.appendChild(media);
+
+            var info = document.createElement('div');
+            info.className = 'orders-item__info';
+            var name = document.createElement('div');
+            name.className = 'orders-item__name';
+            name.textContent = p.name;
+            info.appendChild(name);
+            if (p.pack) {
+                var pack = document.createElement('div');
+                pack.className = 'orders-item__pack';
+                pack.textContent = p.pack;
+                info.appendChild(pack);
+            }
+            row.appendChild(info);
+
+            var price = document.createElement('div');
+            price.className = 'orders-item__price';
+            price.textContent = money(p.price);
+            row.appendChild(price);
+
+            var qty = document.createElement('div');
+            qty.className = 'orders-qty';
+            var minus = document.createElement('button');
+            minus.type = 'button';
+            minus.className = 'orders-qty__btn';
+            minus.textContent = '−';
+            minus.setAttribute('aria-label', 'Remove one ' + p.name);
+            minus.addEventListener('click', function () { change(p.id, -1); });
+            var value = document.createElement('span');
+            value.className = 'orders-qty__value';
+            value.textContent = '0';
+            value.setAttribute('aria-live', 'polite');
+            var plus = document.createElement('button');
+            plus.type = 'button';
+            plus.className = 'orders-qty__btn';
+            plus.textContent = '+';
+            plus.setAttribute('aria-label', 'Add one ' + p.name);
+            plus.addEventListener('click', function () { change(p.id, 1); });
+            qty.appendChild(minus);
+            qty.appendChild(value);
+            qty.appendChild(plus);
+            row.appendChild(qty);
+            return row;
+        }
+
+        function change(id, delta) {
+            var next = Math.max(0, Math.min(99, (quantities[id] || 0) + delta));
+            if (next === 0) delete quantities[id]; else quantities[id] = next;
+            updateCart();
+        }
+
+        function cartLines() {
+            return products.filter(function (p) { return quantities[p.id]; }).map(function (p) {
+                return { id: p.id, name: p.name, brand: p.brand, qty: quantities[p.id], price: p.price, total: p.price * quantities[p.id] };
+            });
+        }
+
+        function renderLines(list, lines) {
+            list.innerHTML = '';
+            lines.forEach(function (line) {
+                var li = document.createElement('li');
+                li.className = 'orders-lines__item';
+                var label = document.createElement('span');
+                label.textContent = line.qty + ' x ' + line.name;
+                var amount = document.createElement('span');
+                amount.className = 'orders-lines__amount';
+                amount.textContent = money(line.total);
+                li.appendChild(label);
+                li.appendChild(amount);
+                list.appendChild(li);
+            });
+        }
+
+        function updateCart() {
+            var lines = cartLines();
+            var total = lines.reduce(function (sum, l) { return sum + l.total; }, 0);
+            var count = lines.reduce(function (sum, l) { return sum + l.qty; }, 0);
+
+            document.querySelectorAll('.orders-item').forEach(function (row) {
+                var q = quantities[row.dataset.id] || 0;
+                row.querySelector('.orders-qty__value').textContent = String(q);
+                row.classList.toggle('is-picked', q > 0);
+            });
+
+            renderLines(el('orders-lines'), lines);
+            el('orders-empty').hidden = lines.length > 0;
+            el('orders-total').textContent = money(total);
+
+            var bar = el('orders-bar');
+            bar.hidden = count === 0 || el('orders-store').hidden;
+            document.body.classList.toggle('has-orders-bar', !bar.hidden);
+            el('orders-bar-summary').textContent = count + (count === 1 ? ' item' : ' items') + ', ' + money(total);
+        }
+
+        // ---- Screenshot -----------------------------------------------------
+        function shrinkImage(file) {
+            if (file.size <= SHRINK_TARGET_BYTES && file.type !== 'image/heic' && file.type !== 'image/heif') {
+                return Promise.resolve(file);
+            }
+            return createImageBitmap(file, { imageOrientation: 'from-image' }).then(function (bitmap) {
+                var scale = Math.min(1, SHRINK_MAX_EDGE / Math.max(bitmap.width, bitmap.height));
+                var canvas = document.createElement('canvas');
+                canvas.width = Math.max(1, Math.round(bitmap.width * scale));
+                canvas.height = Math.max(1, Math.round(bitmap.height * scale));
+                var ctx = canvas.getContext('2d');
+                ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+                bitmap.close();
+                var qualities = [0.85, 0.75, 0.65, 0.55];
+                var types = ['image/webp', 'image/jpeg'];
+                var encode = function (type, quality) {
+                    return new Promise(function (resolve) { canvas.toBlob(resolve, type, quality); });
+                };
+                var tryType = function (t) {
+                    if (t >= types.length) return Promise.resolve(file);
+                    var type = types[t];
+                    var tryQuality = function (q) {
+                        return encode(type, qualities[q]).then(function (blob) {
+                            if (!blob || blob.type !== type) return tryType(t + 1);
+                            if (blob.size <= SHRINK_TARGET_BYTES || q === qualities.length - 1) {
+                                var base = file.name.replace(/\.[^.]+$/, '') || 'screenshot';
+                                return new File([blob], base + (type === 'image/webp' ? '.webp' : '.jpg'), { type: type });
+                            }
+                            return tryQuality(q + 1);
+                        });
+                    };
+                    return tryQuality(0);
+                };
+                return tryType(0);
+            }).catch(function () { return file; });
+        }
+
+        function readAsDataUrl(file) {
+            return new Promise(function (resolve, reject) {
+                var reader = new FileReader();
+                reader.onload = function () { resolve(String(reader.result)); };
+                reader.onerror = function () { reject(reader.error); };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function screenshotError(text) {
+            var err = el('orders-screenshot-error');
+            err.textContent = text || '';
+            err.hidden = !text;
+        }
+
+        function clearScreenshot() {
+            screenshot = null;
+            if (previewUrl) { URL.revokeObjectURL(previewUrl); previewUrl = null; }
+            el('orders-preview').hidden = true;
+            el('orders-preview-img').removeAttribute('src');
+            el('orders-screenshot').value = '';
+        }
+
+        var pick = 0;
+        el('orders-screenshot').addEventListener('change', function () {
+            var file = this.files && this.files[0];
+            var token = ++pick;
+            screenshotError('');
+            if (!file) { clearScreenshot(); return; }
+            if (!/^image\//.test(file.type)) { clearScreenshot(); screenshotError('That file is not an image. Upload a PNG, JPG, or HEIC screenshot.'); return; }
+            if (file.size > MAX_FILE_BYTES) { clearScreenshot(); screenshotError('That screenshot is over 10 MB. Try a smaller one.'); return; }
+            shrinkImage(file).then(function (ready) {
+                if (token !== pick) return;
+                return readAsDataUrl(ready).then(function (dataUrl) {
+                    if (token !== pick) return;
+                    screenshot = { file: ready, dataUrl: dataUrl };
+                    if (previewUrl) URL.revokeObjectURL(previewUrl);
+                    previewUrl = URL.createObjectURL(ready);
+                    el('orders-preview-img').src = previewUrl;
+                    el('orders-preview-name').textContent = ready.name + ' (' + Math.max(1, Math.round(ready.size / 1024)) + ' KB)';
+                    el('orders-preview').hidden = false;
+                });
+            }).catch(function () {
+                clearScreenshot();
+                screenshotError('Could not read that image. Try a different screenshot.');
+            });
+        });
+        el('orders-preview-remove').addEventListener('click', function () { clearScreenshot(); screenshotError(''); });
+
+        // ---- Submit ---------------------------------------------------------
+        function formError(text) {
+            var err = el('orders-form-error');
+            err.textContent = text || '';
+            err.hidden = !text;
+        }
+
+        el('orders-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            formError('');
+            var first = el('orders-first').value.trim();
+            var last = el('orders-last').value.trim();
+            var lines = cartLines();
+            el('orders-first').classList.toggle('error', !first);
+            el('orders-last').classList.toggle('error', !last);
+            if (!lines.length) { formError('Pick at least one item.'); el('orders-menu').scrollIntoView({ block: 'start' }); return; }
+            if (!first || !last) { formError('Enter your first and last name.'); (first ? el('orders-last') : el('orders-first')).focus(); return; }
+            if (!screenshot) { screenshotError('Add a screenshot of your payment.'); el('orders-screenshot').focus(); return; }
+
+            var button = el('orders-submit');
+            var original = button.innerHTML;
+            button.disabled = true;
+            button.innerHTML = '<span>Sending...</span><i class="fas fa-spinner fa-spin"></i>';
+            var restore = function () { button.disabled = false; button.innerHTML = original; };
+
+            post({
+                action: 'order',
+                password: password,
+                firstName: first,
+                lastName: last,
+                note: el('orders-note').value.trim(),
+                items: lines.map(function (l) { return { id: l.id, qty: l.qty }; }),
+                screenshot: { name: screenshot.file.name, type: screenshot.file.type, data: screenshot.dataUrl.replace(/^data:[^,]*,/, '') },
+                website: el('orders-form').elements.website.value
+            }).then(function (data) {
+                restore();
+                if (data.result !== 'success') {
+                    if (data.code === 'password') { forgetPassword(); showGate('The password changed. Enter the new one.'); return; }
+                    if (data.code === 'closed') { el('orders-closed').textContent = data.message; show('orders-closed'); return; }
+                    formError(data.message || 'Something went wrong saving your order. Try again in a second.');
+                    return;
+                }
+                el('orders-done-number').textContent = String(data.orderNumber);
+                renderLines(el('orders-done-lines'), data.lines || lines);
+                el('orders-done-total').textContent = money(data.total);
+                show('orders-done');
+                window.scrollTo({ top: el('orders-done').getBoundingClientRect().top + window.pageYOffset - 120, behavior: 'smooth' });
+            }).catch(function () {
+                restore();
+                formError('Could not reach the order sheet. Check your connection and try again.');
+            });
+        });
+
+        el('orders-again').addEventListener('click', function () {
+            quantities = {};
+            clearScreenshot();
+            el('orders-note').value = '';
+            formError('');
+            updateCart();
+            show('orders-store');
+            window.scrollTo({ top: el('orders-menu').getBoundingClientRect().top + window.pageYOffset - 120, behavior: 'smooth' });
+        });
+
+        el('orders-signout').addEventListener('click', function () {
+            forgetPassword();
+            password = '';
+            el('orders-password').value = '';
+            showGate('');
+        });
+
+        // ---- Start ----------------------------------------------------------
+        if (!endpoint) {
+            notice('Ordering is not set up yet. Check back soon.');
+        } else if (savedPassword()) {
+            loadMenu(savedPassword());
+        } else {
+            showGate('');
+        }
+    })();
+    </script>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-main">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <div class="footer-logo">
+                            <div class="logo-icon">ΛΧΑ</div>
+                            <div class="logo-text">
+                                <span class="logo-primary">Lambda Chi Alpha</span>
+                                <span class="logo-secondary">Zeta Rho Chapter</span>
+                            </div>
+                        </div>
+                        <p class="footer-tagline">"The crescent is our symbol; pure, high, ever growing, and the cross is our guide."</p>
+                        <div class="footer-social">
+                            <a href="https://instagram.com/fsulambdachi" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="footer-links">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="brotherhood.html">Brotherhood</a></li>
+                            <li><a href="leadership.html">Leadership</a></li>
+                            <!-- RUSH_TOGGLE: Uncomment when rush is active -->
+                            <!-- <li><a href="rush.html">Rush</a></li> -->
+                            <!-- RSVP_TOGGLE: Restore to alumni.html / "Alumni" after the cookout -->
+                            <li><a href="/rsvp">RSVP</a></li>
+                            <li><a href="newsletters.html">Newsletters</a></li>
+                            <li><a href="orders.html">Orders</a></li>
+                            <li><a href="/contact">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-links">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="https://www.lambdachi.org" target="_blank">National Headquarters</a></li>
+                            <li><a href="https://www.fsu.edu" target="_blank">Florida State University</a></li>
+                            <li><a href="https://www.fsuifc.com" target="_blank">FSU IFC</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-contact">
+                        <h4>Contact Us</h4>
+                        <address>
+                            <p><i class="fas fa-map-marker-alt"></i> 1944 Heritage Grove Circle<br>Tallahassee, FL 32304<br><small style="color: var(--gold);">Moving in Fall 2026</small></p>
+                            <p><i class="fas fa-envelope"></i> <a href="mailto:zeta.rho.zeta.lca@gmail.com">zeta.rho.zeta.lca@gmail.com</a></p>
+                        </address>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 Lambda Chi Alpha - Zeta Rho Chapter at Florida State University. All rights reserved.</p>
+                <p class="footer-motto">Vir Quisque Vir. Every Man a Man.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.6;">Site by Joseph Goyette, ZP 2677 · <a href="mailto:jsg24c@fsu.edu" style="color: inherit;">jsg24c@fsu.edu</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

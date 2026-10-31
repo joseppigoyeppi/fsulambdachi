@@ -39,6 +39,7 @@
                 <!-- <li class="nav-item"><a href="rush.html" class="nav-link">Rush</a></li> -->
                 <li class="nav-item"><a href="alumni.html" class="nav-link active">Alumni</a></li>
                 <li class="nav-item"><a href="newsletters.html" class="nav-link">Newsletters</a></li>
+                <li class="nav-item"><a href="orders.html" class="nav-link">Orders</a></li>
                 <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
             </ul>
         </div>
@@ -47,7 +48,6 @@
     <!-- Page Hero -->
     <section class="page-hero">
         <div class="container">
-            <span class="section-tag" data-page-animate>Once a Lambda Chi, Always a Lambda Chi</span>
             <h1 class="section-title" data-page-animate>Our Alumni</h1>
             <div class="heritage-divider" data-page-animate>
                 <span class="heritage-divider__wing"></span>
@@ -124,7 +124,6 @@
     <section class="page-content">
         <div class="container">
             <div class="values-header text-center" style="margin-bottom: 3rem;">
-                <span class="section-tag">Legends of Zeta Rho</span>
                 <h2 class="section-title">Notable Alumni</h2>
                 <div class="heritage-divider">
                     <span class="heritage-divider__wing"></span>
@@ -176,7 +175,6 @@
     <section class="page-content" style="background: var(--white);">
         <div class="container">
             <div class="values-header text-center" style="margin-bottom: 3rem;">
-                <span class="section-tag">Guidance for the Next Generation</span>
                 <h2 class="section-title">Alumni Career Mentors</h2>
                 <div class="heritage-divider">
                     <span class="heritage-divider__wing"></span>
@@ -345,7 +343,6 @@
     <section class="values-section">
         <div class="container">
             <div class="values-header">
-                <span class="section-tag">Stay Connected</span>
                 <h2 class="section-title">Alumni Involvement</h2>
                 <div class="heritage-divider">
                     <span class="heritage-divider__wing"></span>
@@ -392,7 +389,6 @@
                     </div>
                 </div>
                 <div class="philanthropy-content">
-                    <span class="section-tag">The Power of Brotherhood</span>
                     <h2 class="section-title">A Global Network</h2>
                     <p class="section-text">Lambda Chi Alpha's network spans the globe with over 300,000 initiated members. Wherever your career takes you, there's a brother nearby ready to help.</p>
                     <p class="section-text">Our alumni work at Fortune 500 companies, run successful businesses, serve in government, and lead in every industry imaginable. This network is yours for life.</p>
@@ -402,28 +398,6 @@
                             <i class="fas fa-external-link-alt"></i>
                         </a>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Update Info CTA -->
-    <section class="rush-cta">
-        <div class="rush-bg">
-            <img src="../images/1978Composite.png" alt="1978 Lambda Chi Alpha Composite">
-        </div>
-        <div class="container">
-            <div class="rush-content">
-                <h2>Reconnect With Your Chapter</h2>
-                <p>As we re-establish Zeta Rho at FSU, we need our alumni more than ever. Update your contact information and let us know how you'd like to be involved.</p>
-                <div class="rush-buttons">
-                    <a href="/contact" class="btn btn-primary btn-large">
-                        <span>Get in Touch</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                    <a href="https://www.lambdachi.org" target="_blank" class="btn btn-outline btn-light">
-                        <span>National Website</span>
-                    </a>
                 </div>
             </div>
         </div>
@@ -457,6 +431,7 @@
                             <!-- <li><a href="rush.html">Rush</a></li> -->
                             <li><a href="alumni.html">Alumni</a></li>
                             <li><a href="newsletters.html">Newsletters</a></li>
+                            <li><a href="orders.html">Orders</a></li>
                             <li><a href="/contact">Contact</a></li>
                         </ul>
                     </div>
@@ -484,7 +459,7 @@
         <div class="footer-bottom">
             <div class="container">
                 <p>&copy; 2026 Lambda Chi Alpha - Zeta Rho Chapter at Florida State University. All rights reserved.</p>
-                <p class="footer-motto">Vir Quisque Vir — Every Man a Man</p>
+                <p class="footer-motto">Vir Quisque Vir. Every Man a Man.</p>
                 <p style="margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.6;">Site by Joseph Goyette, ZP 2677 · <a href="mailto:jsg24c@fsu.edu" style="color: inherit;">jsg24c@fsu.edu</a></p>
             </div>
         </div>
