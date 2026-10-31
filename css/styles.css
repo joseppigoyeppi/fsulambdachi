@@ -2900,6 +2900,19 @@ body.has-orders-bar {
     color: #4B0082;
 }
 
+.newsletter-body .newsletter-list {
+    list-style: disc;
+    padding-left: 22px;
+    margin-bottom: 14px;
+}
+
+.newsletter-body .newsletter-list li {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #2d2d2d;
+    margin-bottom: 4px;
+}
+
 .newsletter-zp {
     font-weight: 400;
     color: #666;
@@ -2982,6 +2995,30 @@ body.has-orders-bar {
     width: 100%;
     border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+.newsletter-photo-float--portrait {
+    max-width: 220px;
+}
+
+/* A callout next to a floated photo keeps to the text column
+   instead of running underneath the photo. */
+.newsletter-content-with-photo .newsletter-callout {
+    display: flow-root;
+}
+
+/* Signed letters (e.g. High Pi letter) */
+.newsletter-body .newsletter-letter-closing {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    color: #6A0DAD;
+    margin-top: 20px;
+    margin-bottom: 4px;
+}
+
+.newsletter-body .newsletter-letter-signature {
+    text-align: left;
+    line-height: 1.5;
 }
 
 /* Newsletter links */
@@ -3087,6 +3124,11 @@ body.has-orders-bar {
         float: none;
         max-width: 100%;
         margin: 12px 0;
+    }
+
+    .newsletter-photo-float--portrait {
+        max-width: 240px;
+        margin: 12px auto;
     }
 
     .newsletter-signoff {
