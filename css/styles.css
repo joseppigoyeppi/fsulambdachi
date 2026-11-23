@@ -2975,6 +2975,35 @@ body.has-orders-bar {
     margin-top: 6px;
 }
 
+.newsletter-photo--portrait img {
+    max-width: 420px;
+    margin: 0 auto;
+}
+
+/* Two photos side by side. Each item's --ar is its image's width divided
+   by its height, so both images come out the same height without cropping. */
+.newsletter-photo-row {
+    display: flex;
+    gap: 12px;
+    margin: 18px 0;
+    align-items: flex-start;
+}
+
+.newsletter-photo-row > div {
+    flex: var(--ar, 1) 1 0;
+    min-width: 0;
+}
+
+.newsletter-photo-row img {
+    width: 100%;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+.newsletter-photo-row .newsletter-caption {
+    text-align: left;
+}
+
 .newsletter-content-with-photo {
     overflow: hidden;
 }
@@ -3129,6 +3158,15 @@ body.has-orders-bar {
     .newsletter-photo-float--portrait {
         max-width: 240px;
         margin: 12px auto;
+    }
+
+    .newsletter-photo-row {
+        flex-direction: column;
+    }
+
+    .newsletter-photo-row > div {
+        flex: none;
+        width: 100%;
     }
 
     .newsletter-signoff {
