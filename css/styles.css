@@ -3086,6 +3086,10 @@ body.has-orders-bar {
     line-height: 1;
 }
 
+.newsletter-signoff .newsletter-closing {
+    margin-bottom: 20px;
+}
+
 .newsletter-signoff-line {
     font-family: 'Playfair Display', Georgia, serif;
     font-style: italic;
